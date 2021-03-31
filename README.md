@@ -1,6 +1,6 @@
 # What is this package about..?
 
-This is a package is a command handler for discord's new **Slash Commands**
+This is a package is a command handler for discord's new **Slash Commands**. You can ask for help in our [Support server](https://discord.gg/tMWmEJFq4m).
 
 ## Table of Contents
 * [Installation](#Installation)
@@ -18,15 +18,16 @@ npm i shandler
 ```js
 //index.js
 const Shandler = require('shandler')
-const Dis = require('discord.js')
+const Discord = require('discord.js')
+
+const client = new Discord.Client()
 
 const options = {
     commandsDir: './commands', // commands folder path (required)
     showLogs: 'extra', // "extra"|"normal"|null (default: "extra")
-
 }
 
-const handler = new Shandler(options)
+const handler = new Shandler(client, options)
 
 ```
 #### Let's make a command file.
@@ -39,7 +40,7 @@ module.exports ={
     guilds : [] /*This is for guild specific command registration
     if this is empty, this command will be registered globally*/
     async run({interaction, client}){
-        return ("My ping is " + client.ws.ping + "ms")
+        interaction.send("My ping is " + client.ws.ping + "ms")
     }
 }
 ```

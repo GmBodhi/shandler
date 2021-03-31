@@ -5,9 +5,9 @@ module.exports = (interaction, client) => {
     const args = interaction.data.options
     const channel = await client.channels.fetch(interaction.channel_id)
     try{
-        let res = await client.commands.get(interaction.data.name).run({interaction, user, client, guild, args, channel})
-        if (res) {
-            if (res.length) {
+        interaction.send = async (res) => {
+            if (res) {
+                if (res.length) {
                 client.api.interactions(interaction.id, interaction.token).callback.post({
                     data:{
                         type:4,
@@ -25,6 +25,8 @@ module.exports = (interaction, client) => {
                 })
             }
         }
+    }
+    client.commands.get(interaction.data.name).run({interaction, user, client, guild, args, channel})
     } catch (e){
         throw new Error(e)
     }
