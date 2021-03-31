@@ -31,7 +31,7 @@ module.exports = class {
 
         this.bot.commands.each(e => {
             if (!e.guilds.length){
-                app.commands.post({
+                await app.commands.post({
                     data:{
                         name: e.name,
                         description: e.description,
@@ -41,21 +41,21 @@ module.exports = class {
                 if (showLog == 'extra') console.log('Command: '+e.name+' was registered')
             } else {
                 e.guilds.forEach(el => {
-                    app.guilds(el).commands.post({
+                    await app.guilds(el).commands.post({
                         data:{
                             name: e.name,
                             description: e.description,
                             options: e.options
                         }
                     })
-                    if (showLog == 'extra') console.log('Command: '+e.name+' was registered for '+el)
+                    if (showLog == 'extra') console.log('Command: '+e.name+' was registered for: '+el)
                 });
             }
         })
         if (showLog == 'normal') console.log(this.bot.commands.size+ ' commands were registered on discord API')
 
         this.bot.on('ready', () => {
-            
+            if (showLog == ('normal'||'extra')) console.log(this.bot.user.tag+' is ready.')
         })
 
 
