@@ -6,7 +6,20 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
+  "keywords": [
+    "slash",
+    "slash commands",
+    "command handler",
+    "handler"
+  ],
   "author": "GmBodhi",
-  "license": "ISC"
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GmBodhi/shandler.git"
+  },
+  "bugs": {
+    "url": "https://github.com/GmBodhi/shandler/issues"
+  },
+  "homepage": "https://github.com/GmBodhi/shandler#readme"
 }
