@@ -10,7 +10,8 @@
     "slash",
     "slash commands",
     "command handler",
-    "handler"
+    "handler",
+    "slash commands handler"
   ],
   "author": "GmBodhi",
   "license": "ISC",
@@ -21,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/GmBodhi/shandler/issues"
   },
-  "homepage": "https://github.com/GmBodhi/shandler#readme"
+  "homepage": "https://github.com/GmBodhi/shandler#readme",
+  "dependencies": {
+    "discord.js": "^12.5.1"
+  }
 }
