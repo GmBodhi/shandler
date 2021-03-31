@@ -1,0 +1,12 @@
+{
+  "name": "shandler",
+  "version": "1.0.0",
+  "description": "A module for Discord Slash command handling",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "GmBodhi",
+  "license": "ISC"
+}
