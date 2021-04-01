@@ -67,54 +67,57 @@ Unlike discord's normal interaction object shandler's interaction object has mor
     "channel": [discord.js channel object]
 }
 ```
-### [Discord.js User object](https://discord.js.org/#/docs/main/stable/class/User)
-
-```js
-//user object
-{
-    avatar:'',
-    bot:'',
-    client:'',
-    createdAt:'',
-    createdTimestamp:'',
-    defaultAvatarURL:'',
-    discriminator:'',
-    dmChannel:'',
-    flags:'',
-    id:'',
-    lastMessage:'',
-    lastMessageChannelID:'',
-    lastMessageID:'',
-    locale:'',
-    partial:'',
-    presence:'',
-    system:'',
-    tag:'',
-    username:''
-}
-```
-Methods |
-----
-[avatarURL](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=avatarURL)|
-[createDM](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=createDM)
-[deleteDM](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=deleteDM)
-[displayAvatarURL](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=displayAvatarURL)
-[equals](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=equals)
-[fetch](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=fetch)
-[fetchFlags](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=fetchFlags)
-[send](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=send)
-[toString](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=toString)
-[typingDurationIn](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=typingDurationIn)
-[typingIn](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=typingIn)
-[typingSinceIn](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=typingSinceIn)
 
 ### [Discord.js Guildmember object](https://discord.js.org/#/docs/main/stable/class/GuildMember)
 
-
 ```js
+//Guildmember object
+{
+    bannable:'',
+    client:'',
+    deleted:'',
+    displayColor:'',
+    displayHecColor:'',
+    displayName:'',
+    guild:'',
+    id:'',
+    joinedAt:'',
+    joinedTimestamp:'',
+    kickable:'',
+    lastMessage:'',
+    lastMessageChannelID:'',
+    lastMessageID:'',
+    manageable:'',
+    nickname:'',
+    partial:'',
+    permissions:'',
+    premiumSince:'',
+    premiumSinceTimestamp:'',
+    presence:'',
+    roles:'',
+    user:'',
+    voice:''
+}
 ```
+Methods | Short description
+-------- | -----
+[ban](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=ban)
+[createDM](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=createDM)
+[deleteDM](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=deleteDM)
+[edit](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=edit)
+[fetch](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=fetch)
+[hasPermission](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=hasPermission)
+[kick](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=kick)
+[permissionsIn](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=permissionsIn)
+[send](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=send)
+[setNickname](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=setNickname)
+[toString](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=toString)
 ### [Discord.js Guild object](https://discord.js.org/#/docs/main/stable/class/Guild)
 
 
 ```js
+//Guild object
+{
+
+}
 ```
