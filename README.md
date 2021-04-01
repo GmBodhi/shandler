@@ -108,7 +108,7 @@ Methods |
 [typingIn](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=typingIn)
 [typingSinceIn](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=typingSinceIn)
 
-### [Discord.js uildmember object](https://discord.js.org/#/docs/main/stable/class/GuildMember)
+### [Discord.js Guildmember object](https://discord.js.org/#/docs/main/stable/class/GuildMember)
 
 
 ```js
