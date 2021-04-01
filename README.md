@@ -1,6 +1,6 @@
 # What is this package about..?
 
-This is a package is a command handler for discord's new **Slash Commands**. You can ask for help in our [Support server](https://discord.gg/tMWmEJFq4m).
+This is a package is a command handler for discord's new **Slash Commands**. Using this package you can send/edit/delete an interaction response. You can ask for help in our [Support server](https://discord.gg/tMWmEJFq4m).
 
 ## Table of Contents
 * [Installation](#Installation)
