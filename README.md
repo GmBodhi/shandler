@@ -66,3 +66,7 @@ Unlike discord's normal interaction object shandler's interaction object has mor
     },
     "channel": [discord.js channel object]
 }
+```
+[Discord.js guildmember object](https://discord.js.org/#/docs/main/stable/class/GuildMember)
+[Discord.js guild object](https://discord.js.org/#/docs/main/stable/class/Guild)
+[Discord.js user object](https://discord.js.org/#/docs/main/stable/class/User)
