@@ -67,7 +67,7 @@ Unlike discord's normal interaction object shandler's interaction object has mor
     "channel": [discord.js channel object]
 }
 ```
-### [Discord.js uildmember object](https://discord.js.org/#/docs/main/stable/class/GuildMember)
+### [Discord.js user object](https://discord.js.org/#/docs/main/stable/class/User)
 
 ```js
 //user object
@@ -93,13 +93,28 @@ Unlike discord's normal interaction object shandler's interaction object has mor
     username:''
 }
 ```
+Methods |
+----
+[avatarURL](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=avatarURL)|
+[createDM](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=createDM)
+[deleteDM](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=deleteDM)
+[displayAvatarURL](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=displayAvatarURL)
+[equals](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=equals)
+[fetch](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=fetch)
+[fetchFlags](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=fetchFlags)
+[send](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=send)
+[toString](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=toString)
+[typingDurationIn](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=typingDurationIn)
+[typingIn](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=typingIn)
+[typingSinceIn](https://discord.js.org/#/docs/main/stable/class/User?scrollTo=typingSinceIn)
 
-### [Discord.js Guild object](https://discord.js.org/#/docs/main/stable/class/Guild)
+### [Discord.js uildmember object](https://discord.js.org/#/docs/main/stable/class/GuildMember)
+
 
 ```js
 ```
+### [Discord.js Guild object](https://discord.js.org/#/docs/main/stable/class/Guild)
 
-### [Discord.js user object](https://discord.js.org/#/docs/main/stable/class/User)
 
 ```js
 ```
