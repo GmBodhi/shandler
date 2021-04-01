@@ -67,7 +67,7 @@ Unlike discord's normal interaction object shandler's interaction object has mor
     "channel": [discord.js channel object]
 }
 ```
-### [Discord.js user object](https://discord.js.org/#/docs/main/stable/class/User)
+### [Discord.js User object](https://discord.js.org/#/docs/main/stable/class/User)
 
 ```js
 //user object
