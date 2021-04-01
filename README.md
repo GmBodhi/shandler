@@ -67,6 +67,39 @@ Unlike discord's normal interaction object shandler's interaction object has mor
     "channel": [discord.js channel object]
 }
 ```
-[Discord.js guildmember object](https://discord.js.org/#/docs/main/stable/class/GuildMember)
-[Discord.js guild object](https://discord.js.org/#/docs/main/stable/class/Guild)
-[Discord.js user object](https://discord.js.org/#/docs/main/stable/class/User)
+### [Discord.js uildmember object](https://discord.js.org/#/docs/main/stable/class/GuildMember)
+
+```js
+//user object
+{
+    avatar:'',
+    bot:'',
+    client:'',
+    createdAt:'',
+    createdTimestamp:'',
+    defaultAvatarURL:'',
+    discriminator:'',
+    dmChannel:'',
+    flags:'',
+    id:'',
+    lastMessage:'',
+    lastMessageChannelID:'',
+    lastMessageID:'',
+    locale:'',
+    partial:'',
+    presence:'',
+    system:'',
+    tag:'',
+    username:''
+}
+```
+
+### [Discord.js Guild object](https://discord.js.org/#/docs/main/stable/class/Guild)
+
+```js
+```
+
+### [Discord.js user object](https://discord.js.org/#/docs/main/stable/class/User)
+
+```js
+```
