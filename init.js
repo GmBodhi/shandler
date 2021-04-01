@@ -5,7 +5,7 @@ module.exports = (interaction, client) => {
     const args = interaction.data.options
     const channel = await client.channels.fetch(interaction.channel_id)
     try{
-        interaction.send = async (res) => {
+        interaction.reply = async (res) => {
             if (res) {
                 if (res.length) {
                 client.api.interactions(interaction.id, interaction.token).callback.post({
