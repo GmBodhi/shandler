@@ -117,7 +117,8 @@ Methods | Short description
 
 ```js
 //Guild object
-{"members":[
+{
+    "members":[
     "708965864128380960",
     "756393473430519849"
     ],
