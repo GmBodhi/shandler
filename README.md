@@ -48,7 +48,7 @@ module.exports ={
 ## Command Options
 You might've thought what all we can do with the `options`. Well you can refer [here](https://discord.com/developers/docs/interactions/slash-commands#applicationcommandoption)
 ## Interaction object
-Unlike discord's normal interaction object shandler's interaction object has more properties and methods. 
+Unlike discord's normal interaction object shandler's interaction object has more properties and disscord.js methods. 
 ```js
 {
     "type": 2,
