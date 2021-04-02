@@ -6,7 +6,7 @@ const {APIMessage} = require('discord.js')
  * @param {Object} interaction - Interaction object from the discord api
  * @param {Object} client - Discord.js client object
  */
-module.exports = (interaction, client) => {
+module.exports = async (interaction, client) => {
     const member = await client.guilds.fetch(interaction.guild_id).then(g => g.members.fetch(interaction.member.user.id))
     const guild = await client.guilds.fetch(interaction.guild_id)
     const channel = await client.channels.fetch(interaction.channel_id)
