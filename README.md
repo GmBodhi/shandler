@@ -6,9 +6,8 @@ This is a package is a command handler for discord's new **Slash Commands**. Usi
 * [Installation](#Installation)
 * [Basic-usage](#Basic-usage)
 * [Interaction object](#Interaction-object)
-    * [Guildmember object](#Guildmember-object)
-    * [Guild object](#Guild-object)
-    * [Channel object](#Channel-object)
+    * [Properties](#Properties)
+    * [Methods](#Methods)
 
 ## Installation
 
@@ -44,7 +43,9 @@ module.exports = {
     guilds : [] /*This is for guild specific command registration
     if this is empty, this command will be registered globally*/
     async run({interaction, client}){
-        interaction.reply("My ping is " + client.ws.ping + "ms")
+        let ping = Date.now()
+        interaction.reply("Pinging..!")
+        interaction.edit('My ping is '+ Date.now() - ping +'ms')
     }
 }
 ```
@@ -71,122 +72,31 @@ Unlike discord's normal interaction object shandler's interaction object has mor
     "channel": [Channel object]
 }
 ```
+[Guildmember object](https://discord.js.org/#/docs/main/stable/class/GuildMember)<br>
+[Guild object](https://discord.js.org/#/docs/main/stable/class/Guild)<br>
+[Channel object](https://discord.js.org/#/docs/main/stable/class/Channel)<br>
 
-### [Guildmember object](https://discord.js.org/#/docs/main/stable/class/GuildMember)
-
-```js
-//Guildmember object
-{
-    bannable: false,
-    client: [Client object],
-    deleted: false,
-    displayColor: RANDOM,
-    displayHecColor: 0xffffff,
-    displayName: 'Gm',
-    guild: [Guild object],
-    id:'708965864128380960',
-    joinedAt:'',
-    joinedTimestamp:'',
-    kickable: false,
-    lastMessage: [Message object],
-    lastMessageChannelID:'938965863828380943',
-    lastMessageID:'725203764128346893',
-    manageable: false,
-    nickname: null,
-    partial: false,
-    permissions: [Permission manager],
-    premiumSince:'',
-    premiumSinceTimestamp:'',
-    presence: [Presence object],
-    roles: [Role manager],
-    user: [User object],
-    voice: [Voice state]
-}
-```
 Methods | Short description
--------- | -----
-[ban](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=ban) | Bans the member from the <br /> guild.
-[createDM](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=createDM) | creates a DM channel <br/> b/w client and the member.
-[deleteDM](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=deleteDM) | Deletes the DM channel <br /> b/w client and the member.
-[edit](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=edit)|
-[fetch](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=fetch)|Fetch the member
-[hasPermission](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=hasPermission)| Checks if the member has<br> a permission
-[kick](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=kick)|Kicks the member from the <br />guild.
-[permissionsIn](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=permissionsIn)|Permissions in a particular <br />channel
-[send](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=send)|Send a message in their DM
-[setNickname](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=setNickname)|Sets the n ickname of the <br>member
-[toString](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=toString)
-### [Guild object](https://discord.js.org/#/docs/main/stable/class/Guild)
+-------- | ----------------
+[reply](#Reply) | Responds to an interaction
+[edit](#Edit) | Edits an interaction response
+[delete](#Delete) |Deletes an interaction respnse
 
-
+### Reply
 ```js
-//Guild object
-{
-    "members":[
-        "708965864128380960",
-        "756393473430519849"
-    ],
-    "channels":[
-        "796551553325989898",
-        "804370936118771763"
-    ],
-    "roles":[
-        "786544962451144736",
-        "795978550880239626"
-    ],
-    "deleted":false,
-    "id":"786544962451144736",
-    "shardID":0,
-    "name":"Exim Studio",
-    "icon":"ff66b965fe166d8988b231bdc3b41afd",
-    "splash":null,
-    "discoverySplash":null,
-    "region":"india",
-    "memberCount":43,
-    "large":false,
-    "features":[
-        "NEWS",
-        "WELCOME_SCREEN_ENABLED",
-        "COMMUNITY",
-        "PREVIEW_ENABLED",
-        "MEMBER_VERIFICATION_GATE_ENABLED"
-    ],
-    "applicationID":null,
-    "afkTimeout":300,
-    "afkChannelID":null,
-    "systemChannelID":"796423068557115392",
-    "premiumTier":0,
-    "premiumSubscriptionCount":0,
-    "verificationLevel":"MEDIUM",
-    "explicitContentFilter":"ALL_MEMBERS",
-    "mfaLevel":0,
-    "joinedTimestamp":1614255169231,
-    "defaultMessageNotifications":"MENTIONS",
-    "systemChannelFlags":1,
-    "maximumMembers":100000,
-    "maximumPresences":null,
-    "approximateMemberCount":null,
-    "approximatePresenceCount":null,
-    "vanityURLCode":null,
-    "vanityURLUses":null,
-    "description":null,
-    "banner":null,
-    "rulesChannelID":"796246319039381564",
-    "publicUpdatesChannelID":"804370936118771763",
-    "preferredLocale":"en-US",
-    "ownerID":"764288293167693874",
-    "emojis":[
-        "805398954430562315",
-        "805398954976083968"
-    ],
-    "createdTimestamp":1607597332347,
-    "nameAcronym":"ES",
-    "iconURL":"https://cdn.discordapp.com/icons/786544962451144736/ff66b965fe166d8988b231bdc3b41afd.webp"
-}
+interaction.reply('Bello')
 ```
-
-
-### [Channel object](https://discord.js.org/#/docs/main/stable/class/Channel)
+### Edit
 ```js
-
+interaction.reply('Bello')
+setTimeout(() => {
+    interaction.edit('Pog')
+}, 5000)
+```
+### Delete
+```js
+interaction.reply('Bello')
+setTimeout(() => {
+    interaction.delete()
+}, 5000)
 ```
