@@ -76,17 +76,14 @@ Unlike discord's normal interaction object shandler's interaction object has mor
 [Guild object](https://discord.js.org/#/docs/main/stable/class/Guild)<br>
 [Channel object](https://discord.js.org/#/docs/main/stable/class/Channel)<br>
 
-Methods | Short description
--------- | ----------------
-[reply](#Reply) | Responds to an interaction
-[edit](#Edit) | Edits an interaction response
-[delete](#Delete) |Deletes an interaction respnse
 
 ### Reply
+Responds to an interaction
 ```js
 interaction.reply('Bello')
 ```
 ### Edit
+Edits an interaction response
 ```js
 interaction.reply('Bello')
 setTimeout(() => {
@@ -94,6 +91,7 @@ setTimeout(() => {
 }, 5000)
 ```
 ### Delete
+Deletes an interaction respnse
 ```js
 interaction.reply('Bello')
 setTimeout(() => {

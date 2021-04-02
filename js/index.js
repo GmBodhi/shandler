@@ -37,7 +37,7 @@ module.exports = class {
         if (showLogs == 'normal') console.log(this.client.commands.size+' Commands were loaded..!')
         
         
-        this.client.on('ready', () => {
+        this.client.on('ready', async () => {
             
             //Global commands auto delete
             let gcmds = await this.client.api.applications(this.client.user.id).commands().get()
@@ -46,7 +46,7 @@ module.exports = class {
             })
 
             //commands registration
-            this.client.commands.each(e => {
+            this.client.commands.each(async e => {
                 if (!e.guilds.length){
                     await app.commands.post({
                         data:{
@@ -57,7 +57,7 @@ module.exports = class {
                     })
                     if (showLogs == 'extra') console.log('Command: '+e.name+' was registered')
                 } else {
-                    e.guilds.forEach(el => {
+                    e.guilds.forEach(async el => {
                         await app.guilds(el).commands.post({
                             data:{
                                 name: e.name || e.__name.replace(/.js/i,""),
