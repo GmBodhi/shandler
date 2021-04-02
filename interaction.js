@@ -51,10 +51,10 @@ module.exports = class {
     edit(content){
         if (!content) throw new Error('content can\'t be empty')
         const {data} = APIMessage.create(this.client.channels.resolve(this.channel.id), content)
-        return inter.client.api.channels[this.interaction.channel.id].messages[this.id].patch({ data })
+        return this.client.api.webhooks(this.client.user.id, this.token).messages('@original').patch({ data })
     }
 
     delete(){
-        await this.client.api.channels(this.channel.id).messages(this.id).delete();
+        this.client.api.webhooks(this.client.user.id, this.token).messages('@original').delete()
     }
 }
