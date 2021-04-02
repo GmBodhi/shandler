@@ -40,7 +40,7 @@ module.exports = class {
             if (!e.guilds.length){
                 await app.commands.post({
                     data:{
-                        name: e.name || e.__name,
+                        name: e.name || e.__name.replace(/.js/i,""),
                         description: e.description || "An awesome command..!",
                         options: e.options
                     }
@@ -50,7 +50,7 @@ module.exports = class {
                 e.guilds.forEach(el => {
                     await app.guilds(el).commands.post({
                         data:{
-                            name: e.name || e.__name,
+                            name: e.name || e.__name.replace(/.js/i,""),
                             description: e.description || "An awesome command..!",
                             options: e.options
                         }

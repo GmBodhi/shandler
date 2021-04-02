@@ -1,15 +1,25 @@
 const {createAPIMessage} = require('./api')
+const Interaction = require('./interaction')
 const {APIMessage} = require('discord.js')
+/**
+ * 
+ * @param {Object} interaction - Interaction object from the discord api
+ * @param {Object} client - Discord.js client object
+ */
 module.exports = (interaction, client) => {
-    const user = await client.users.fetch(interaction.member.user.id)
+    const member = await client.guilds.fetch(interaction.guild_id).then(g => g.members.fetch(interaction.member.user.id))
     const guild = await client.guilds.fetch(interaction.guild_id)
-    const args = interaction.data.options
     const channel = await client.channels.fetch(interaction.channel_id)
-    interaction.client = client
+    const options = {
+        guild,
+        channel,
+        member
+    }
+    interaction = new Interaction(interaction, options)
     try{
         interaction.reply = async (res) => {
             if (res) {
-                if (res.length) {
+                if (typeof res == 'string') {
                 client.api.interactions(interaction.id, interaction.token).callback.post({
                     data:{
                         type:4,
@@ -18,13 +28,15 @@ module.exports = (interaction, client) => {
                         }
                     }
                 })
-            }else{
+            }else if (typeof res == 'object'){
                 client.api.interactions(interaction.id, interaction.token).callback.post({
                     data:{
                         type:4,
                         data: createAPIMessage(interaction, res, client)
                     }
                 })
+            }else {
+                throw new Error('INVALID Response type')
             }
         }
     }

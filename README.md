@@ -6,6 +6,9 @@ This is a package is a command handler for discord's new **Slash Commands**. Usi
 * [Installation](#Installation)
 * [Basic-usage](#Basic-usage)
 * [Interaction object](#Interaction-object)
+    * [Guildmember object](#Guildmember-object)
+    * [Guild object](#Guild-object)
+    * [Channel object](#Channel-object)
 
 ## Installation
 
@@ -34,14 +37,14 @@ const handler = new Shandler(client, options)
 #### Let's make a command file.
 ```js
 //ping.js
-module.exports ={
+module.exports = {
     name: 'ping',// if (!name) command name == filename.
     description: 'Is this unusual?',//Default: "An awesome command..!"
     options:[]//We will cover this in the next part
     guilds : [] /*This is for guild specific command registration
     if this is empty, this command will be registered globally*/
     async run({interaction, client}){
-        interaction.send("My ping is " + client.ws.ping + "ms")
+        interaction.reply("My ping is " + client.ws.ping + "ms")
     }
 }
 ```
@@ -53,9 +56,10 @@ Unlike discord's normal interaction object shandler's interaction object has mor
 {
     "type": 2,
     "token": "A_UNIQUE_TOKEN",
-    "member": [discord.js guildmember object],
+    "member": [Guildmember object],
     "id": "786008729715212338",
-    "guild": [discord.js guild object],
+    "client": [Client object],
+    "guild": [Guild object],
     "data": {
         "options": [{
             "name": "cardname",
@@ -64,71 +68,71 @@ Unlike discord's normal interaction object shandler's interaction object has mor
         "name": "cardsearch",
         "id": "771825006014889984"
     },
-    "channel": [discord.js channel object]
+    "channel": [Channel object]
 }
 ```
 
-### [Discord.js Guildmember object](https://discord.js.org/#/docs/main/stable/class/GuildMember)
+### [Guildmember object](https://discord.js.org/#/docs/main/stable/class/GuildMember)
 
 ```js
 //Guildmember object
 {
-    bannable:'',
-    client:'',
-    deleted:'',
-    displayColor:'',
-    displayHecColor:'',
-    displayName:'',
-    guild:'',
-    id:'',
+    bannable: false,
+    client: [Client object],
+    deleted: false,
+    displayColor: RANDOM,
+    displayHecColor: 0xffffff,
+    displayName: 'Gm',
+    guild: [Guild object],
+    id:'708965864128380960',
     joinedAt:'',
     joinedTimestamp:'',
-    kickable:'',
-    lastMessage:'',
-    lastMessageChannelID:'',
-    lastMessageID:'',
-    manageable:'',
-    nickname:'',
-    partial:'',
-    permissions:'',
+    kickable: false,
+    lastMessage: [Message object],
+    lastMessageChannelID:'938965863828380943',
+    lastMessageID:'725203764128346893',
+    manageable: false,
+    nickname: null,
+    partial: false,
+    permissions: [Permission manager],
     premiumSince:'',
     premiumSinceTimestamp:'',
-    presence:'',
-    roles:'',
-    user:'',
-    voice:''
+    presence: [Presence object],
+    roles: [Role manager],
+    user: [User object],
+    voice: [Voice state]
 }
 ```
 Methods | Short description
 -------- | -----
-[ban](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=ban)
-[createDM](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=createDM)
-[deleteDM](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=deleteDM)
-[edit](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=edit)
-[fetch](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=fetch)
-[hasPermission](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=hasPermission)
-[kick](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=kick)
-[permissionsIn](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=permissionsIn)
-[send](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=send)
-[setNickname](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=setNickname)
+[ban](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=ban) | Bans the member from the <br /> guild.
+[createDM](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=createDM) | creates a DM channel <br/> b/w client and the member.
+[deleteDM](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=deleteDM) | Deletes the DM channel <br /> b/w client and the member.
+[edit](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=edit)|
+[fetch](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=fetch)|Fetch the member
+[hasPermission](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=hasPermission)| Checks if the member has<br> a permission
+[kick](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=kick)|Kicks the member from the <br />guild.
+[permissionsIn](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=permissionsIn)|Permissions in a particular <br />channel
+[send](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=send)|Send a message in their DM
+[setNickname](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=setNickname)|Sets the n ickname of the <br>member
 [toString](https://discord.js.org/#/docs/main/stable/class/GuildMember?scrollTo=toString)
-### [Discord.js Guild object](https://discord.js.org/#/docs/main/stable/class/Guild)
+### [Guild object](https://discord.js.org/#/docs/main/stable/class/Guild)
 
 
 ```js
 //Guild object
 {
     "members":[
-    "708965864128380960",
-    "756393473430519849"
+        "708965864128380960",
+        "756393473430519849"
     ],
     "channels":[
         "796551553325989898",
         "804370936118771763"
-        ],
-        "roles":[
-    "786544962451144736",
-    "795978550880239626"
+    ],
+    "roles":[
+        "786544962451144736",
+        "795978550880239626"
     ],
     "deleted":false,
     "id":"786544962451144736",
@@ -146,37 +150,43 @@ Methods | Short description
         "COMMUNITY",
         "PREVIEW_ENABLED",
         "MEMBER_VERIFICATION_GATE_ENABLED"
-        ],
-        "applicationID":null,
-        "afkTimeout":300,
-        "afkChannelID":null,
-        "systemChannelID":"796423068557115392",
-        "premiumTier":0,
-        "premiumSubscriptionCount":0,
-        "verificationLevel":"MEDIUM",
-        "explicitContentFilter":"ALL_MEMBERS",
-        "mfaLevel":0,
-        "joinedTimestamp":1614255169231,
-        "defaultMessageNotifications":"MENTIONS",
-        "systemChannelFlags":1,
-        "maximumMembers":100000,
-        "maximumPresences":null,
-        "approximateMemberCount":null,
-        "approximatePresenceCount":null,
-        "vanityURLCode":null,
-        "vanityURLUses":null,
-        "description":null,
-        "banner":null,
-        "rulesChannelID":"796246319039381564",
-        "publicUpdatesChannelID":"804370936118771763",
-        "preferredLocale":"en-US",
-        "ownerID":"764288293167693874",
-        "emojis":[
-            "805398954430562315",
-            "805398954976083968"
-            ],
-            "createdTimestamp":1607597332347,
-            "nameAcronym":"ES",
-            "iconURL":"https://cdn.discordapp.com/icons/786544962451144736/ff66b965fe166d8988b231bdc3b41afd.webp%22,%22splashURL%22:null,%22discoverySplashURL%22:null,%22bannerURL%22:null%7D"
+    ],
+    "applicationID":null,
+    "afkTimeout":300,
+    "afkChannelID":null,
+    "systemChannelID":"796423068557115392",
+    "premiumTier":0,
+    "premiumSubscriptionCount":0,
+    "verificationLevel":"MEDIUM",
+    "explicitContentFilter":"ALL_MEMBERS",
+    "mfaLevel":0,
+    "joinedTimestamp":1614255169231,
+    "defaultMessageNotifications":"MENTIONS",
+    "systemChannelFlags":1,
+    "maximumMembers":100000,
+    "maximumPresences":null,
+    "approximateMemberCount":null,
+    "approximatePresenceCount":null,
+    "vanityURLCode":null,
+    "vanityURLUses":null,
+    "description":null,
+    "banner":null,
+    "rulesChannelID":"796246319039381564",
+    "publicUpdatesChannelID":"804370936118771763",
+    "preferredLocale":"en-US",
+    "ownerID":"764288293167693874",
+    "emojis":[
+        "805398954430562315",
+        "805398954976083968"
+    ],
+    "createdTimestamp":1607597332347,
+    "nameAcronym":"ES",
+    "iconURL":"https://cdn.discordapp.com/icons/786544962451144736/ff66b965fe166d8988b231bdc3b41afd.webp"
 }
+```
+
+
+### [Channel object](https://discord.js.org/#/docs/main/stable/class/Channel)
+```js
+
 ```
