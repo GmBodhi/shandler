@@ -89,7 +89,7 @@ class SHClient {
             })
             if (showLogs == 'normal') console.log(this.client.commands.size+ ' commands were registered on discord API')
 
-                if (showLogs == ('normal'||'extra')) console.log(this.client.user!.tag+' is ready.')
+                if (showLogs == ('normal'||'extra')) console.log(this.client.user?.tag+' is ready.')
         })
 
 
