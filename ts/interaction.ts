@@ -1,12 +1,24 @@
-module.exports = class {
-    /**
-     * 
-     * @param {Object} interaction 
-     * @param {Object} options 
-     */
-    constructor(interaction, options){
+import { Channel, Client, Guild, MessageEmbed, APIMessageContentResolvable, APIMessage } from "discord.js"
+import createAPIMessage from "./api"
+
+interface interaction {
+    interaction: Record<any, any>
+    options: any
+    type: any
+    token: string
+    member: any
+    id: string
+    client: any
+    channel: any
+    guild: any
+    data: any
+}
+
+class interaction {
+
+    constructor(interaction: Record<any, any>, options: Record<any, any>){
         
-        let {channel, guild, client, member} = options
+        let { channel, guild, client, member } = options
         this.type = interaction.type
         this.token = interaction.token
         this.member = member
@@ -21,9 +33,10 @@ module.exports = class {
      * 
      * @param {*} res - the MessageEmbed object or string
      */
-    reply(res){
+    reply(res: any){
         if (res) {
             if (typeof res == 'string') {
+
             this.client.api.interactions(this.interaction.id, this.interaction.token).callback.post({
                 data:{
                     type:4,
@@ -36,6 +49,7 @@ module.exports = class {
             this.client.api.interactions(this.interaction.id, this.interaction.token).callback.post({
                 data:{
                     type:4,
+                    // @ts-ignore
                     data: createAPIMessage(this.interaction, res, this.client)
                 }
             })
@@ -44,18 +58,18 @@ module.exports = class {
         }
     }
     }
-    /**
-     * 
-     * @param {*} content - the MessageEmbed object or string
-     */
-    edit(content){
+    
+    edit(content: MessageEmbed | string | APIMessageContentResolvable | any){
         if (!content) throw new Error('content can\'t be empty')
         const {data} = APIMessage.create(this.client.channels.resolve(this.channel.id), content)
         return this.client.api.webhooks(this.client.user.id, this.token).messages('@original').patch({ data })
     }
 
     delete(){
+        // @ts-ignore
         this.client.api.webhooks(this.client.user.id, this.token).messages('@original').delete()
     }
     
 }
+
+export default interaction
