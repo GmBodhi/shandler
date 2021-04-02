@@ -21,6 +21,33 @@ module.exports = class {
      * 
      * @param {*} res - the MessageEmbed object or string
      */
+    send(res){
+        if (res) {
+            if (typeof res == 'string') {
+            this.client.api.interactions(this.interaction.id, this.interaction.token).callback.post({
+                data:{
+                    type:3,
+                    data:{
+                        content: res
+                    }
+                }
+            })
+        }else if (typeof res == 'object'){
+            this.client.api.interactions(this.interaction.id, this.interaction.token).callback.post({
+                data:{
+                    type:3,
+                    data: createAPIMessage(this.interaction, res, this.client)
+                }
+            })
+        }else {
+            throw new Error('INVALID Response type response should be a messageembed object or a string')
+        }
+    }
+    }
+    /**
+     * 
+     * @param {*} res - the MessageEmbed object or string
+     */
     reply(res){
         if (res) {
             if (typeof res == 'string') {
