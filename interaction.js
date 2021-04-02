@@ -57,4 +57,5 @@ module.exports = class {
     delete(){
         this.client.api.webhooks(this.client.user.id, this.token).messages('@original').delete()
     }
+    
 }
