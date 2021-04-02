@@ -11,10 +11,50 @@ module.exports = class {
         this.token = interaction.token
         this.member = member
         this.id = interaction.id
-        this.guild = guild
         this.client = client
+        this.guild = guild
+        this.data = interaction.data
         this.channel = channel
 
+    }
+    /**
+     * 
+     * @param {*} res - the MessageEmbed object or string
+     */
+    reply(res){
+        if (res) {
+            if (typeof res == 'string') {
+            this.client.api.interactions(this.interaction.id, this.interaction.token).callback.post({
+                data:{
+                    type:4,
+                    data:{
+                        content: res
+                    }
+                }
+            })
+        }else if (typeof res == 'object'){
+            this.client.api.interactions(this.interaction.id, this.interaction.token).callback.post({
+                data:{
+                    type:4,
+                    data: createAPIMessage(this.interaction, res, this.client)
+                }
+            })
+        }else {
+            throw new Error('INVALID Response type response should be a messageembed object or a string')
+        }
+    }
+    }
+    /**
+     * 
+     * @param {*} content - the MessageEmbed object or string
+     */
+    edit(content){
+        if (!content) throw new Error('content can\'t be empty')
+        const {data} = APIMessage.create(this.client.channels.resolve(this.channel.id), content)
+        return inter.client.api.channels[this.interaction.channel.id].messages[this.id].patch({ data })
+    }
 
+    delete(){
+        await this.client.api.channels(this.channel.id).messages(this.id).delete();
     }
 }

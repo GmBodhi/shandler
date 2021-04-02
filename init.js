@@ -17,37 +17,7 @@ module.exports = (interaction, client) => {
     }
     interaction = new Interaction(interaction, options)
     try{
-        interaction.reply = async (res) => {
-            if (res) {
-                if (typeof res == 'string') {
-                client.api.interactions(interaction.id, interaction.token).callback.post({
-                    data:{
-                        type:4,
-                        data:{
-                            content: res
-                        }
-                    }
-                })
-            }else if (typeof res == 'object'){
-                client.api.interactions(interaction.id, interaction.token).callback.post({
-                    data:{
-                        type:4,
-                        data: createAPIMessage(interaction, res, client)
-                    }
-                })
-            }else {
-                throw new Error('INVALID Response type')
-            }
-        }
-    }
-    interaction.delete = async (inter) =>{
-        await inter.client.api.channels(inter.channel_id).messages(inter.id).delete();
-    }
-    interaction.edit = async (inter, content) => {
-        const {data} = APIMessage.create(inter.client.channels.resolve(inter.channel_id), content)
-        return inter.client.api.channels[inter.channel_id].messages[inter.id].patch({ data })
-    }
-    client.commands.get(interaction.data.name).run({interaction, user, client, guild, args, channel})
+        client.commands.get(interaction.data.name).run({interaction, user, client, guild, args, channel})
     } catch (e){
         throw new Error(e)
     }
