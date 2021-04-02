@@ -39,10 +39,13 @@ module.exports = class {
         
         this.client.on('ready', () => {
             
+            //Global commands auto delete
             let gcmds = await this.client.api.applications(this.client.user.id).commands().get()
             gcmds.filter(c => !(this.client.commands.filter(m => !m.guilds).map(m => m.name.toLowerCase()).includes(c.name.toLowerCase()))).forEach(e =>{
                 this.client.api.applications(this.client.user.id).commands(e.id).then(m => console.log("Command: "+e.name+" was deleted"))
             })
+
+            //commands registration
             this.client.commands.each(e => {
                 if (!e.guilds.length){
                     await app.commands.post({
