@@ -2,8 +2,30 @@ class FInteraction {
     /**
      * 
      * @param {*} client 
-     * @param {{}} res 
-     * @param {{channel:object, user:object, guild:object, message:object, interaction:object}} extras 
+     * @param {{
+     *  id:string
+     *  type:number
+     *  content:string
+     *  attachments:object[]
+     *  embeds:object[]
+     *  mentions:any[]
+     *  mention_roles:any[]
+     *  pinned:boolean
+     *  mention_everyone:boolean
+     *  tts:boolean
+     *  timestamp:any
+     *  edited_timestamp:any
+     *  flags:number
+     *  webhook_id:string
+     *  message_reference: {channel_id: string, guild_id: string, message_id: string}
+     * }} res 
+     * @param {{
+     *  channel:object,
+     *  user:object,
+     *  guild:object,
+     *  message:object,
+     *  interaction:object
+     * }} extras 
      */
     constructor(client, res, extras){
         this.id = res.id
@@ -25,7 +47,7 @@ class FInteraction {
         this.editedTimestamp = res.edited_timestamp
         this.flags = res.flags
         this.webhookID = res.webhook_id
-        this.message = extras.message        
+        this.messageID = res.message_reference.message_id
     }
      /**
      * 
