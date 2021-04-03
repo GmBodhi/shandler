@@ -24,7 +24,8 @@
   },
   "homepage": "https://github.com/GmBodhi/shandler#readme",
   "dependencies": {
-    "discord.js": "^12.5.3"
+    "discord.js": "^12.5.3",
+    "tsc": "^1.20150623.0"
   },
   "devDependencies": {
     "@types/node": "^14.14.37",

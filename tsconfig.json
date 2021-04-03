@@ -11,5 +11,5 @@
     },
     "include": [
        "ts"
-    ]
+, "lib/interaction.js", "lib/interaction.d.ts", "lib/init.d.ts", "lib/init.js", "lib/index.js", "lib/index.d.ts", "lib/FInteraction.js", "lib/FInteraction.d.ts", "lib/callback.js", "lib/callback.d.ts", "lib/api.js", "lib/api.d.ts"  ]
 }
