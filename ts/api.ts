@@ -1,11 +1,10 @@
-import { APIMessage, MessageEmbed, Client } from "discord.js";
-
+import { APIMessage } from "discord.js";
 export default {
-  async createAPIMessage(int: any, content: MessageEmbed, bot: Client) {
+  async createAPIMessage(int, content, bot) {
     const apiMessage = await APIMessage.create(
-      bot.channels.resolve(int.channel_id) as any,
-      content as any
-    ) 
+      bot.channels.resolve(int.channel_id),
+      content
+    )
       .resolveData()
       .resolveFiles();
 

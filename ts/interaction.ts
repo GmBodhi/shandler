@@ -1,22 +1,21 @@
+import callback from './callback'
 import { Channel, Client, Guild, MessageEmbed, APIMessageContentResolvable, APIMessage } from "discord.js"
-import createAPIMessage from "./api"
 
-interface interaction {
-    interaction: Record<any, any>
-    options: any
-    type: any
-    token: string
-    member: any
-    id: string
-    client: any
-    channel: any
-    guild: any
-    data: any
+interface Interaction{
+    interaction:Record<any, any>
+    options:object
+    type:number
+    token:string
+    member:any
+    id:string
+    client:any
+    guild:any
+    data:object
+    channel:any
+    content:any
 }
-
-class interaction {
-
-    constructor(interaction: Record<any, any>, options: Record<any, any>){
+class Interaction {
+    constructor(interaction: { type: number; token: string; id: string; data: object }, options: { channel: any; guild: any; client: any; member: any }){
         
         let { channel, guild, client, member } = options
         this.type = interaction.type
@@ -29,47 +28,40 @@ class interaction {
         this.channel = channel
 
     }
-    /**
-     * 
-     * @param {*} res - the MessageEmbed object or string
-     */
-    reply(res: any){
-        if (res) {
-            if (typeof res == 'string') {
 
-            this.client.api.interactions(this.interaction.id, this.interaction.token).callback.post({
-                data:{
-                    type:4,
-                    data:{
-                        content: res
-                    }
-                }
-            })
-        }else if (typeof res == 'object'){
-            this.client.api.interactions(this.interaction.id, this.interaction.token).callback.post({
-                data:{
-                    type:4,
-                    // @ts-ignore
-                    data: createAPIMessage(this.interaction, res, this.client)
-                }
-            })
-        }else {
-            throw new Error('INVALID Response type response should be a messageembed object or a string')
+     async reply(res:any, options:any){
+        let {type = 4} = options
+        if (!res) throw new Error('Cannot send an empty message.')
+        let apiMessage;
+        if (res instanceof APIMessage){
+            apiMessage = res.resolveData()
+        }else{
+            apiMessage = APIMessage.create(this.channel, res, options)
         }
+        const {data, files} = await apiMessage.resolveFiles();
+        // @ts-ignore
+        data.type = type;
+        return this.client.api.webhooks(this.interaction.id, this.interaction.token).callback
+        .post({ data, files })
+        .then(async (m:any) => await callback(this, m))
     }
-    }
-    
-    edit(content: MessageEmbed | string | APIMessageContentResolvable | any){
+
+
+    edit(content:APIMessageContentResolvable | string | MessageEmbed, options:any){
         if (!content) throw new Error('content can\'t be empty')
-        const {data} = APIMessage.create(this.client.channels.resolve(this.channel.id), content)
-        return this.client.api.webhooks(this.client.user.id, this.token).messages('@original').patch({ data })
+        const {data} = APIMessage.create(this.channel, content, options)
+        let { type = 4 } = options.type;
+        // @ts-ignore
+        data.type = type;
+        return this.client.api.webhooks(this.client.user.id, this.token).messages('@original')
+        .patch({ data })
+        .then(async (m:any) => await callback(this, m))
     }
 
     delete(){
-        // @ts-ignore
+        //@ts-ignore
         this.client.api.webhooks(this.client.user.id, this.token).messages('@original').delete()
     }
     
 }
-
-export default interaction
+export default Interaction
