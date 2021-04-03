@@ -77,16 +77,13 @@ Unlike discord's normal interaction object shandler's interaction object has mor
 [Guild object](https://discord.js.org/#/docs/main/stable/class/Guild)<br>
 [Channel object](https://discord.js.org/#/docs/main/stable/class/Channel)<br>
 ## Methods
-### Send
-Sends the response after eating the user interaction
-```js
-interaction.send('Bello').then(console.log)
-```
+
 ### Reply
 Responds to an interaction
 ```js
 interaction.reply('Bello').then(console.log)
 ```
+ returns <Promise FInteraction\>
 ### Edit
 Edits an interaction response
 ```js
@@ -95,6 +92,7 @@ setTimeout(() => {
     interaction.edit('Pog').then(console.log)
 }, 5000)
 ```
+ returns <Promise FInteraction\>
 ### Delete
 Deletes an interaction respnse
 ```js
