@@ -1,3 +1,5 @@
+const {callback} = require('./callback')
+const {APIMessage} = require('discord.js')
 class FInteraction {
     /**
      * 
@@ -29,17 +31,17 @@ class FInteraction {
      */
     constructor(client, res, extras){
         this.id = res.id
-        this.interaction = extras.interaction
+        this.interaction = res.interaction || extras.interaction
         this.type = res.type
         this.client = client
         this.content = res.content
-        this.channel = extras.channel
-        this.author = extras.user
+        this.channel = res.channel || extras.channel 
+        this.author = res.user || extras.user
         this.attachments = res.attachments
         this.embeds = res.embeds
         this.mentions = res.mentions
         this.mentionRoles = res.mention_roles
-        this.guild = extras.guild
+        this.guild = res.guild || extras.guild
         this.pinned = res.pinned
         this.mentionEveryone = res.mention_everyone
         this.tts = res.tts
@@ -49,59 +51,27 @@ class FInteraction {
         this.webhookID = res.webhook_id
         this.messageID = res.message_reference.message_id
     }
-     /**
-     * 
-     * @param {*} res - the MessageEmbed object or string
-     */
-      send(res){
-        if (res) {
-            if (typeof res == 'string') {
-            this.client.api.webhooks(this.client.user.id, this.interaction.token).post({
-                data:{
-                    type:3,
-                    data:{
-                        content: res
-                    }
-                }
-            })
-        }else if (typeof res == 'object'){
-            this.client.api.webhooks(this.client.user.id, this.interaction.token).post({
-                data:{
-                    type:3,
-                    data: createAPIMessage(this.interaction, res, this.client)
-                }
-            })
-        }else {
-            throw new Error('INVALID Response type response should be a messageembed object or a string')
-        }
-    }
-    }
+
+
     /**
      * 
      * @param {*} res - the MessageEmbed object or string
+     * @param {replyOptions} options - Replyoptions object
      */
-    reply(res){
-        if (res) {
-            if (typeof res == 'string') {
-            this.client.api.webhooks(this.client.user.id, this.interaction.token).post({
-                data:{
-                    type:4,
-                    data:{
-                        content: res
-                    }
-                }
-            })
-        }else if (typeof res == 'object'){
-            this.client.api.webhooks(this.client.user.id, this.interaction.token).post({
-                data:{
-                    type:4,
-                    data: createAPIMessage(this.interaction, res, this.client)
-                }
-            })
-        }else {
-            throw new Error('INVALID Response type response should be a messageembed object or a string')
+    async reply(res, options = {}){
+        if (!res) throw new Error('content cannot be empty.')
+        let apiMessage;
+        if (res instanceof APIMessage){
+            apiMessage = res.resolveData()
+        }else{
+            apiMessage = APIMessage.create(this.channel, res, options)
         }
-    }
+        const {data, files} = await apiMessage.resolveFiles();
+        return this.client.api.webhooks(this.client.user.id, this.interaction.token)
+        .post({ data, files })
+        .then(m => callback(this, m))
+        
+    
     }
     /**
      * 
@@ -117,3 +87,5 @@ class FInteraction {
         this.client.api.webhooks(this.client.user.id, this.token).messages(this.message.id).delete()
     }
 }
+
+module.exports = FInteraction;
