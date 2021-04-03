@@ -59,6 +59,7 @@ class FInteraction {
      * @param {replyOptions} options - Replyoptions object
      */
     async reply(res, options = {}){
+        let {type = 4} = options
         if (!res) throw new Error('content cannot be empty.')
         let apiMessage;
         if (res instanceof APIMessage){
@@ -67,20 +68,23 @@ class FInteraction {
             apiMessage = APIMessage.create(this.channel, res, options)
         }
         const {data, files} = await apiMessage.resolveFiles();
+        data.type = type;
         return this.client.api.webhooks(this.client.user.id, this.interaction.token)
         .post({ data, files })
         .then(m => callback(this, m))
-        
-    
     }
     /**
      * 
      * @param {*} content - the MessageEmbed object or string
      */
-    edit(content){
+    edit(content, options = {}){
         if (!content) throw new Error('content can\'t be empty')
-        const {data} = APIMessage.create(this.client.channels.resolve(this.channel.id), content)
-        return this.client.api.webhooks(this.client.user.id, this.token).messages(this.message.id).patch({ data })
+        const {data} = APIMessage.create(this.channel, content, options)
+        let { type = 4 } = options.type;
+        data.type = type;
+        return this.client.api.webhooks(this.client.user.id, this.token).messages(this.message.id)
+        .patch({ data })
+        .then(m => callback(this, m))
     }
 
     delete(){

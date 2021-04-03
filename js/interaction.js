@@ -1,3 +1,4 @@
+const {callback} = require('./callback')
 module.exports = class {
     /**
      * 
@@ -21,64 +22,33 @@ module.exports = class {
      * 
      * @param {*} res - the MessageEmbed object or string
      */
-    send(res){
-        if (res) {
-            if (typeof res == 'string') {
-            this.client.api.interactions(this.interaction.id, this.interaction.token).callback.post({
-                data:{
-                    type:3,
-                    data:{
-                        content: res
-                    }
-                }
-            })
-        }else if (typeof res == 'object'){
-            this.client.api.interactions(this.interaction.id, this.interaction.token).callback.post({
-                data:{
-                    type:3,
-                    data: createAPIMessage(this.interaction, res, this.client)
-                }
-            })
-        }else {
-            throw new Error('INVALID Response type response should be a messageembed object or a string')
+     async reply(res, options = {}){
+        let {type = 4} = options
+        if (!res) throw new Error('Cannot send an empty message.')
+        let apiMessage;
+        if (res instanceof APIMessage){
+            apiMessage = res.resolveData()
+        }else{
+            apiMessage = APIMessage.create(this.channel, res, options)
         }
-    }
-    }
-    /**
-     * 
-     * @param {*} res - the MessageEmbed object or string
-     */
-    reply(res){
-        if (res) {
-            if (typeof res == 'string') {
-            this.client.api.interactions(this.interaction.id, this.interaction.token).callback.post({
-                data:{
-                    type:4,
-                    data:{
-                        content: res
-                    }
-                }
-            })
-        }else if (typeof res == 'object'){
-            this.client.api.interactions(this.interaction.id, this.interaction.token).callback.post({
-                data:{
-                    type:4,
-                    data: createAPIMessage(this.interaction, res, this.client)
-                }
-            })
-        }else {
-            throw new Error('INVALID Response type response should be a messageembed object or a string')
-        }
-    }
+        const {data, files} = await apiMessage.resolveFiles();
+        data.type = type;
+        return this.client.api.webhooks(this.interaction.id, this.interaction.token).callback
+        .post({ data, files })
+        .then(m => callback(this, m))
     }
     /**
      * 
      * @param {*} content - the MessageEmbed object or string
      */
-    edit(content){
+    edit(content, options = {}){
         if (!content) throw new Error('content can\'t be empty')
-        const {data} = APIMessage.create(this.client.channels.resolve(this.channel.id), content)
-        return this.client.api.webhooks(this.client.user.id, this.token).messages('@original').patch({ data })
+        const {data} = APIMessage.create(this.channel, content, options)
+        let { type = 4 } = options.type;
+        data.type = type;
+        return this.client.api.webhooks(this.client.user.id, this.token).messages('@original')
+        .patch({ data })
+        .then(m => callback(this, m))
     }
 
     delete(){
