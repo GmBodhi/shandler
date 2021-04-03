@@ -33,7 +33,7 @@ class SHClient {
         //errors
         if (!client) throw new Error('No discord.js client was provided\n Fix: Give discord.js client as the first argument.');
         if (!commandsDir.length) console.warn('please specify a commands folder')
-        if (!fs.existsSync(path.resolve(require.main.path, commandsDir))) throw new Error(`Provided commands dir (${commandsDir}) does not exist`);
+        if (!fs.existsSync(path.resolve(process.cwd(), commandsDir))) throw new Error(`Provided commands dir (${commandsDir}) does not exist`);
         
         this.client = client
         this.cLogs = cLogs
@@ -44,9 +44,9 @@ class SHClient {
         
         this.client.commands = new Collection()
         
-        const cmdfls = fs.readdirSync(path.resolve(require.main.path, commandsDir)).filter(m => m.endsWith('.js'))
+        const cmdfls = fs.readdirSync(path.resolve(process.cwd(), commandsDir)).filter(m => m.endsWith('.js'))
         for (const f in cmdfls) {
-            const scmd = require(path.resolve(require.main.path, commandsDir, f))
+            const scmd = require(path.resolve(process.cwd(), commandsDir, f))
             scmd.name = (scmd.name ? scmd.name : f.replace(/\.js$/i, ''))
             this.client.commands.set(scmd.name, scmd)
             if (showLogs == 'extra') console.log(scmd.name+' was loaded')
@@ -60,7 +60,7 @@ class SHClient {
             if (autoDelete == true){
                 // @ts-ignore
                 let gcmds = await this.client.api.applications(this.client.user.id).commands.get()
-                gcmds.filter(c => !(this.client.commands.filter(m => !m.guilds).map(m => m.name.toLowerCase()).includes(c.name.toLowerCase()))).forEach(e =>{
+                gcmds.filter((c:any) => !(this.client.commands.filter(m => !m.guilds).map(m => m.name.toLowerCase()).includes(c.name.toLowerCase()))).forEach((e:any) =>{
                     // @ts-ignore
                     this.client.api.applications(this.client.user.id).commands(e.id).then(m =>{
                          console.log("Command: "+e.name+" was deleted")
@@ -70,7 +70,7 @@ class SHClient {
             }
 
             //commands registration
-            let data = []
+            let data:any = []
             
             this.client.commands.each(async e => {
                 if (!e.guilds.length){
@@ -80,14 +80,14 @@ class SHClient {
                         options: e.options
                     })
                 } else {
-                    e.guilds.forEach(async el => {
+                    e.guilds.forEach(async (el:any) => {
                         app.guilds(el).commands.post({
                             data:{
                                 name: e.name,
                                 description: e.description || "An awesome command..!",
                                 options: e.options
                             }
-                        }).then(m =>{
+                        }).then((m:any) =>{
                             if (showLogs == 'extra') console.log('Command: '+e.name+' was registered for: '+el)
                             if (cLogs) console.log(m)
                         })
@@ -96,13 +96,13 @@ class SHClient {
             })
             app.commands.put({
                 data:data
-            }).then(c => {
+            }).then((c:any) => {
                 if (cLogs) console.log(c)
                 if (showLogs == 'normal') console.log(c.length + " Commands were registered")
             }).catch(console.error)
             if (showLogs == 'normal') console.log(this.client.commands.size+ ' commands were registered on discord API')
 
-                if (showLogs == ('normal'||'extra')) console.log(this.client.user.tag+' is ready.')
+                if (showLogs == ('normal'||'extra')) console.log(this.client.user?.tag+' is ready.')
         })
 
 
@@ -112,13 +112,13 @@ class SHClient {
         })
 
     }
-    delete(guilds, info){
+    delete(guilds:any, info:any){
         if (!this.client.readyAt) throw new Error('Cannot use this method before client is ready.\nUse this method inside ready event');
         if (!guilds || !info) throw new Error('Missing params: `guilds:Array, info:Object` are required')
-        guilds.forEach(g => {
+        guilds.forEach((g:any) => {
             // @ts-ignore
             let cmds = await this.client.api.applications(this.client.user.id).guilds(g).commands.get()
-            let cmd = cmds.find(m => m.id == info.id || m.name.toLowerCase() == info.name.toLowerCase())
+            let cmd = cmds.find((m:any) => m.id == info.id || m.name.toLowerCase() == info.name.toLowerCase())
             if (!cmd) return;
             // @ts-ignore
             this.client.api.applications(this.client.user.id).guilds(g).commands(cmd.id).delete().then(m =>{

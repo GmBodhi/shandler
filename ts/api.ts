@@ -1,7 +1,8 @@
-import { APIMessage } from "discord.js";
+import { APIMessage, Client } from "discord.js";
 export default {
-  async createAPIMessage(int, content, bot) {
+  async createAPIMessage(int:any, content:any, bot:Client) {
     const apiMessage = await APIMessage.create(
+      // @ts-ignore
       bot.channels.resolve(int.channel_id),
       content
     )

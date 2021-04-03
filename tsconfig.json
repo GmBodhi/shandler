@@ -2,14 +2,25 @@
     "compilerOptions": {
         "target": "es5",
         "module": "commonjs",
+        "outDir": "dist",
+        "downlevelIteration": true,
         "strict": true,
-        "declaration": true,
-        "declarationMap": true,
-        "sourceMap": true,
-        "outDir": "lib",
-        "esModuleInterop": true
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "strictBindCallApply": true,
+        "strictPropertyInitialization": true,
+        "noImplicitThis": true,
+        "alwaysStrict": true,
+        "noImplicitReturns": true,
+        "moduleResolution": "node",
+        "esModuleInterop": true,
+        "skipLibCheck": true,
+        "forceConsistentCasingInFileNames": true,
+        "resolveJsonModule": true,
+        "lib": ["esnext"]
     },
     "include": [
        "ts"
-, "lib/interaction.js", "lib/interaction.d.ts", "lib/init.d.ts", "lib/init.js", "lib/index.js", "lib/index.d.ts", "lib/FInteraction.js", "lib/FInteraction.d.ts", "lib/callback.js", "lib/callback.d.ts", "lib/api.js", "lib/api.d.ts"  ]
+    ]
 }
