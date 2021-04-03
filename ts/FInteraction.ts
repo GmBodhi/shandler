@@ -69,7 +69,7 @@ class FInteraction {
         .then(async (m:any) => await callback(this, m))
     }
 
-    edit(content:string, options:any){
+    async edit(content:string, options:any){
         if (!content) throw new Error('content can\'t be empty')
         const {data} = APIMessage.create(this.channel, content, options)
         let { type = 4 } = options.type;

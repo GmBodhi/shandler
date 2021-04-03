@@ -47,7 +47,7 @@ class Interaction {
     }
 
 
-    edit(content:APIMessageContentResolvable | string | MessageEmbed, options:any){
+    async edit(content:APIMessageContentResolvable | string | MessageEmbed, options:any){
         if (!content) throw new Error('content can\'t be empty')
         const {data} = APIMessage.create(this.channel, content, options)
         let { type = 4 } = options.type;

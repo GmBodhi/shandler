@@ -53,6 +53,7 @@ module.exports = {
 You might've thought what all we can do with the `options`. Well you can refer [here](https://discord.com/developers/docs/interactions/slash-commands#applicationcommandoption)
 ## Interaction object
 Unlike discord's normal interaction object shandler's interaction object has more properties and disscord.js methods. 
+## Properties
 ```js
 {
     "type": 2,
@@ -75,29 +76,29 @@ Unlike discord's normal interaction object shandler's interaction object has mor
 [Guildmember object](https://discord.js.org/#/docs/main/stable/class/GuildMember)<br>
 [Guild object](https://discord.js.org/#/docs/main/stable/class/Guild)<br>
 [Channel object](https://discord.js.org/#/docs/main/stable/class/Channel)<br>
-
+## Methods
 ### Send
 Sends the response after eating the user interaction
 ```js
-interaction.send('Bello')
+interaction.send('Bello').then(console.log)
 ```
 ### Reply
 Responds to an interaction
 ```js
-interaction.reply('Bello')
+interaction.reply('Bello').then(console.log)
 ```
 ### Edit
 Edits an interaction response
 ```js
-interaction.reply('Bello')
+interaction.reply('Bello').then(console.log)
 setTimeout(() => {
-    interaction.edit('Pog')
+    interaction.edit('Pog').then(console.log)
 }, 5000)
 ```
 ### Delete
 Deletes an interaction respnse
 ```js
-interaction.reply('Bello')
+interaction.reply('Bello').then(console.log)
 setTimeout(() => {
     interaction.delete()
 }, 5000)
