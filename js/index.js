@@ -20,7 +20,7 @@ module.exports = class {
         //errors
         if (!client) throw new Error('No discord.js client was provided\n Fix: Give discord.js client as the first argument.');
         if (!commandsDir.length) console.warn('please specify a commands folder')
-        if (!fs.existsSync(path.resolve('../../',commandsDir))) throw new Error(`Provided commands dir (${commandsDir}) does not exist`);
+        if (!fs.existsSync(path.resolve(require.main, commandsDir))) throw new Error(`Provided commands dir (${commandsDir}) does not exist`);
         
         this.client = client
 
@@ -29,9 +29,9 @@ module.exports = class {
         
         this.client.commands = new Collection()
         
-        const cmdfls = fs.readdirSync(path.resolve('../../',commandsDir)).filter(m => m.endsWith('.js'))
+        const cmdfls = fs.readdirSync(path.resolve(require.main, commandsDir)).filter(m => m.endsWith('.js'))
         for (const f in cmdfls) {
-            const scmd = require(path.resolve('../../',commandsDir,f))
+            const scmd = require(path.resolve(require.main, commandsDir, f))
             scmd.name = (scmd.name ? scmd.name : f.replace(/\.js$/i, ''))
             this.client.commands.set(scmd.name, scmd)
             if (showLogs == 'extra') console.log(f.name+' was loaded')
@@ -64,7 +64,7 @@ module.exports = class {
                     })
                 } else {
                     e.guilds.forEach(async el => {
-                        await app.guilds(el).commands.post({
+                        app.guilds(el).commands.post({
                             data:{
                                 name: e.name,
                                 description: e.description || "An awesome command..!",
