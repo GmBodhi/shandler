@@ -13,7 +13,8 @@ module.exports = class {
             commandsDir = '',
             helpTemplate = 'normal',
             showLogs = 'extra',
-            autoDelete = true
+            autoDelete = true,
+            cLogs = false
         } = options;
 
         //errors
@@ -44,21 +45,24 @@ module.exports = class {
             if (autoDelete == true){
                 let gcmds = await this.client.api.applications(this.client.user.id).commands().get()
                 gcmds.filter(c => !(this.client.commands.filter(m => !m.guilds).map(m => m.name.toLowerCase()).includes(c.name.toLowerCase()))).forEach(e =>{
-                    this.client.api.applications(this.client.user.id).commands(e.id).then(m => console.log("Command: "+e.name+" was deleted"))
+                    this.client.api.applications(this.client.user.id).commands(e.id).then(m =>{
+                         console.log("Command: "+e.name+" was deleted")
+                         if (cLogs) console.log(m)
+                        })
                 })
             }
 
             //commands registration
+            let data = []
+            
             this.client.commands.each(async e => {
                 if (!e.guilds.length){
-                    await app.commands.post({
-                        data:{
-                            name: e.name,
-                            description: e.description || "An awesome command..!",
-                            options: e.options
-                        }
+                    data.push({
+                        application_id: this.client.user.id,
+                        name: e.name,
+                        description: e.description,
+                        options: e.options
                     })
-                    if (showLogs == 'extra') console.log('Command: '+e.name+' was registered')
                 } else {
                     e.guilds.forEach(async el => {
                         await app.guilds(el).commands.post({
@@ -67,11 +71,18 @@ module.exports = class {
                                 description: e.description || "An awesome command..!",
                                 options: e.options
                             }
+                        }).then(m =>{
+                            if (showLogs == 'extra') console.log('Command: '+e.name+' was registered for: '+el)
+                            if (cLogs) console.log(m)
                         })
-                        if (showLogs == 'extra') console.log('Command: '+e.name+' was registered for: '+el)
                     });
                 }
             })
+            app.commands.put({
+                data:data
+            }).then(c => {
+                if (cLogs) console.log(c)
+            }).catch(console.error)
             if (showLogs == 'normal') console.log(this.client.commands.size+ ' commands were registered on discord API')
 
                 if (showLogs == ('normal'||'extra')) console.log(this.client.user.tag+' is ready.')
@@ -91,7 +102,9 @@ module.exports = class {
             let cmds = await this.client.api.applications(this.client.user.id).guilds(g).commands().get()
             let cmd = cmds.find(m => m.id == info.id || m.name.toLowerCase() == info.name.toLowerCase())
             if (!cmd) return;
-            this.client.api.applications(this.client.user.id).guilds(g).commands(cmd.id).delete()
+            this.client.api.applications(this.client.user.id).guilds(g).commands(cmd.id).delete().then(m =>{
+                if (cLogs) console.log(m)
+            })
         })
     }
 }
