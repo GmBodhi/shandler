@@ -43,7 +43,7 @@ module.exports = class {
             
             //Global commands auto delete
             if (autoDelete == true){
-                let gcmds = await this.client.api.applications(this.client.user.id).commands().get()
+                let gcmds = await this.client.api.applications(this.client.user.id).commands.get()
                 gcmds.filter(c => !(this.client.commands.filter(m => !m.guilds).map(m => m.name.toLowerCase()).includes(c.name.toLowerCase()))).forEach(e =>{
                     this.client.api.applications(this.client.user.id).commands(e.id).then(m =>{
                          console.log("Command: "+e.name+" was deleted")
@@ -58,7 +58,6 @@ module.exports = class {
             this.client.commands.each(async e => {
                 if (!e.guilds.length){
                     data.push({
-                        application_id: this.client.user.id,
                         name: e.name,
                         description: e.description,
                         options: e.options
@@ -82,6 +81,7 @@ module.exports = class {
                 data:data
             }).then(c => {
                 if (cLogs) console.log(c)
+                if (showLogs == 'normal') console.log(c.length + " Commands were registered")
             }).catch(console.error)
             if (showLogs == 'normal') console.log(this.client.commands.size+ ' commands were registered on discord API')
 
@@ -99,7 +99,7 @@ module.exports = class {
         if (!this.client.readyAt) throw new Error('Cannot use this method before client is ready.\nUse this method inside ready event');
         if (!guilds || !info) throw new Error('Missing params: `guilds:Array, info:Object` are required')
         guilds.forEach(g => {
-            let cmds = await this.client.api.applications(this.client.user.id).guilds(g).commands().get()
+            let cmds = await this.client.api.applications(this.client.user.id).guilds(g).commands.get()
             let cmd = cmds.find(m => m.id == info.id || m.name.toLowerCase() == info.name.toLowerCase())
             if (!cmd) return;
             this.client.api.applications(this.client.user.id).guilds(g).commands(cmd.id).delete().then(m =>{
