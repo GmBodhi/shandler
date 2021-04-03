@@ -1,5 +1,6 @@
 const {callback} = require('./callback')
-module.exports = class {
+const {APIMessage} = require('discord.js')
+class Interaction {
     /**
      * 
      * @param {Object} interaction 
@@ -35,7 +36,7 @@ module.exports = class {
         data.type = type;
         return this.client.api.webhooks(this.interaction.id, this.interaction.token).callback
         .post({ data, files })
-        .then(m => callback(this, m))
+        .then(async m => await callback(this, m))
     }
     /**
      * 
@@ -48,7 +49,7 @@ module.exports = class {
         data.type = type;
         return this.client.api.webhooks(this.client.user.id, this.token).messages('@original')
         .patch({ data })
-        .then(m => callback(this, m))
+        .then(async m => await callback(this, m))
     }
 
     delete(){
@@ -56,3 +57,4 @@ module.exports = class {
     }
     
 }
+module.exports = Interaction

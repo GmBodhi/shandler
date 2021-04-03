@@ -1,5 +1,5 @@
 const {createAPIMessage} = require('./api')
-const Interaction = require('./interaction')
+const {Interaction} = require('./interaction')
 const {APIMessage} = require('discord.js')
 /**
  * 

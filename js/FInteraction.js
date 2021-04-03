@@ -2,7 +2,6 @@ const {callback} = require('./callback')
 const {APIMessage} = require('discord.js')
 class FInteraction {
     /**
-     * 
      * @param {*} client 
      * @param {{
      *  id:string
@@ -23,25 +22,23 @@ class FInteraction {
      * }} res 
      * @param {{
      *  channel:object,
-     *  user:object,
-     *  guild:object,
-     *  message:object,
-     *  interaction:object
+     *  member:object,
+     *  guild:object
      * }} extras 
      */
     constructor(client, res, extras){
         this.id = res.id
-        this.interaction = res.interaction || extras.interaction
+        this.token = res.token
         this.type = res.type
         this.client = client
         this.content = res.content
-        this.channel = res.channel || extras.channel 
-        this.author = res.user || extras.user
+        this.channel = extras.channel 
+        this.member = extras.member
         this.attachments = res.attachments
         this.embeds = res.embeds
         this.mentions = res.mentions
         this.mentionRoles = res.mention_roles
-        this.guild = res.guild || extras.guild
+        this.guild = extras.guild
         this.pinned = res.pinned
         this.mentionEveryone = res.mention_everyone
         this.tts = res.tts
@@ -49,7 +46,7 @@ class FInteraction {
         this.editedTimestamp = res.edited_timestamp
         this.flags = res.flags
         this.webhookID = res.webhook_id
-        this.messageID = res.message_reference.message_id
+        this.messageRefID = res.message_reference.message_id
     }
 
 
@@ -69,9 +66,9 @@ class FInteraction {
         }
         const {data, files} = await apiMessage.resolveFiles();
         data.type = type;
-        return this.client.api.webhooks(this.client.user.id, this.interaction.token)
+        return this.client.api.webhooks(this.client.user.id, this.token)
         .post({ data, files })
-        .then(m => callback(this, m))
+        .then(async m => await callback(this, m))
     }
     /**
      * 
@@ -82,13 +79,13 @@ class FInteraction {
         const {data} = APIMessage.create(this.channel, content, options)
         let { type = 4 } = options.type;
         data.type = type;
-        return this.client.api.webhooks(this.client.user.id, this.token).messages(this.message.id)
+        return this.client.api.webhooks(this.client.user.id, this.token).messages(this.id)
         .patch({ data })
-        .then(m => callback(this, m))
+        .then(async m => await callback(this, m))
     }
 
     delete(){
-        this.client.api.webhooks(this.client.user.id, this.token).messages(this.message.id).delete()
+        this.client.api.webhooks(this.client.user.id, this.token).messages(this.id).delete()
     }
 }
 

@@ -30,7 +30,7 @@ module.exports = class {
         const cmdfls = fs.readdirSync(path.resolve('../../',commandsDir)).filter(m => m.endsWith('.js'))
         for (const f in cmdfls) {
             const scmd = require(path.resolve('../../',commandsDir,f))
-            scmd.__name == f            
+            scmd.name = (scmd.name ? scmd.name : f.replace(/\.js$/i, ''))
             this.client.commands.set(scmd.name, scmd)
             if (showLogs == 'extra') console.log(f.name+' was loaded')
         }
@@ -50,7 +50,7 @@ module.exports = class {
                 if (!e.guilds.length){
                     await app.commands.post({
                         data:{
-                            name: e.name || e.__name.replace(/.js/i,""),
+                            name: e.name,
                             description: e.description || "An awesome command..!",
                             options: e.options
                         }
@@ -60,7 +60,7 @@ module.exports = class {
                     e.guilds.forEach(async el => {
                         await app.guilds(el).commands.post({
                             data:{
-                                name: e.name || e.__name.replace(/.js/i,""),
+                                name: e.name,
                                 description: e.description || "An awesome command..!",
                                 options: e.options
                             }
