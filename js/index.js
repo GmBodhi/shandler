@@ -12,7 +12,8 @@ module.exports = class {
         let {
             commandsDir = '',
             helpTemplate = 'normal',
-            showLogs = 'extra'
+            showLogs = 'extra',
+            autoDelete = true
         } = options;
 
         //errors
@@ -40,10 +41,12 @@ module.exports = class {
         this.client.on('ready', async () => {
             
             //Global commands auto delete
-            let gcmds = await this.client.api.applications(this.client.user.id).commands().get()
-            gcmds.filter(c => !(this.client.commands.filter(m => !m.guilds).map(m => m.name.toLowerCase()).includes(c.name.toLowerCase()))).forEach(e =>{
-                this.client.api.applications(this.client.user.id).commands(e.id).then(m => console.log("Command: "+e.name+" was deleted"))
-            })
+            if (autoDelete == true){
+                let gcmds = await this.client.api.applications(this.client.user.id).commands().get()
+                gcmds.filter(c => !(this.client.commands.filter(m => !m.guilds).map(m => m.name.toLowerCase()).includes(c.name.toLowerCase()))).forEach(e =>{
+                    this.client.api.applications(this.client.user.id).commands(e.id).then(m => console.log("Command: "+e.name+" was deleted"))
+                })
+            }
 
             //commands registration
             this.client.commands.each(async e => {
@@ -80,5 +83,15 @@ module.exports = class {
             require(path.resolve(__dirname,'./init'))(interaction, this.client)
         })
 
+    }
+    delete(guilds, info){
+        if (!this.client.readyAt) throw new Error('Cannot use this method before client is ready.\nUse this method inside ready event');
+        if (!guilds || !info) throw new Error('Missing params: `guilds:Array, info:Object` are required')
+        guilds.forEach(g => {
+            let cmds = await this.client.api.applications(this.client.user.id).guilds(g).commands().get()
+            let cmd = cmds.find(m => m.id == info.id || m.name.toLowerCase() == info.name.toLowerCase())
+            if (!cmd) return;
+            this.client.api.applications(this.client.user.id).guilds(g).commands(cmd.id).delete()
+        })
     }
 }
