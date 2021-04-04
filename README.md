@@ -104,7 +104,7 @@ setTimeout(() => {
 }, 5000)
 ```
 ## Follow-up Messages
-Follow-up messages allows you to send multiple messages from a single interaction. Here is an example of sending a follow-up message.
+Follow-up messages allows you to send multiple messages from a single interaction. Here is an example.
 
 ```js
 let m = await interaction.reply("Bello")
