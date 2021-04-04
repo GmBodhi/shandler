@@ -95,7 +95,7 @@ class SHClient {
         })
 
     }
-    delete(guilds, info){
+    async delete(guilds, info){
         if (!this.client.readyAt) throw new Error('Cannot use this method before client is ready.\nUse this method inside ready event');
         if (!guilds || !info) throw new Error('Missing params: `guilds:Array, info:Object` are required')
         guilds.forEach((g) => {
