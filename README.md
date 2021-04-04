@@ -21,7 +21,7 @@ npm i shandler
 **Free advice:** Please don't copy paste.
 ```js
 //index.js
-const Shandler = require('shandler')
+const {SHClient} = require('shandler')
 const Discord = require('discord.js')
 
 const client = new Discord.Client()
@@ -31,7 +31,7 @@ const options = {
     showLogs: 'extra', // "extra"|"normal"|null (default: "extra")
 }
 
-const handler = new Shandler(client, options)
+const handler = new SHClient(client, options)
 
 ```
 #### Let's make a command file.
