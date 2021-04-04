@@ -1,6 +1,6 @@
 # What is this package about..?
 
-This is a package is a command handler for discord's new **Slash Commands**. Using this package you can send/edit/delete an interaction response. You can ask for help in our [Support server](https://discord.gg/tMWmEJFq4m).
+This is a package is a command handler for discord's new **Slash Commands**. Using this package you can send/edit/delete an interaction response. Also supports followup messages. You can ask for help in our [Support server](https://discord.gg/tMWmEJFq4m).
 
 ## Table of Contents
 * [Installation](#Installation)
@@ -8,6 +8,7 @@ This is a package is a command handler for discord's new **Slash Commands**. Usi
 * [Interaction object](#Interaction-object)
     * [Properties](#Properties)
     * [Methods](#Methods)
+* [Follow-up Messages](#Follow-up-Messages)
 
 ## Installation
 
@@ -40,7 +41,7 @@ module.exports = {
     name: 'ping',// if (!name) command name == filename.
     description: 'Is this unusual?',//Default: "An awesome command..!"
     options:[]//We will cover this in the next part
-    guilds : [] /*This is for guild specific command registration
+    guilds: [] /*This is for guild specific command registration
     if this is empty, this command will be registered globally*/
     async run({interaction, client}){
         let ping = Date.now()
@@ -74,6 +75,7 @@ Unlike discord's normal interaction object shandler's interaction object has mor
 }
 ```
 [Guildmember object](https://discord.js.org/#/docs/main/stable/class/GuildMember)<br>
+[Client object](https://discord.js.org/#/docs/main/stable/class/Client)<br>
 [Guild object](https://discord.js.org/#/docs/main/stable/class/Guild)<br>
 [Channel object](https://discord.js.org/#/docs/main/stable/class/Channel)<br>
 ## Methods
@@ -85,7 +87,7 @@ interaction.reply('Bello').then(console.log)
 ```
  returns <Promise FInteraction\>
 ### Edit
-Edits an interaction response
+Edits an interaction response which was sent using the `.reply()` method ( using this method without sending a response can cause errors )
 ```js
 interaction.reply('Bello').then(console.log)
 setTimeout(() => {
@@ -94,10 +96,19 @@ setTimeout(() => {
 ```
  returns <Promise FInteraction\>
 ### Delete
-Deletes an interaction respnse
+Deletes an interaction respnse which was sent using the `.reply()` method ( using this method without sending a response can cause errors )
 ```js
 interaction.reply('Bello').then(console.log)
 setTimeout(() => {
     interaction.delete()
 }, 5000)
 ```
+## Follow-up Messages
+Follow-up messages allows you to send multiple messages from a single interaction. Here is an example of sending a follow-up message.
+
+```js
+let m = await interaction.reply("Bello")
+let i = await m.reply("This is a follow-up message")
+i.reply("This is another follow-up message").then(console.log)
+```
+Follow-up messages and interaction responses work with a unique interaction token which is generated when an interaction is created. This token is only valid for 15 minutes, interaction response/follow-up message sent after that won't be successful
