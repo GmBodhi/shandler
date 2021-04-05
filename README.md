@@ -1,10 +1,12 @@
 # What is this package about..?
 
-This is a package is a command handler for discord's new **Slash Commands**. Using this package you can send/edit/delete an interaction response. Also supports followup messages. You can ask for help in our [Support server](https://discord.gg/tMWmEJFq4m).
+This is a package is a wrapper/command-handler for discord's new **Slash Commands**. Using this package you can send/edit/delete an interaction response. Also supports followup messages. You can ask for help in our [Support server](https://discord.gg/tMWmEJFq4m). Consider supporting us 
 
 ## Table of Contents
 * [Installation](#Installation)
 * [Basic-usage](#Basic-usage)
+    * [Command-handler](#Command-handler)
+    * [Wrapper](#Wrapper)
 * [Interaction object](#Interaction-object)
     * [Properties](#Properties)
     * [Methods](#Methods)
@@ -17,6 +19,9 @@ npm i shandler
 ```
 
 ## Basic usage
+You can use this package as a [wrapper](#Wrapper) for the discord api or as a [command handler](#Command-handler)
+### Command handler
+
 #### Setup
 **Free advice:** Please don't copy paste.
 ```js
@@ -29,6 +34,8 @@ const client = new Discord.Client()
 const options = {
     commandsDir: './commands', // commands folder path (required)
     showLogs: 'extra', // "extra"|"normal"|null (default: "extra")
+    wrapper: false, // defaults to false
+    cLogs: true // logs most of the resolved promises
 }
 
 const handler = new SHClient(client, options)
@@ -45,13 +52,56 @@ module.exports = {
     if this is empty, this command will be registered globally*/
     async run({interaction, client}){
         let ping = Date.now()
-        interaction.reply("Pinging..!")
-        interaction.edit('My ping is '+ Date.now() - ping +'ms')
+        interaction.reply("Pinging..!").then(m => {
+            m.edit('My ping is '+ Date.now() - ping +'ms')
+        })
     }
 }
 ```
-## Command Options
+#### Command Options
 You might've thought what all we can do with the `options`. Well you can refer [here](https://discord.com/developers/docs/interactions/slash-commands#applicationcommandoption)
+
+### Wrapper
+#### setup
+```js
+//index.js
+const {SHClient} = require('shandler')
+const Discord = require('discord.js')
+
+const client = new Discord.Client()
+
+const options = {
+    showLogs: 'extra', // "extra"|"normal"|null (default: "extra")
+    wrapper: true // defaults to false
+}
+const commands = [
+    {
+        name:'ping',
+        description:'Is this unusual?',
+        options:[]
+    },
+    {
+        name:'user',
+        description:'Shows the info of a user',
+        options:[
+            {
+                name:'user',
+                description:'A user..!',
+                type: 6
+            }
+        ]
+    }
+]
+const handler = new SHClient(client, options)
+
+client.on('ready', () => {
+    handler.create(commands)
+})
+handler.on('interaction', (interaction) => {
+    console.log(interaction.data)
+})
+
+```
 ## Interaction object
 Unlike discord's normal interaction object shandler's interaction object has more properties and disscord.js methods. 
 ## Properties
