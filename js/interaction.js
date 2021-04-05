@@ -1,5 +1,6 @@
-import callback from './callback'
+const callback = require('./callback')
 const { APIMessage } = require("discord.js")
+const {createAPIMessage} = require('./api')
 
 
 class Interaction {
@@ -7,6 +8,7 @@ class Interaction {
         
         let { channel, guild, client, member } = options
         this.type = interaction.type
+        this.uid = 1
         this.token = interaction.token
         this.member = member
         this.id = interaction.id
@@ -17,38 +19,20 @@ class Interaction {
 
     }
 
-     async reply(res, options){
-        let {type = 4} = options
+     async reply(res, options = {}){
+        let { type } = options
         if (!res) throw new Error('Cannot send an empty message.')
-        let apiMessage;
-        if (res instanceof APIMessage){
-            apiMessage = res.resolveData()
-        }else{
-            apiMessage = APIMessage.create(this.channel, res, options)
+        if (typeof res == 'string'){ data = {
+            content:res
+        }}else{
+            data = await createAPIMessage()
         }
-        const {data, files} = await apiMessage.resolveFiles();
-        // @ts-ignore
-        data.type = type;
-        return this.client.api.webhooks(this.interaction.id, this.interaction.token).callback
-        .post({ data, files })
+        return this.client.api.interactions(this.id, this.token).callback
+        .post({ data:{
+            type: (options?.type ? options?.type : 4),
+            data:data
+        }, files })
         .then(async (m) => await callback(this, m))
-    }
-
-
-    async edit(content, options){
-        if (!content) throw new Error('content can\'t be empty')
-        const {data} = APIMessage.create(this.channel, content, options)
-        let { type = 4 } = options.type;
-        // @ts-ignore
-        data.type = type;
-        return this.client.api.webhooks(this.client.user.id, this.token).messages('@original')
-        .patch({ data })
-        .then(async (m) => await callback(this, m))
-    }
-
-    delete(){
-        //@ts-ignore
-        this.client.api.webhooks(this.client.user.id, this.token).messages('@original').delete()
     }
     
 }

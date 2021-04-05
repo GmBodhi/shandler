@@ -1,10 +1,12 @@
 const callback = require('./callback');
 const { APIMessage } = require('discord.js');
+const {createAPIMessage} = require('./api')
 
 
 class FInteraction {
     constructor(client, res, extras){
         this.id = res.id
+        this.uid = 2
         this.token = res.token
         this.type = res.type
         this.client = client
@@ -23,40 +25,58 @@ class FInteraction {
         this.editedTimestamp = res.edited_timestamp
         this.flags = res.flags
         this.webhookID = res.webhook_id
-        this.messageRefID = res.message_reference.message_id
+        this.messageRefID = res.message_reference?.message_id ? res.message_reference?.message_id : null
     }
 
     async reply(res, options){
         let {type = 4} = options
         if (!res) throw new Error('content cannot be empty.')
-        let apiMessage;
-        if (res instanceof APIMessage){
-            apiMessage = res.resolveData()
+        if (typeof content == 'string'){
+            data = {
+                content:res
+            }
         }else{
-            apiMessage = APIMessage.create(this.channel, res, options)
+            data = {
+                embeds:options.embeds || [options.embed]
+            }
         }
-        const {data, files} = await apiMessage.resolveFiles();
-        // @ts-ignore
-        data.type = type;
+
         return this.client.api.webhooks(this.client.user.id, this.token)
-        .post({ data, files })
+        .post({ data:{
+                type: type||4,
+                content: data.content || "",
+                embeds: data.embeds || [],
+                tts: options.tts || false
+        } })
         .then(async (m) => await callback(this, m))
     }
 
-    async edit(content, options){
+    async edit(content, options = {}){
         if (!content) throw new Error('content can\'t be empty')
-        const {data} = APIMessage.create(this.channel, content, options)
-        let { type = 4 } = options.type;
-        // @ts-ignore
-        data.type = type;
-        return this.client.api.webhooks(this.client.user.id, this.token).messages(this.id)
-        .patch({ data })
+        let { type = 4 } = options,data;
+        if (typeof content == 'string'){
+            data = {
+                content:content
+            }
+        }else{
+            data = {
+                embeds:options.embeds || [options.embed]
+            }
+        }
+        data.type = type || 4
+        return this.client.api.webhooks(this.client.user.id, this.token).messages(this.messageRefID)
+        .patch({ data:{
+            type: type||4,
+            content: data.content || "",
+            embeds: data.embeds || [],
+            tts: options.tts || false
+         } })
         .then(async (m) => await callback(this, m))
     }
 
     delete(){
         // @ts-ignore
-        this.client.api.webhooks(this.client.user.id, this.token).messages(this.id).delete()
+        return await this.client.api.webhooks(this.client.user.id, this.token).messages(this.messageRefID).delete()
     }
 }
 

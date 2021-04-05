@@ -1,5 +1,6 @@
 const fs = require('fs')
 const path = require('path')
+const {Collection} = require('discord.js')
 
 
 class SHClient {
@@ -20,7 +21,8 @@ class SHClient {
         
         this.client = client
         this.cLogs = cLogs
-
+        
+        this.client.on('ready', async () => {
         //command registration
         // @ts-ignore
         let app = this.client.api.applications(client.user.id)
@@ -28,16 +30,16 @@ class SHClient {
         this.client.commands = new Collection()
         
         const cmdfls = fs.readdirSync(path.resolve(process.cwd(), commandsDir)).filter(m => m.endsWith('.js'))
-        for (const f in cmdfls) {
+        for (const f of cmdfls) {
             const scmd = require(path.resolve(process.cwd(), commandsDir, f))
             scmd.name = (scmd.name ? scmd.name : f.replace(/\.js$/i, ''))
+            scmd.description = (scmd.description ? scmd.description : "An awsome command")
             this.client.commands.set(scmd.name, scmd)
             if (showLogs == 'extra') console.log(scmd.name+' was loaded')
         }
         if (showLogs == 'normal') console.log(this.client.commands.size+' Commands were loaded..!')
         
         
-        this.client.on('ready', async () => {
             
             //Global commands auto delete
             if (autoDelete == true){
@@ -56,7 +58,7 @@ class SHClient {
             let data = []
             
             this.client.commands.each(async e => {
-                if (!e.guilds.length){
+                if (!e.guilds){
                     data.push({
                         name: e.name,
                         description: e.description,
@@ -64,10 +66,10 @@ class SHClient {
                     })
                 } else {
                     e.guilds.forEach(async (el) => {
-                        app.guilds(el).commands.post({
+                        this.client.api.applications(this.client.user.id).guilds(el).commands.post({
                             data:{
                                 name: e.name,
-                                description: e.description || "An awesome command..!",
+                                description: e.description,
                                 options: e.options
                             }
                         }).then((m) =>{
@@ -77,12 +79,14 @@ class SHClient {
                     });
                 }
             })
+            if (data){
             app.commands.put({
                 data:data
             }).then((c) => {
                 if (cLogs) console.log(c)
                 if (showLogs == 'normal') console.log(c.length + " Commands were registered")
             }).catch(console.error)
+        }
             if (showLogs == 'normal') console.log(this.client.commands.size+ ' commands were registered on discord API')
 
                 if (showLogs == ('normal'||'extra')) console.log(this.client.user?.tag+' is ready.')
@@ -90,7 +94,7 @@ class SHClient {
 
 
         // @ts-ignore
-        this.client.ws.on('INTERACTION_CREATE', async (interaction) => {
+        this.client.ws.on('INTERACTION_CREATE', (interaction) => {
             require(path.resolve(__dirname,'./init'))(interaction, this.client)
         })
 
@@ -98,7 +102,7 @@ class SHClient {
     async delete(guilds, info){
         if (!this.client.readyAt) throw new Error('Cannot use this method before client is ready.\nUse this method inside ready event');
         if (!guilds || !info) throw new Error('Missing params: `guilds:Array, info:Object` are required')
-        guilds.forEach((g) => {
+        guilds.forEach(async (g) => {
             // @ts-ignore
             let cmds = await this.client.api.applications(this.client.user.id).guilds(g).commands.get()
             let cmd = cmds.find((m) => m.id == info.id || m.name.toLowerCase() == info.name.toLowerCase())
