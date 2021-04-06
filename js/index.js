@@ -207,4 +207,4 @@ class SHClient extends EventEmitter {
     }
 }
 
-module.exports = {SHClient}
+module.exports = SHClient

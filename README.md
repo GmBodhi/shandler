@@ -1,4 +1,4 @@
-# What is this package about..? [Official documentation](https://eximstudio.com/projects/shandler)
+# What is this package about..?
 
 This is a package is a wrapper/command-handler for discord's new **Slash Commands**. Using this package you can send/edit/delete an interaction response. Also supports followup messages. You can ask for help in our [Support server](https://discord.gg/tMWmEJFq4m). Consider supporting us 
 
@@ -7,10 +7,14 @@ This is a package is a wrapper/command-handler for discord's new **Slash Command
 * [Basic-usage](#Basic-usage)
     * [Command-handler](#Command-handler)
     * [Wrapper](#Wrapper)
+* [SHClien tOptions](#SHClient-Options)
 * [Interaction object](#Interaction-object)
     * [Properties](#Properties)
     * [Methods](#Methods)
 * [Follow-up Messages](#Follow-up-Messages)
+* [Commands](#Commands)
+    * [Registration](#Registration)
+    * [Deletion](#Deletion)
 
 ## Installation
 
@@ -26,7 +30,7 @@ You can use this package as a [wrapper](#Wrapper) for the discord api or as a [c
 **Free advice:** Please don't copy paste.
 ```js
 //index.js
-const {SHClient} = require('shandler')
+const SHClient = require('shandler')
 const Discord = require('discord.js')
 
 const client = new Discord.Client()
@@ -35,7 +39,9 @@ const options = {
     commandsDir: './commands', // commands folder path (required)
     showLogs: 'extra', // "extra"|"normal"|null (default: "extra")
     wrapper: false, // defaults to false
-    cLogs: true // logs most of the resolved promises
+    cLogs: true, // logs most of the resolved promises
+    autoDelete: true, // Automatically syncs the global application commands
+    autoRegister: true // Automatically register commands
 }
 
 const handler = new SHClient(client, options)
@@ -65,7 +71,7 @@ You might've thought what all we can do with the `options`. Well you can refer [
 #### setup.
 ```js
 //index.js
-const {SHClient} = require('shandler')
+const SHClient = require('shandler')
 const Discord = require('discord.js')
 
 const client = new Discord.Client()
@@ -111,10 +117,23 @@ client.on('ready', () => {
     handler.create(commands, guilds)
 })
 ```
-
+## SHClient Options
+```js
+// These are the default values
+{
+    commandsDir = '', // Commands dir
+    showLogs = 'extra', // ('extra'|'normal'|null)
+    autoDelete = true, // Automatically deletes the Global commands if command files are not found
+    cLogs = false, // Console.log most of the promises 
+    wrapper = false, /* Use this package as a wrapper 
+    You may need to delete/register commands 
+    using the create/delete methods*/
+    autoRegister = true // Automatically registers commands accoring to the command files
+}
+```
 ## Interaction object
 Unlike discord's normal interaction object shandler's interaction object has more properties and discord.js methods. 
-## Properties
+### Properties
 ```js
 {
     "type": 2,
@@ -138,15 +157,15 @@ Unlike discord's normal interaction object shandler's interaction object has mor
 [Client object](https://discord.js.org/#/docs/main/stable/class/Client)<br>
 [Guild object](https://discord.js.org/#/docs/main/stable/class/Guild)<br>
 [Channel object](https://discord.js.org/#/docs/main/stable/class/Channel)<br>
-## Methods
+### Methods
 
-### Reply
+#### Reply
 Responds to an interaction
 ```js
 interaction.reply('Bello').then(console.log)
 ```
  returns <Promise [FInteraction]()\>
-### Edit
+#### Edit
 Edits an interaction response which was sent using the `.reply()` method.
 ```js
 interaction.reply('Bello').then(m => {
@@ -155,7 +174,7 @@ interaction.reply('Bello').then(m => {
 
 ```
  returns <Promise [FInteraction]()\>
-### Delete
+#### Delete
 Deletes an interaction respnse which was sent using the `.reply()` method.
 ```js
 interaction.reply('Bello').then(m => {
@@ -173,3 +192,9 @@ let i = await m.reply("This is a follow-up message")
 i.reply("This is another follow-up message").then(console.log)
 ```
 Follow-up messages and interaction responses work with a unique interaction token which is generated when an interaction is created. This token is only valid for 15 minutes, interaction response/follow-up message sent after that won't be successful
+
+## Commands
+For registering and deleting commands, you can use the following methods (Guild specific commands won't be automatically deleted even if `autoDelete` is `true`)
+### Registration
+
+### Deletion
