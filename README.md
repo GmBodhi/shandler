@@ -7,7 +7,7 @@ This is a package is a wrapper/command-handler for discord's new **Slash Command
 * [Basic-usage](#Basic-usage)
     * [Command-handler](#Command-handler)
     * [Wrapper](#Wrapper)
-* [SHClien tOptions](#SHClient-Options)
+* [SHClient Options](#SHClient-Options)
 * [Interaction object](#Interaction-object)
     * [Properties](#Properties)
     * [Methods](#Methods)
