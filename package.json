@@ -1,7 +1,7 @@
 {
   "name": "shandler",
-  "version": "1.0.0",
-  "description": "A module for Discord Slash command handling",
+  "version": "1.0.1",
+  "description": "A module for Discord Slash command wrapper/handling",
   "main": "js/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
