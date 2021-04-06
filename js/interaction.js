@@ -28,7 +28,6 @@ class Interaction {
         
         let { channel, guild, client, member } = options
         this.type = interaction.type
-        this.uid = 1
         this.token = interaction.token
         this.member = member
         this.id = interaction.id
@@ -43,9 +42,10 @@ class Interaction {
      * @param {String} res - The message string or embed object
      * @param {Options} options - Options that should be passed to the api
      * @returns {Object}  FInteraction object
+     * @example
+     * interaction.reply("Bello")
      */
      async reply(res, options = {}){
-        let { type } = options
         let data;
         if (!res && !options.embed && !options.embeds) throw new Error('Cannot send an empty message.')
         if (typeof res == 'string'){
@@ -53,7 +53,7 @@ class Interaction {
                 content:res
             }
         }else{
-            data = await createAPIMessage()
+            data = await createAPIMessage(this, res, this.client)
         }
         return this.client.api.interactions(this.id, this.token).callback
         .post({ data:{

@@ -63,6 +63,16 @@ class FInteraction {
      * @param {String} res - The message string
      * @param {Options} options - Options that should be passed to the api
      * @returns {Object}  FInteraction object
+     * @example 
+     * interaction.reply('Bello').then(console.log)
+     * @example
+     * let embed = new MessageEmbed()
+     *      .setTitle("This is an embed title")
+     *      .setDescription("Bello, this is a description")
+     *      .setColor("RANDOM")
+     * interaction.reply("Let me send my first embed").then(m => {
+     *      m.reply("",{embed:embed})
+     * })
      */
     async reply(res, options = {}){
         let {
@@ -94,6 +104,10 @@ class FInteraction {
      * @param {String} content - The message string
      * @param {Options} options - Options that should be passed to the api
      * @returns {Object} - FInteraction object
+     * @example
+     * interaction.reply("Bello").then(m => {
+     *      m.edit("Pog")
+     * })
      */
     async edit(content, options = {}){
         if (!content && !options.embed && !options.embeds) throw new Error('content can\'t be empty')
@@ -120,6 +134,10 @@ class FInteraction {
     /**
      * Deletes an interaction response or follow-up message
      * @returns {Object}
+     * @example
+     * interaction.reply("Bello").then(m =>{
+     *      m.delete("Bello")
+     * })
      */
     async delete(){
         // @ts-ignore
