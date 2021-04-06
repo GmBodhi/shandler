@@ -1,4 +1,4 @@
-# What is this package about..?
+# What is this package about..? [Official documentation](https://eximstudio.com/projects/shandler)
 
 This is a package is a wrapper/command-handler for discord's new **Slash Commands**. Using this package you can send/edit/delete an interaction response. Also supports followup messages. You can ask for help in our [Support server](https://discord.gg/tMWmEJFq4m). Consider supporting us 
 
@@ -62,7 +62,7 @@ module.exports = {
 You might've thought what all we can do with the `options`. Well you can refer [here](https://discord.com/developers/docs/interactions/slash-commands#applicationcommandoption)
 
 ### Wrapper
-#### setup
+#### setup.
 ```js
 //index.js
 const {SHClient} = require('shandler')
@@ -74,6 +74,20 @@ const options = {
     showLogs: 'extra', // "extra"|"normal"|null (default: "extra")
     wrapper: true // defaults to false
 }
+
+const handler = new SHClient(client, options)
+
+client.on('ready', () => {
+    console.log(client.user.tag, "is ready")
+})
+handler.on('interaction', (interaction) => {
+    console.log(interaction)
+})
+
+```
+
+#### Registering a command
+```js
 const commands = [
     {
         name:'ping',
@@ -92,18 +106,14 @@ const commands = [
         ]
     }
 ]
-const handler = new SHClient(client, options)
-
+const guilds = [] //for guild specific commands pass an array for guildIDs
 client.on('ready', () => {
-    handler.create(commands)
+    handler.create(commands, guilds)
 })
-handler.on('interaction', (interaction) => {
-    console.log(interaction.data)
-})
-
 ```
+
 ## Interaction object
-Unlike discord's normal interaction object shandler's interaction object has more properties and disscord.js methods. 
+Unlike discord's normal interaction object shandler's interaction object has more properties and discord.js methods. 
 ## Properties
 ```js
 {
@@ -135,23 +145,24 @@ Responds to an interaction
 ```js
 interaction.reply('Bello').then(console.log)
 ```
- returns <Promise FInteraction\>
+ returns <Promise [FInteraction]()\>
 ### Edit
-Edits an interaction response which was sent using the `.reply()` method ( using this method without sending a response can cause errors )
+Edits an interaction response which was sent using the `.reply()` method.
 ```js
-interaction.reply('Bello').then(console.log)
-setTimeout(() => {
-    interaction.edit('Pog').then(console.log)
-}, 5000)
+interaction.reply('Bello').then(m => {
+    m.edit("Pog)
+})
+
 ```
- returns <Promise FInteraction\>
+ returns <Promise [FInteraction]()\>
 ### Delete
-Deletes an interaction respnse which was sent using the `.reply()` method ( using this method without sending a response can cause errors )
+Deletes an interaction respnse which was sent using the `.reply()` method.
 ```js
-interaction.reply('Bello').then(console.log)
-setTimeout(() => {
-    interaction.delete()
-}, 5000)
+interaction.reply('Bello').then(m => {
+    setTimeout(() => {
+        m.delete()
+    }, 5000)
+})
 ```
 ## Follow-up Messages
 Follow-up messages allows you to send multiple messages from a single interaction. Here is an example.

@@ -19,6 +19,11 @@ const Callback = async (res, data) =>{
 }
 
 class Interaction {
+    /**
+     * Class for replaying to an interaction or other purposes
+     * @param {Object} interaction - Raw interaction object from the api
+     * @param {*} options - Extra data
+     */
     constructor(interaction, options){
         
         let { channel, guild, client, member } = options
@@ -33,14 +38,21 @@ class Interaction {
         this.channel = channel
 
     }
-
+    /**
+     * Sends an Interaction response
+     * @param {String} res - The message string or embed object
+     * @param {Options} options - Options that should be passed to the api
+     * @returns {Object}  FInteraction object
+     */
      async reply(res, options = {}){
         let { type } = options
         let data;
-        if (!res) throw new Error('Cannot send an empty message.')
-        if (typeof res == 'string'){ data = {
-            content:res
-        }}else{
+        if (!res && !options.embed && !options.embeds) throw new Error('Cannot send an empty message.')
+        if (typeof res == 'string'){
+            data = {
+                content:res
+            }
+        }else{
             data = await createAPIMessage()
         }
         return this.client.api.interactions(this.id, this.token).callback

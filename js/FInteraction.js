@@ -1,5 +1,14 @@
-const { APIMessage } = require('discord.js');
+const { APIMessage, Client } = require('discord.js');
 const {createAPIMessage} = require('./api')
+
+/**
+ * An object 
+ * @typedef {Object} Options
+ * @property {number} type - InteractionResponseType - {@link https://discord.com/developers/docs/interactions/slash-commands#interaction-response-interactionresponsetype| InteractionResponseType}
+ * @property {Object} embed - MessageEmbed object or JSON embed object
+ * @property {Boolean} tts - Text To Speech
+ * @property {Array} embeds - Array of embeds
+ */
 
 const Callback = async (res, data) =>{
     if (!data || !res) return;
@@ -19,6 +28,13 @@ const Callback = async (res, data) =>{
 
 
 class FInteraction {
+    /**
+     * Class for followup messages or managing interaction responses
+     * @param {Client} client - Discord.js Client object
+     * @param {Object} res - data received from api
+     * @param {Object} extras - Extra objects for extended capabilities
+     * @class
+     */
     constructor(client, res, extras){
         this.id = res.id
         this.token = res.token
@@ -41,29 +57,46 @@ class FInteraction {
         this.webhookID = res.webhook_id
         this.messageRefID = res.message_reference?.message_id ? res.message_reference?.message_id : "@original"
     }
-
+    
+    /**
+     * Sends a follow-up message
+     * @param {String} res - The message string
+     * @param {Options} options - Options that should be passed to the api
+     * @returns {Object}  FInteraction object
+     */
     async reply(res, options = {}){
-        let {type = 4} = options, data;
-        if (!res) throw new Error('content cannot be empty.')
+        let {
+            type = 4,
+            embed = null,
+            embeds = [],
+            tts = false
+        } = options
+        if (!res && !options.embed && !options.embeds) throw new Error('content cannot be empty.')
         console.log(typeof(content))
 
-        data = {
-                content:res || "",
-                embeds:options.embeds || [options.embed]
+        let data = {
+                content: res || "",
+                embeds: embeds || [embed]
             }
 
         return this.client.api.webhooks(this.client.user.id, this.token)
         .post({ data:{
-                type: type || 4,
-                content: data.content || "",
-                embeds: data.embeds || null,
-                tts: options.tts || false
+                type: type,
+                content: data.content,
+                embeds: data.embeds,
+                tts: tts 
         } })
         .then(async (m) => await Callback(this, m))
     }
 
+    /**
+     * Edits an interaction response or follow-up message
+     * @param {String} content - The message string
+     * @param {Options} options - Options that should be passed to the api
+     * @returns {Object} - FInteraction object
+     */
     async edit(content, options = {}){
-        if (!content) throw new Error('content can\'t be empty')
+        if (!content && !options.embed && !options.embeds) throw new Error('content can\'t be empty')
         let { type = 4 } = options,data;
         if (typeof content == 'string'){
             data = {
@@ -84,7 +117,10 @@ class FInteraction {
          } })
         .then(async (m) => await Callback(this, m).catch(console.error)).catch(console.error)
     }
-
+    /**
+     * Deletes an interaction response or follow-up message
+     * @returns {Object}
+     */
     async delete(){
         // @ts-ignore
         return await this.client.api.webhooks(this.client.user.id, this.token).messages(this.messageRefID).delete().catch(console.error)
