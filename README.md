@@ -3,18 +3,18 @@
 This is a wrapper/command-handler for discord's new **Slash Commands**. Using this package you can send/edit/delete an interaction response. Also supports followup messages. You can ask for help in our [Support server](https://discord.gg/tMWmEJFq4m). Consider supporting us 
 
 ## Table of Contents
-* [Installation](#Installation)
-* [Basic-usage](#Basic-usage)
-    * [Command-handler](#Command-handler)
-    * [Wrapper](#Wrapper)
-* [SHClient Options](#SHClient-Options)
-* [Interaction object](#Interaction-object)
-    * [Properties](#Properties)
-    * [Methods](#Methods)
-* [Follow-up Messages](#Follow-up-Messages)
-* [Commands](#Commands)
-    * [Registration](#Registration)
-    * [Deletion](#Deletion)
+* [Installation](#installation)
+* [Basic-usage](#basic-usage)
+    * [Command-handler](#command-handler)
+    * [Wrapper](#wrapper)
+* [SHClient Options](#shclient-options)
+* [Interaction object](#interaction-object)
+    * [Properties](#properties)
+    * [Methods](#methods)
+* [Follow-up Messages](#follow-up-messages)
+* [Commands](#dommands)
+    * [Registration](#registering-a-command)
+    * [Deletion](#deletion)
 
 ## Installation
 
@@ -93,6 +93,7 @@ handler.on('interaction', (interaction) => {
 ```
 
 #### Registering a command
+for registering a command you can use the `.create()` method.
 ```js
 const commands = [
     {
@@ -195,6 +196,24 @@ Follow-up messages and interaction responses work with a unique interaction toke
 
 ## Commands
 For registering and deleting commands, you can use the following methods (Guild specific commands won't be automatically deleted even if `autoDelete` is `true`)
-### Registration
 
 ### Deletion
+For deleting commands you can use the `.delete()` method.
+```js
+const commands = [
+    {
+        name:'ping',//this is optional when there is an id
+        id:'965874566987541265'/* this is optional when there is a name,
+        as we will fetch all the commands and then find the command
+        according to the given values */
+    },
+    {
+        name:'user',
+        id:'877645876978676234'
+    }
+]
+const guild = []
+client.on('ready', () => {
+    handler.delete(commands,guild)
+})
+```
