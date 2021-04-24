@@ -170,7 +170,7 @@ interaction.reply('Bello').then(console.log)
 Edits an interaction response which was sent using the `.reply()` method.
 ```js
 interaction.reply('Bello').then(m => {
-    m.edit("Pog)
+    m.edit("Pog")
 })
 
 ```
