@@ -46,18 +46,24 @@ class Interaction {
      * interaction.reply("Bello")
      */
      async reply(res, options = {}){
+        let {
+            embed,
+            embeds,
+            flags = null,
+            type = 4,
+            tts = false
+        }
         let data;
         if (!res && !options.embed && !options.embeds) throw new Error('Cannot send an empty message.')
-        if (typeof res == 'string'){
-            data = {
-                content:res
+        let data = {
+                content: res || "",
+                embeds: embeds || [embed],
+                flags: flags,
+                tts: tts
             }
-        }else{
-            data = await createAPIMessage(this, res, this.client)
-        }
         return this.client.api.interactions(this.id, this.token).callback
         .post({ data:{
-            type: (options?.type ? options?.type : 4),
+            type: type,
             data:data
         } })
         .then(async (m) => await Callback(this, m))
