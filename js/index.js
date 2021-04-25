@@ -4,12 +4,22 @@ const EventEmitter = require('events')
 const {Collection} = require('discord.js')
 const Interaction = require('./interaction')
 
+/**
+ * An object 
+ * @typedef {Object} HandlerOptions 
+ * @property {string} commandsDir - Dir for the commads
+ * @property {string} showLogs - (extra | normal | null)
+ * @property {boolean} autoDelete - Whether to register the commands
+ * @property {boolean} autoRegister - whether to delete the not found commands
+ * @property {boolean} cLogs - show console.log of most of the promises
+ * @property {boolean} wrapper - Use this package as a wrapper
+ */
 
 class SHClient extends EventEmitter {
 /**
  * Main class representing the wrapper/command-handler
  * @param {Object} client - Discord.js client object {@link https://discord.js.org/#/docs/main/stable/class/Client| Discord.js CLient}
- * @param {HandlerOptions} options - Options for this. {@link https://eximstudio.com/projects/shandler| Click here} for more info.
+ * @param {HandlerOptions} options - Options
  */
     constructor (client, options = {}){
         super()
@@ -29,6 +39,8 @@ class SHClient extends EventEmitter {
         
         this.client = client
         this.cLogs = cLogs
+        this._slogs = showLogs
+        this._cLogs = cLogs
         
         this.client.on('ready', async () => {
             //command registration
@@ -190,18 +202,18 @@ class SHClient extends EventEmitter {
                                 options: e.options
                             }
                         }).then((m) =>{
-                            if (showLogs == 'extra') console.log('Command: '+e.name+' was registered for: '+el)
-                            if (cLogs) console.log(m)
+                            if (this._slogs == 'extra') console.log('Command: '+e.name+' was registered for: '+el)
+                            if (this._cLogs) console.log(m)
                         })
                     });
                 }
         })
         if (data){
-        this.client.api.applications(client.user.id).commands.put({
+        this.client.api.applications(this.client.user.id).commands.put({
             data:data
         }).then((c) => {
-            if (cLogs) console.log(c)
-            if (showLogs == 'normal') console.log(c.length + " Commands were registered")
+            if (this._cLogs) console.log(c)
+            if (this._slogs == 'normal') console.log(c.length + " Commands were registered")
         }).catch(console.error)
     }
     }

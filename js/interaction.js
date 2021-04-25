@@ -53,7 +53,7 @@ class Interaction {
         } = options
         let data;
         if (!res && !options.embed && !options.embeds) throw new Error('Cannot send an empty message.')
-        let data = {
+         data = {
                 content: res || "",
                 embeds: embeds || [embed],
                 flags: flags,

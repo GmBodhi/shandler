@@ -7,6 +7,7 @@ const { Client } = require('discord.js');
  * @property {Object} embed - MessageEmbed object or JSON embed object
  * @property {Boolean} tts - Text To Speech
  * @property {Array} embeds - Array of embeds
+ * @property {number} flags - flag of the response (setting this to 64 will make it ephemeral)
  */
 
 const Callback = async (res, data) =>{
