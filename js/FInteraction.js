@@ -79,7 +79,8 @@ class FInteraction {
             type = 4,
             embed = null,
             embeds = [],
-            tts = false
+            tts = false,
+            flags = null
         } = options
         if (!res && !options.embed && !options.embeds) throw new Error('content cannot be empty.')
         console.log(typeof(content))
@@ -94,7 +95,8 @@ class FInteraction {
                 type: type,
                 content: data.content,
                 embeds: data.embeds,
-                tts: tts 
+                tts: tts,
+                flags: flags
         } })
         .then(async (m) => await Callback(this, m))
     }
@@ -127,7 +129,8 @@ class FInteraction {
             type: type||4,
             content: data.content || "",
             embeds: data.embeds || [],
-            tts: options.tts || false
+            tts: options.tts || false,
+            flags: options.flags || null
          } })
         .then(async (m) => await Callback(this, m).catch(console.error)).catch(console.error)
     }
