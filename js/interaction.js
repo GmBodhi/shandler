@@ -1,5 +1,3 @@
-const { APIMessage } = require("discord.js")
-const {createAPIMessage} = require('./api')
 const FInteraction = require('./FInteraction')
 
 const Callback = async (res, data) =>{
