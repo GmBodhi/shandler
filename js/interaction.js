@@ -52,7 +52,7 @@ class Interaction {
             flags = null,
             type = 4,
             tts = false
-        }
+        } = options
         let data;
         if (!res && !options.embed && !options.embeds) throw new Error('Cannot send an empty message.')
         let data = {
