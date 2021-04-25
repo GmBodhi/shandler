@@ -83,7 +83,6 @@ class FInteraction {
             flags = null
         } = options
         if (!res && !options.embed && !options.embeds) throw new Error('content cannot be empty.')
-        console.log(typeof(content))
 
         let data = {
                 content: res || "",
