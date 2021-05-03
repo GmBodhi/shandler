@@ -78,7 +78,7 @@ class FInteraction {
         let {
             type = 4,
             embed = null,
-            embeds = [],
+            embeds = null,
             tts = false,
             flags = null
         } = options

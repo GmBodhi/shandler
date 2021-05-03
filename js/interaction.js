@@ -46,7 +46,7 @@ class Interaction {
      async reply(res, options = {}){
         let {
             embed = null,
-            embeds = [],
+            embeds = null,
             flags = null,
             type = 4,
             tts = false
