@@ -77,23 +77,19 @@ class FInteraction {
     async reply(res, options = {}){
         let {
             type = 4,
-            embed = null,
-            embeds = null,
+            embed,
+            embeds = [],
             tts = false,
             flags = null
         } = options
-        if (!res && !options.embed && !options.embeds) throw new Error('content cannot be empty.')
+        if (!res && !embed && !embeds) throw new Error('content cannot be empty.')
 
-        let data = {
-                content: res || "",
-                embeds: embeds || [embed]
-            }
-
+        if (embed) embeds.push(embed)
         return this.client.api.webhooks(this.client.user.id, this.token)
         .post({ data:{
                 type: type,
-                content: data.content,
-                embeds: data.embeds,
+                content: res,
+                embeds: embeds,
                 tts: tts,
                 flags: flags
         } })
@@ -110,26 +106,24 @@ class FInteraction {
      *      m.edit("Pog")
      * })
      */
-    async edit(content, options = {}){
+    async edit(content = "", options = {}){
         if (!content && !options.embed && !options.embeds) throw new Error('content can\'t be empty')
-        let { type = 4 } = options,data;
-        if (typeof content == 'string'){
-            data = {
-                content:content
-            }
-        }else{
-            data = {
-                embeds:options.embeds || [options.embed]
-            }
-        }
-        data.type = type || 4
+        let {
+            type = 4,
+            embed,
+            embeds = [],
+            tts = false,
+            flags
+        } = options;
+
+        if (embed) embeds.push(embed)
         return this.client.api.webhooks(this.client.user.id, this.token).messages(this.messageRefID)
         .patch({ data:{
-            type: type||4,
-            content: data.content || "",
-            embeds: data.embeds || [],
-            tts: options.tts || false,
-            flags: options.flags || null
+            type: type,
+            content: content,
+            embeds: embeds,
+            tts: tts,
+            flags: flags
          } })
         .then(async (m) => await Callback(this, m).catch(console.error)).catch(console.error)
     }

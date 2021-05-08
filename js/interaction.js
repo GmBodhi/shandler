@@ -45,17 +45,18 @@ class Interaction {
      */
      async reply(res, options = {}){
         let {
-            embed = null,
-            embeds = null,
+            embed,
+            embeds = [],
             flags = null,
             type = 4,
             tts = false
         } = options
         let data;
         if (!res && !options.embed && !options.embeds) throw new Error('Cannot send an empty message.')
+        if (embed) embeds.push(embed)
          data = {
                 content: res || "",
-                embeds: embeds || [embed],
+                embeds: embeds,
                 flags: flags,
                 tts: tts
             }
