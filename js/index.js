@@ -85,7 +85,9 @@ class SHClient extends EventEmitter {
                                 data.push({
                                     name: e.name,
                                     description: e.description,
-                                    options: e.options
+                                    options: e.options,
+                                    default_permissions: e.defaultPermissions
+
                                 })
                             } else {
                                 e.guilds.forEach(async (el) => {
@@ -93,7 +95,9 @@ class SHClient extends EventEmitter {
                                         data:{
                                             name: e.name,
                                             description: e.description,
-                                            options: e.options
+                                            options: e.options,
+                                            default_permissions: e.defaultPermissions
+
                                         }
                                     }).then((m) =>{
                                         if (showLogs == 'extra') console.log('Command: '+e.name+' was registered for: '+el)
@@ -112,7 +116,7 @@ class SHClient extends EventEmitter {
                         }
                         if (showLogs == 'normal') console.log(this.client.commands.size+ ' commands were registered on discord API')
                         
-                        if (showLogs == ('normal'||'extra')) console.log(this.client.user?.tag+' is ready.')
+                        if (showLogs == ('normal'||'extra')) console.log('Bot is ready.')
                     }
                 }
         })
@@ -191,7 +195,8 @@ class SHClient extends EventEmitter {
                     data.push({
                         name: e.name,
                         description: e.description,
-                        options: e.options 
+                        options: e.options,
+                        default_permissions: e.defaultPermissions
                     })
                 } else {
                     e.guilds.forEach(async (el) => {
