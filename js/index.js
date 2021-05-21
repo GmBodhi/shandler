@@ -1,24 +1,24 @@
-const fs = require('fs')
-const path = require('path')
-const EventEmitter = require('events')
-const {Collection} = require('discord.js')
-const Interaction = require('./interaction')
+const fs = require('fs');
+const path = require('path');
+const EventEmitter = require('events');
+const Interaction = require('./interaction');
+const { Client, Collection } = require('discord.js');
 
 /**
  * An object 
  * @typedef {Object} HandlerOptions 
  * @property {string} commandsDir - Dir for the commads
  * @property {string} showLogs - (extra | normal | null)
- * @property {boolean} autoDelete - Whether to register the commands
- * @property {boolean} autoRegister - whether to delete the not found commands
- * @property {boolean} cLogs - show console.log of most of the promises
+ * @property {boolean} autoDelete - Whether to delete the not found commands
+ * @property {boolean} autoRegister - Whether to register the commands
+ * @property {boolean} cLogs - Show console.log of most of the promises
  * @property {boolean} wrapper - Use this package as a wrapper
  */
 
 class SHClient extends EventEmitter {
 /**
  * Main class representing the wrapper/command-handler
- * @param {Object} client - Discord.js client object {@link https://discord.js.org/#/docs/main/stable/class/Client| Discord.js CLient}
+ * @param {Client} client - Discord.js client object {@link https://discord.js.org/#/docs/main/stable/class/Client| Discord.js CLient}
  * @param {HandlerOptions} options - Options
  */
     constructor (client, options = {}){
@@ -37,29 +37,29 @@ class SHClient extends EventEmitter {
         if (!client) throw new Error('No discord.js client was provided\n Fix: Give discord.js client as the first argument.');
         if (!fs.existsSync(path.resolve(process.cwd(), commandsDir))) throw new Error(`Provided commands dir (${commandsDir}) does not exist`);
         
-        this.client = client
-        this.cLogs = cLogs
-        this._slogs = showLogs
-        this._cLogs = cLogs
+        this.client = client;
+        this.cLogs = cLogs;
+        this._slogs = showLogs;
+        this._cLogs = cLogs;
         
         this.client.on('ready', async () => {
             //command registration
             // @ts-ignore
-            let app = this.client.api.applications(client.user.id)
+            let app = this.client.api.applications(client.user.id);
             if (!wrapper){
-                this.client.commands = new Collection()
+                this.client.commands = new Collection();
                 
-                if (!commandsDir.length) throw new Error('please specify a commands folder')
-                const cmdfls = fs.readdirSync(path.resolve(process.cwd(), commandsDir)).filter(m => m.endsWith('.js'))
+                if (!commandsDir.length) throw new Error('please specify a commands folder');
+                const cmdfls = fs.readdirSync(path.resolve(process.cwd(), commandsDir)).filter(m => m.endsWith('.js'));
                 for (const f of cmdfls) {
-                    const scmd = require(path.resolve(process.cwd(), commandsDir, f))
-                    scmd.name = (scmd.name ? scmd.name : f.replace(/\.js$/i, ''))
-                    scmd.description = (scmd.description ? scmd.description : "An awsome command")
-                    if (client.commands.get(scmd.name)) throw new Error(`There are multiple commands with the name: ${scmd.name}`)
-                    this.client.commands.set(scmd.name, scmd)
-                    if (showLogs == 'extra') console.log(scmd.name+' was loaded')
+                    const scmd = require(path.resolve(process.cwd(), commandsDir, f));
+                    scmd.name = (scmd.name ? scmd.name : f.replace(/\.js$/i, ''));
+                    scmd.description = (scmd.description ? scmd.description : "An awsome command");
+                    if (client.commands.get(scmd.name)) throw new Error(`There are multiple commands with the name: ${scmd.name}`);
+                    this.client.commands.set(scmd.name, scmd);
+                    if (showLogs == 'extra') console.log(scmd.name + ' was loaded');
                 }
-                if (showLogs == 'normal') console.log(this.client.commands.size+' Commands were loaded..!')
+                if (showLogs == 'normal') console.log(this.client.commands.size + ' Commands were loaded..!');
         
         
         
