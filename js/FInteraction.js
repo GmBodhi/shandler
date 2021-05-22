@@ -55,7 +55,7 @@ class FInteraction {
         this.editedTimestamp = res.edited_timestamp
         this.flags = res.flags
         this.webhookID = res.webhook_id
-        this.messageRefID = res.message_reference?.message_id ? res.message_reference?.message_id : "@original"
+        this.messageRefID = res.message_reference?.message_id ?? "@original"
     }
     
     /**

@@ -47,7 +47,7 @@ class SHClient extends EventEmitter {
             // @ts-ignore
             let app = this.client.api.applications(client.user.id)
             if (!wrapper){
-                this.client.commands = new Collection()
+                this.commands = new Collection()
                 
                 if (!commandsDir.length) throw new Error('please specify a commands folder')
                 const cmdfls = fs.readdirSync(path.resolve(process.cwd(), commandsDir)).filter(m => m.endsWith('.js'))
@@ -55,11 +55,11 @@ class SHClient extends EventEmitter {
                     const scmd = require(path.resolve(process.cwd(), commandsDir, f))
                     scmd.name = (scmd.name ? scmd.name : f.replace(/\.js$/i, ''))
                     scmd.description = (scmd.description ? scmd.description : "An awsome command")
-                    if (client.commands.get(scmd.name)) throw new Error(`There are multiple commands with the name: ${scmd.name}`)
-                    this.client.commands.set(scmd.name, scmd)
+                    if (this.commands.get(scmd.name)) throw new Error(`There are multiple commands with the name: ${scmd.name}`)
+                    this.commands.set(scmd.name, scmd)
                     if (showLogs == 'extra') console.log(scmd.name+' was loaded')
                 }
-                if (showLogs == 'normal') console.log(this.client.commands.size+' Commands were loaded..!')
+                if (showLogs == 'normal') console.log(this.commands.size+' Commands were loaded..!')
         
         
         
@@ -67,7 +67,7 @@ class SHClient extends EventEmitter {
                 if (autoDelete){
                     // @ts-ignore
                     let gcmds = await this.client.api.applications(this.client.user.id).commands.get()
-                        gcmds.filter((c) => !(this.client.commands.filter(m => !m.guilds).map(m => m.name.toLowerCase()).includes(c.name.toLowerCase()))).forEach((e) =>{
+                        gcmds.filter((c) => !(this.commands.filter(m => !m.guilds).map(m => m.name.toLowerCase()).includes(c.name.toLowerCase()))).forEach((e) =>{
                             // @ts-ignore
                             this.client.api.applications(this.client.user.id).commands(e.id).then(m =>{
                                 console.log("Command: "+e.name+" was deleted")
@@ -80,7 +80,7 @@ class SHClient extends EventEmitter {
                     if (autoRegister){
                         let data = []
                         
-                        this.client.commands.each(async e => {
+                        this.commands.each(async e => {
                             if (!e.guilds){
                                 data.push({
                                     name: e.name,
@@ -114,7 +114,7 @@ class SHClient extends EventEmitter {
                                 if (showLogs == 'normal') console.log(c.length + " Commands were registered")
                             }).catch(console.error)
                         }
-                        if (showLogs == 'normal') console.log(this.client.commands.size+ ' commands were registered on discord API')
+                        if (showLogs == 'normal') console.log(this.commands.size+ ' commands were registered on discord API')
                         
                         if (showLogs == ('normal'||'extra')) console.log('Bot is ready.')
                     }
