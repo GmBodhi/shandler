@@ -143,7 +143,7 @@ class SHClient extends EventEmitter {
                      * @param {Options} interaction - Ineraction object
                      */
                     this.emit('interaction', interaction)
-                    if (!wrapper) client.commands.get(interaction.data.name).run({interaction, member, client, guild, options, channel});
+                    if (!wrapper) this.commands.get(interaction.data.name).run({interaction, member, client, guild, options, channel});
                 } catch (e){
                     throw new Error(e)
                 }
