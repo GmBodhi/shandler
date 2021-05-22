@@ -30,13 +30,13 @@ You can use this package as a [wrapper](#Wrapper) for the discord api or as a [c
 **Free advice:** Please don't copy paste.
 ```js
 //index.js
-const SHClient = require('shandler')
-const Discord = require('discord.js')
+const SHClient = require('shandler');
+const Discord = require('discord.js');
 
-const client = new Discord.Client()
+const client = new Discord.Client();
 
 const options = {
-    commandsDir: './commands', // commands folder path (required)
+    commandsDir: 'commands', // commands folder path (required)
     showLogs: 'extra', // "extra"|"normal"|null (default: "extra")
     wrapper: false, // defaults to false
     cLogs: true, // logs most of the resolved promises
@@ -44,14 +44,13 @@ const options = {
     autoRegister: true // Automatically register commands
 }
 
-const handler = new SHClient(client, options)
-
+const handler = new SHClient(client, options);
 ```
 #### Let's make a command file.
 ```js
 //ping.js
 module.exports = {
-    name: 'ping',// if (!name) command name == filename.
+    name: 'ping',// Will default to filename if this is empty
     description: 'Is this unusual?',//Default: "An awesome command..!"
     options:[]//We will cover this in the next part
     guilds: [] /*This is for guild specific command registration
@@ -71,23 +70,23 @@ You might've thought what all we can do with the `options`. Well you can refer [
 #### setup.
 ```js
 //index.js
-const SHClient = require('shandler')
-const Discord = require('discord.js')
+const SHClient = require('shandler');
+const Discord = require('discord.js');
 
-const client = new Discord.Client()
+const client = new Discord.Client();
 
 const options = {
     showLogs: 'extra', // "extra"|"normal"|null (default: "extra")
     wrapper: true // defaults to false
 }
 
-const handler = new SHClient(client, options)
+const handler = new SHClient(client, options);
 
 client.on('ready', () => {
-    console.log(client.user.tag, "is ready")
+    console.log(client.user.tag, "is ready");
 })
 handler.on('interaction', (interaction) => {
-    console.log(interaction)
+    console.log(interaction);
 })
 
 ```
@@ -115,14 +114,14 @@ const commands = [
 ]
 const guilds = [] //for guild specific commands pass an array for guildIDs
 client.on('ready', () => {
-    handler.create(commands, guilds)
+    handler.create(commands, guilds);
 })
 ```
 ## SHClient Options
 ```js
 // These are the default values
 {
-    commandsDir = '', // Commands dir
+    commandsDir = 'commands', // Commands dir
     showLogs = 'extra', // ('extra'|'normal'|null)
     autoDelete = true, // Automatically deletes the Global commands if command files are not found
     cLogs = false, // Console.log most of the promises 
@@ -194,11 +193,23 @@ i.reply("This is another follow-up message").then(console.log)
 ```
 Follow-up messages and interaction responses work with a unique interaction token which is generated when an interaction is created. This token is only valid for 15 minutes, interaction response/follow-up message sent after that won't be successful
 
+## Private Responses
+Using flags we can create private responses. Here is an example.
+```js
+interaction.reply("Private Message", { flags: 64 })
+```
+This will only respond to the author of the interaction.
 ## Commands
 For registering and deleting commands, you can use the following methods (Guild specific commands won't be automatically deleted even if `autoDelete` is `true`)
 
-### Deletion
-For deleting commands you can use the `.delete()` method.
+### Deletion without Shandler
+Normally to delete a command you would have to use
+```js
+<client>.api.applications(client.user.id).commands('COMMAND-ID').delete(); //globad command
+<client>.api.applications(client.user.id).guilds('GUILD-ID').commands('COMMAND-ID').delete(); //guild specific commmand
+```
+### Deletion with Shandler
+With Shandler, you can use the `.delete()` method.
 ```js
 const commands = [
     {
@@ -216,4 +227,4 @@ const guild = []
 client.on('ready', () => {
     handler.delete(commands,guild)
 })
-```
+```                                                              
