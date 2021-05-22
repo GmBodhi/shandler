@@ -45,8 +45,6 @@ const options = {
 }
 
 const handler = new SHClient(client, options);
-handler.commands = new Discord.Collection();
-
 ```
 #### Let's make a command file.
 ```js
@@ -83,7 +81,6 @@ const options = {
 }
 
 const handler = new SHClient(client, options);
-handler.commands = new Discord.Collection();
 
 client.on('ready', () => {
     console.log(client.user.tag, "is ready");
