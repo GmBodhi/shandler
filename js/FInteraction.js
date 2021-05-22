@@ -36,6 +36,7 @@ class FInteraction {
      * @class
      */
     constructor(client, res, extras){
+        const { message_reference = {} } = res;
         this.id = res.id
         this.token = res.token
         this.type = res.type
@@ -55,7 +56,7 @@ class FInteraction {
         this.editedTimestamp = res.edited_timestamp
         this.flags = res.flags
         this.webhookID = res.webhook_id
-        this.messageRefID = res.message_reference?.message_id ?? "@original"
+        this.messageRefID = message_reference.message_id ?? "@original"
     }
     
     /**
