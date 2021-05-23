@@ -183,7 +183,7 @@ module.exports = {
 }
 ```
 
-<img title:"Slash Commands" src="https://imgur.com/a/fs0MdxS">
+![Slash Commands](https://imgur.com/a/fs0MdxS)
 
 <br><br>
 </details>
