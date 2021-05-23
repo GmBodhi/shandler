@@ -81,7 +81,8 @@ class FInteraction {
             embed,
             embeds = [],
             tts = false,
-            flags = null
+            flags = null,
+            components = []
         } = options
         if (!res && !embed && !embeds) throw new Error('content cannot be empty.')
 
@@ -92,7 +93,8 @@ class FInteraction {
                 content: res,
                 embeds: embeds,
                 tts: tts,
-                flags: flags
+                flags: flags,
+                components: components
         } })
         .then(async (m) => await Callback(this, m))
     }

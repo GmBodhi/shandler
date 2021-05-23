@@ -124,33 +124,40 @@ class SHClient extends EventEmitter {
 
         // @ts-ignore
         this.client.ws.on('INTERACTION_CREATE', (interaction) => {
-             (async (interaction, client) => {
-                const member = await client.guilds.fetch(interaction.guild_id).then((g) => g.members.fetch(interaction.member.user.id))
-                const guild = await client.guilds.fetch(interaction.guild_id)
-                const channel = await client.channels.fetch(interaction.channel_id)
-                const Options = {
-                    guild,
-                    channel,
-                    member,
-                    client
-                }
-                interaction = new Interaction(interaction, Options)
-                const { options } = interaction.data
-                try{
-                    /**
-                     * 
-                     * @event SHClient#interaction
-                     * @param {Options} interaction - Ineraction object
-                     */
-                    this.emit('interaction', interaction)
-                    if (!wrapper) this.commands.get(interaction.data.name).run({interaction, member, client, guild, options, channel});
-                } catch (e){
-                    throw new Error(e)
-                }
-            })(interaction, this.client)
-        })
+            if (interaction.type == 2){
 
-    }
+                (async (interaction, client) => {
+                    const guild = client.guilds.resolve(interaction.guild_id)
+                    const member = guild.members.add(interaction.member)
+                    const channel = client.channels.resolve(interaction.channel_id)
+                    client.users.add(interaction.member.user, true, { id: interaction.member.user.id })
+                    const Options = {
+                        guild,
+                        channel,
+                        member,
+                        client
+                    }
+                    interaction = new Interaction(interaction, Options)
+                    const { options } = interaction.data
+                    try{
+                        /**
+                         * 
+                         * @event SHClient#interaction
+                         * @param {Options} interaction - Ineraction object
+                         */
+                        this.emit('interaction', interaction)
+                        if (!wrapper) this.commands.get(interaction.data.name).run({interaction, member, client, guild, options, channel});
+                    } catch (e){
+                        throw new Error(e)
+                    }
+                })(interaction, this.client)
+            }else if (interaction.type == 3) {
+                const guild = this.client.guilds.resolve(interaction.guild_id)
+                this.client.emit('buttonClick', new Interaction(interaction, {client: this.client, guild: guild, member: guild?.member.add(interaction.member), channel: this.client.channels.resolve(interaction.channel_id), }))
+            }else return;
+            })
+            
+        }
     /**
      * Deletes a command from specific guilds or globally
      * @param {Object} info - Info about the command

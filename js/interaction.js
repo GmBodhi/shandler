@@ -49,7 +49,8 @@ class Interaction {
             embeds = [],
             flags = null,
             type = 4,
-            tts = false
+            tts = false,
+            components = []
         } = options
         let data;
         if (!res && !options.embed && !options.embeds) throw new Error('Cannot send an empty message.')
@@ -58,7 +59,8 @@ class Interaction {
                 content: res || "",
                 embeds: embeds,
                 flags: flags,
-                tts: tts
+                tts: tts,
+                components: components
             }
         return this.client.api.interactions(this.id, this.token).callback
         .post({ data:{
