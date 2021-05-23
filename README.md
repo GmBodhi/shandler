@@ -220,6 +220,7 @@ module.exports = {
 ![Slash Command](https://i.imgur.com/umRf62O.png)
 <br><br>
 </details>
+
 #### Delete
 Deletes an interaction respnse which was sent using the `.reply()` method.
 ```js
