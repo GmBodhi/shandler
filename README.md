@@ -14,7 +14,7 @@ This is a wrapper/command-handler for discord's new **Slash Commands**. Using th
 * [Follow-up Messages](#follow-up-messages)
 * [Commands](#dommands)
     * [Registration](#registering-a-command)
-    * [Deletion](#deletion)
+    * [Deletion](#deletion-without-shandler)
 
 ## Installation
 
@@ -201,8 +201,6 @@ interaction.reply("Private Message", { flags: 64 })
 This will only respond to the author of the interaction.
 ## Commands
 For registering and deleting commands, you can use the following methods (Guild specific commands won't be automatically deleted even if `autoDelete` is `true`)
-
-### Deletion
 
 ## Deletion without Shandler
 Normally to delete a command you would have to use
