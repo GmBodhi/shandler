@@ -202,13 +202,15 @@ This will only respond to the author of the interaction.
 ## Commands
 For registering and deleting commands, you can use the following methods (Guild specific commands won't be automatically deleted even if `autoDelete` is `true`)
 
-### Deletion without Shandler
+### Deletion
+
+## Deletion without Shandler
 Normally to delete a command you would have to use
 ```js
 <client>.api.applications(client.user.id).commands('COMMAND-ID').delete(); //globad command
 <client>.api.applications(client.user.id).guilds('GUILD-ID').commands('COMMAND-ID').delete(); //guild specific commmand
 ```
-### Deletion with Shandler
+## Deletion with Shandler
 With Shandler, you can use the `.delete()` method.
 ```js
 const commands = [
