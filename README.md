@@ -1,6 +1,7 @@
 # What is this package about..?
 
-This is a wrapper/command-handler for discord's new **Slash Commands**. Using this package you can send/edit/delete an interaction response. Also supports followup messages. You can ask for help in our [Support server](https://discord.gg/tMWmEJFq4m). Consider supporting us 
+This is a wrapper/command-handler for discord's new **Slash Commands**. Using this package, you can send/edit/delete an interaction response. As well as followup messages and more.
+Need support? Join our [Support server](https://discord.gg/tMWmEJFq4m). Also, consider supporting us.
 
 ## Table of Contents
 * [Installation](#installation)
@@ -64,10 +65,10 @@ module.exports = {
 }
 ```
 #### Command Options
-You might've thought what all we can do with the `options`. Well you can refer [here](https://discord.com/developers/docs/interactions/slash-commands#applicationcommandoption)
+You might've thought what all we can do with the `options`. Well you can refer [here](https://discord.com/developers/docs/interactions/slash-commands#applicationcommandoption) at the Discord Doumentation.
 
 ### Wrapper
-#### setup.
+#### Starting Setup.
 ```js
 //index.js
 const SHClient = require('shandler');
@@ -112,7 +113,7 @@ const commands = [
         ]
     }
 ]
-const guilds = [] //for guild specific commands pass an array for guildIDs
+const guilds = [] //for guild specific commands pass an array for guildIDs. If none, will default to global command.
 client.on('ready', () => {
     handler.create(commands, guilds);
 })
@@ -132,7 +133,7 @@ client.on('ready', () => {
 }
 ```
 ## Interaction object
-Unlike discord's normal interaction object shandler's interaction object has more properties and discord.js methods. 
+Unlike discord's normal interaction object, Shandler's interaction object has more properties and discord.js methods. 
 ### Properties
 ```js
 {
@@ -159,17 +160,17 @@ Unlike discord's normal interaction object shandler's interaction object has mor
 [Channel object](https://discord.js.org/#/docs/main/stable/class/Channel)<br>
 ### Methods
 
-#### Reply
+#### Replying
 Responds to an interaction
 ```js
-interaction.reply('Bello').then(console.log)
+interaction.reply('Bello').then(console.log);
 ```
  returns <Promise [FInteraction]()\>
 #### Edit
 Edits an interaction response which was sent using the `.reply()` method.
 ```js
 interaction.reply('Bello').then(m => {
-    m.edit("Pog")
+    m.edit("Pog");
 })
 
 ```
@@ -187,18 +188,18 @@ interaction.reply('Bello').then(m => {
 Follow-up messages allows you to send multiple messages from a single interaction. Here is an example.
 
 ```js
-let m = await interaction.reply("Bello")
-let i = await m.reply("This is a follow-up message")
-i.reply("This is another follow-up message").then(console.log)
+let m = await interaction.reply("Bello");
+let i = await m.reply("This is a follow-up message");
+i.reply("This is another follow-up message").then(console.log);
 ```
-Follow-up messages and interaction responses work with a unique interaction token which is generated when an interaction is created. This token is only valid for 15 minutes, interaction response/follow-up message sent after that won't be successful
+Follow-up messages and interaction responses work with a unique interaction token which is generated when an interaction is created. This unique token is only valid for 15 minutes. Then, interaction response/follow-up messages sent after that won't be successful.
 
 ## Private Responses
 Using flags we can create private responses. Here is an example.
 ```js
 interaction.reply("Private Message", { flags: 64 })
 ```
-This will only respond to the author of the interaction.
+This will only respond to the author of the interaction, find the [Docs here](https://canary.discord.com/developers/docs/interactions/slash-commands#interaction-response-interactionapplicationcommandcallbackdata)
 ## Commands
 For registering and deleting commands, you can use the following methods (Guild specific commands won't be automatically deleted even if `autoDelete` is `true`)
 
@@ -209,7 +210,7 @@ Normally to delete a command you would have to use
 <client>.api.applications(client.user.id).guilds('GUILD-ID').commands('COMMAND-ID').delete(); //guild specific commmand
 ```
 ## Deletion with Shandler
-With Shandler, you can use the `.delete()` method.
+With Shandler, you can use the much easier `.delete()` method.
 ```js
 const commands = [
     {
