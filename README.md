@@ -171,7 +171,7 @@ interaction.reply('Bello').then(console.log);
 <br>
 
 Code:
-```
+```js
 //reply.js
 module.exports = {
   name: 'reply',// Will default to filename if this is empty.
@@ -183,7 +183,7 @@ module.exports = {
 }
 ```
 
-![Slash Commands](https://imgur.com/a/fs0MdxS)
+![Slash Commands](https://i.imgur.com/KRjFo8F.png)
 
 <br><br>
 </details>
