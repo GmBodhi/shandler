@@ -185,6 +185,7 @@ module.exports = {
 
 ![Slash Commands](https://i.imgur.com/KRjFo8F.png)
 
+![Slash Command](https://i.imgur.com/MEikv19.png)
 <br><br>
 </details>
 
@@ -197,6 +198,28 @@ interaction.reply('Bello').then(m => {
 
 ```
  returns <Promise [FInteraction]()\>
+
+<details>
+<summary>Example</summary>
+<br>
+
+Code:
+```js
+//edit.js
+module.exports = {
+  name: 'edit',// Will default to filename if this is empty.
+  description: 'Edit an interaction reply',//Default: "An awesome command..!"
+  guilds: ['789259215868395552'],  /*This is for guild specific command registration. If this is empty, the command will be registered globally*/
+  async run({ interaction, client }) {
+    interaction.reply('Bello').then(m => { //Send the message.
+      m.edit("Pog"); //edit the message.
+    })
+  }
+}
+```
+![Slash Command](https://i.imgur.com/umRf62O.png)
+<br><br>
+</details>
 #### Delete
 Deletes an interaction respnse which was sent using the `.reply()` method.
 ```js
@@ -206,6 +229,32 @@ interaction.reply('Bello').then(m => {
     }, 5000)
 })
 ```
+
+
+<details>
+<summary>Example</summary>
+<br>
+
+Code:
+```js
+//delete.js
+module.exports = {
+  name: 'delete',// Will default to filename if this is empty.
+  description: 'Delete the message after 5000ms',//Default: "An awesome command..!"
+  guilds: ['789259215868395552'],  /*This is for guild specific command registration. If this is empty, the command will be registered globally*/
+  async run({ interaction, client }) {
+    interaction.reply('Bello').then(m => { //Send the reply.
+      setTimeout(() => { //Set timeout for 5000 ms.
+        m.delete(); //Delete the message.
+      }, 5000);
+    })
+  }
+}
+```
+*No screenshot, because it deletes lol*
+<br><br>
+</details>
+
 ## Follow-up Messages
 Follow-up messages allows you to send multiple messages from a single interaction. Here is an example.
 
@@ -216,11 +265,54 @@ i.reply("This is another follow-up message").then(console.log);
 ```
 Follow-up messages and interaction responses work with a unique interaction token which is generated when an interaction is created. This unique token is only valid for 15 minutes. Then, interaction response/follow-up messages sent after that won't be successful.
 
+<details>
+<summary>Example</summary>
+<br>
+
+Code:
+```js
+//followup.js
+module.exports = {
+  name: 'followup',// Will default to filename if this is empty.
+  description: 'Follow-up to an interaction',//Default: "An awesome command..!"
+  guilds: ['789259215868395552'],  /*This is for guild specific command registration. If this is empty, the command will be registered globally*/
+  async run({ interaction, client }) {
+    let m = await interaction.reply("Bello"); //Send the first message.
+    let i = await m.reply("This is a follow-up message"); //Send the first Follow up message.
+    i.reply("This is another follow-up message"); //Send another Follow up message.
+  }
+}
+```
+![Slash Command](https://i.imgur.com/S68T9dg.png)
+<br><br>
+</details>
+
 ## Private Responses
 Using flags we can create private responses. Here is an example.
 ```js
 interaction.reply("Private Message", { flags: 64 })
 ```
+
+<details>
+<summary>Example</summary>
+<br>
+
+Code:
+```js
+//private.js
+module.exports = {
+  name: 'private',// Will default to filename if this is empty.
+  description: 'Private Response.',//Default: "An awesome command..!"
+  guilds: ['789259215868395552'],  /*This is for guild specific command registration. If this is empty, the command will be registered globally*/
+  async run({ interaction, client }) {
+    interaction.reply("Private Message", { flags: 64 }) //Send the interaction message, but as a private message.
+  }
+}
+```
+![Slash Command](https://i.imgur.com/ty9clTb.png)
+<br><br>
+</details>
+
 This will only respond to the author of the interaction, find the [Docs here](https://canary.discord.com/developers/docs/interactions/slash-commands#interaction-response-interactionapplicationcommandcallbackdata)
 ## Commands
 For registering and deleting commands, you can use the following methods (Guild specific commands won't be automatically deleted even if `autoDelete` is `true`)
