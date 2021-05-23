@@ -187,6 +187,7 @@ module.exports = {
 
 <br><br>
 </details>
+
 #### Edit
 Edits an interaction response which was sent using the `.reply()` method.
 ```js
