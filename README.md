@@ -20,6 +20,7 @@ Need support? Join our [Support server](https://discord.gg/tMWmEJFq4m).
 * [Commands](#dommands)
     * [Registration](#registering-a-command)
     * [Deletion](#deletion-without-shandler)
+# [Buttons](#buttons)
 
 ## Installation
 
@@ -348,3 +349,6 @@ client.on('ready', () => {
     handler.delete(commands,guild)
 })
 ```                                                              
+
+
+##Buttons
