@@ -353,10 +353,11 @@ client.on('ready', () => {
 ## Buttons
 **THIS IS NOT YET RELEASED**
 With Discord's newest update, we are abble to add buttons to our slash commands!
+
 ![Slash Commands](https://i.imgur.com/cI6iQGa.png)
 
-###Overview
-messages can be sent with the components key to add buttons and other components (when discord brings them out), you can edit and add new buttons via editing the message, this is useful for the `disabled` key to stop people from clicking it.
+### Overview
+Messages can be sent with the components key to add buttons and other components (when discord brings them out), you can edit and add new buttons via editing the message, this is useful for the `disabled` key to stop people from clicking it.
 
 ### Example Payload
 ```json
@@ -372,7 +373,7 @@ messages can be sent with the components key to add buttons and other components
 ```
 
 ### Message
-extending message payload.
+Extending the message payload.
 |  Key        | Value                           |
 |-------------|---------------------------------|
 | components? | list of [Component](#Component) |
@@ -418,7 +419,7 @@ extending message payload.
 
 
 ### InteractionData
-extending interaction data payload.
+Extending the interaction data payload.
 | Key             | Value                           |
 |-----------------|---------------------------------|
 | custom_id?      | string                          |
