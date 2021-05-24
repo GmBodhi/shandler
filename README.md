@@ -350,5 +350,4 @@ client.on('ready', () => {
 })
 ```                                                              
 
-
-##Buttons
+## Buttons
