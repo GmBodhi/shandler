@@ -153,7 +153,7 @@ class SHClient extends EventEmitter {
                 })(interaction, this.client)
             }else if (interaction.type == 3) {
                 const guild = this.client.guilds.resolve(interaction.guild_id)
-                this.client.emit('buttonClick', new Interaction(interaction, {client: this.client, guild: guild, member: guild?.member.add(interaction.member), channel: this.client.channels.resolve(interaction.channel_id), }))
+                this.client.emit('buttonClick', new Interaction(interaction, {client: this.client, guild: guild, member: guild?.members.add(interaction.member), channel: this.client.channels.resolve(interaction.channel_id), }))
             }else return;
             })
             
