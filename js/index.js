@@ -13,6 +13,7 @@ const { Client, Collection } = require('discord.js');
  * @property {boolean} autoRegister - Whether to register the commands
  * @property {boolean} cLogs - Show console.log of most of the promises
  * @property {boolean} wrapper - Use this package as a wrapper
+ * @property {boolean} sync - Sync the interaction reply
  */
 
 class SHClient extends EventEmitter {
@@ -30,7 +31,8 @@ class SHClient extends EventEmitter {
             autoDelete = true,
             cLogs = false,
             wrapper = false,
-            autoRegister = true
+            autoRegister = true,
+            sync = true
         } = options;
 
         //errors
@@ -41,6 +43,7 @@ class SHClient extends EventEmitter {
         this.cLogs = cLogs;
         this._slogs = showLogs;
         this._cLogs = cLogs;
+        this.sync = sync;
         
         this.client.on('ready', async () => {
             //command registration
@@ -137,7 +140,8 @@ class SHClient extends EventEmitter {
                         channel,
                         member,
                         client,
-                        user
+                        user,
+                        sync: this.sync
                     };
                     
                     interaction = new Interaction(interaction, Options);

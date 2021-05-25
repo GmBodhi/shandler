@@ -11,7 +11,7 @@ const Callback = async (res, data) =>{
         member,
         channel,
         guild,
-        user: res.user
+        user: res.user ?? null
     }
     let interaction = new FInteraction(res.client, data, extras)
     return interaction;
@@ -25,7 +25,7 @@ class Interaction {
      */
     constructor(interaction, options){
         
-        let { channel, guild = null, client, member = null, user = null } = options
+        let { channel, guild = null, client, member = null, user = null, sync } = options
         this.type = interaction.type
         this.token = interaction.token
         this.member = member
@@ -35,6 +35,7 @@ class Interaction {
         this.data = interaction.data
         this.channel = channel
         this.user = user
+        this.sync = sync;
 
     }
     /**
@@ -69,7 +70,10 @@ class Interaction {
             type: type,
             data:data
         } })
-        .then(async (m) => await Callback(this, m))
+        .then(async (m) => {
+            if (this.sync) return this.client.api.webhooks(this.client.user.id, this.token).messages('@original').then(async msg => await Callback(this, msg))
+            await Callback(this, m)
+        })
     }
     
 }
