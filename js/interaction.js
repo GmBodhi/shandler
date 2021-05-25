@@ -10,7 +10,8 @@ const Callback = async (res, data) =>{
     let extras = {
         member,
         channel,
-        guild
+        guild,
+        user: res.user
     }
     let interaction = new FInteraction(res.client, data, extras)
     return interaction;
@@ -24,7 +25,7 @@ class Interaction {
      */
     constructor(interaction, options){
         
-        let { channel, guild, client, member } = options
+        let { channel, guild = null, client, member = null, user = null } = options
         this.type = interaction.type
         this.token = interaction.token
         this.member = member
@@ -33,6 +34,7 @@ class Interaction {
         this.guild = guild
         this.data = interaction.data
         this.channel = channel
+        this.user = user
 
     }
     /**
