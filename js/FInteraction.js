@@ -13,14 +13,15 @@ const { Client } = require('discord.js');
 const Callback = async (res, data) =>{
     if (!data || !res) return;
     if (!res.token) throw new Error('Token missing');
-    data.token = res.token       
-    let guild = res.guild
-    let member = res.member || res.user
+    data.token = res.token
+    let guild = res.guild ?? null;
+    let member = res.member ?? null
     let channel = res.channel
     let extras = {
         member,
         channel,
-        guild
+        guild,
+        user: res.user ?? null
     }
     let interaction = new FInteraction(res.client, data, extras)
     return interaction;
@@ -44,6 +45,7 @@ class FInteraction {
         this.content = res.content
         this.channel = extras.channel 
         this.member = extras.member
+        this.user = extras.user
         this.attachments = res.attachments
         this.embeds = res.embeds
         this.mentions = res.mentions
