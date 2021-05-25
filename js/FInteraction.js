@@ -15,7 +15,7 @@ const Callback = async (res, data) =>{
     if (!res.token) throw new Error('Token missing');
     data.token = res.token       
     let guild = res.guild
-    let member = res.member
+    let member = res.member || res.user
     let channel = res.channel
     let extras = {
         member,
