@@ -13,6 +13,7 @@ const { Client, Collection } = require('discord.js');
  * @property {boolean} autoRegister - Whether to register the commands
  * @property {boolean} cLogs - Show console.log of most of the promises
  * @property {boolean} wrapper - Use this package as a wrapper
+ * @property {boolean} sync - Sync the interaction reply
  */
 
 class SHClient extends EventEmitter {
@@ -30,7 +31,8 @@ class SHClient extends EventEmitter {
             autoDelete = true,
             cLogs = false,
             wrapper = false,
-            autoRegister = true
+            autoRegister = true,
+            sync = true
         } = options;
 
         //errors
@@ -41,6 +43,7 @@ class SHClient extends EventEmitter {
         this.cLogs = cLogs;
         this._slogs = showLogs;
         this._cLogs = cLogs;
+        this.sync = sync;
         
         this.client.on('ready', async () => {
             //command registration
@@ -127,17 +130,21 @@ class SHClient extends EventEmitter {
             if (interaction.type == 2){
 
                 (async (interaction, client) => {
-                    const guild = client.guilds.resolve(interaction.guild_id)
-                    const member = guild.members.add(interaction.member)
-                    const channel = client.channels.resolve(interaction.channel_id)
-                    client.users.add(interaction.member.user, true, { id: interaction.member.user.id })
+                    const guild = client.guilds.resolve(interaction.guild_id) ?? null;
+                    const member = guild?.members.add(interaction.member) ?? null;
+                    const user = client.users.add(interaction.user) ?? client.users.add(interaction.member.user);
+                    const channel = client.channels.resolve(interaction.channel_id);
+                    
                     const Options = {
                         guild,
                         channel,
                         member,
-                        client
-                    }
-                    interaction = new Interaction(interaction, Options)
+                        client,
+                        user,
+                        sync: this.sync
+                    };
+                    
+                    interaction = new Interaction(interaction, Options);
                     const { options } = interaction.data
                     try{
                         /**
@@ -153,7 +160,7 @@ class SHClient extends EventEmitter {
                 })(interaction, this.client)
             }else if (interaction.type == 3) {
                 const guild = this.client.guilds.resolve(interaction.guild_id)
-                this.client.emit('buttonClick', new Interaction(interaction, {client: this.client, guild: guild, member: guild?.members.add(interaction.member), channel: this.client.channels.resolve(interaction.channel_id), }))
+                this.client.emit('buttonClick', new Interaction(interaction, {client: this.client, guild: guild, member: guild?.members.add(interaction.member), user: this.client.users.add(interaction.user) ?? this.client.users.add(interaction.member.user), channel: this.client.channels.resolve(interaction.channel_id), }))
             }else return;
             })
             
