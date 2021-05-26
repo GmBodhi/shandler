@@ -23,7 +23,7 @@ class SHClient extends EventEmitter {
  * @param {HandlerOptions} options - Options
  */
     constructor (client, options = {}){
-        super()
+        super();
 
         let {
             commandsDir = '',
@@ -50,38 +50,38 @@ class SHClient extends EventEmitter {
             // @ts-ignore
             let app = this.client.api.applications(client.user.id);
             if (!wrapper){
-                this.commands = new Collection()
+                this.commands = new Collection();
                 
                 if (!commandsDir.length) throw new Error('please specify a commands folder');
                 const cmdfls = fs.readdirSync(path.resolve(process.cwd(), commandsDir)).filter(m => m.endsWith('.js'));
                 for (const f of cmdfls) {
-                    const scmd = require(path.resolve(process.cwd(), commandsDir, f))
-                    scmd.name = (scmd.name ? scmd.name : f.replace(/\.js$/i, ''))
-                    scmd.description = (scmd.description ? scmd.description : "An awsome command")
-                    if (this.commands.get(scmd.name)) throw new Error(`There are multiple commands with the name: ${scmd.name}`)
-                    this.commands.set(scmd.name, scmd)
-                    if (showLogs == 'extra') console.log(scmd.name+' was loaded')
+                    const scmd = require(path.resolve(process.cwd(), commandsDir, f));
+                    scmd.name = (scmd.name ? scmd.name : f.replace(/\.js$/i, ''));
+                    scmd.description = (scmd.description ? scmd.description : "An awsome command");
+                    if (this.commands.get(scmd.name)) throw new Error(`There are multiple commands with the name: ${scmd.name}`);
+                    this.commands.set(scmd.name, scmd);
+                    if (showLogs == 'extra') console.log(scmd.name+' was loaded');
                 }
-                if (showLogs == 'normal') console.log(this.commands.size+' Commands were loaded..!')
+                if (showLogs == 'normal') console.log(this.commands.size+' Commands were loaded..!');
       
         
         
                 //Global commands auto delete
                 if (autoDelete){
                     // @ts-ignore
-                    let gcmds = await this.client.api.applications(this.client.user.id).commands.get()
+                    let gcmds = await this.client.api.applications(this.client.user.id).commands.get();
                         gcmds.filter((c) => !(this.commands.filter(m => !m.guilds).map(m => m.name.toLowerCase()).includes(c.name.toLowerCase()))).forEach((e) =>{
                             // @ts-ignore
                             this.client.api.applications(this.client.user.id).commands(e.id).then(m =>{
-                                console.log("Command: "+e.name+" was deleted")
-                                if (cLogs) console.log(m)
-                                })
-                        })
+                                console.log("Command: "+e.name+" was deleted");
+                                if (cLogs) console.log(m);
+                                });
+                        });
                     }
                     
                     //commands registration
                     if (autoRegister){
-                        let data = []
+                        let data = [];
                         
                         this.commands.each(async e => {
                             if (!e.guilds){
@@ -91,7 +91,7 @@ class SHClient extends EventEmitter {
                                     options: e.options,
                                     default_permissions: e.defaultPermissions
 
-                                })
+                                });
                             } else {
                                 e.guilds.forEach(async (el) => {
                                     this.client.api.applications(this.client.user.id).guilds(el).commands.post({
@@ -103,26 +103,26 @@ class SHClient extends EventEmitter {
 
                                         }
                                     }).then((m) =>{
-                                        if (showLogs == 'extra') console.log('Command: '+e.name+' was registered for: '+el)
-                                        if (cLogs) console.log(m)
-                                    })
+                                        if (showLogs == 'extra') console.log('Command: '+e.name+' was registered for: '+el);
+                                        if (cLogs) console.log(m);
+                                    });
                                 });
                             }
-                        })
+                        });
                         if (data){
                             app.commands.put({
                                 data:data
                             }).then((c) => {
-                                if (cLogs) console.log(c)
-                                if (showLogs == 'normal') console.log(c.length + " Commands were registered")
-                            }).catch(console.error)
+                                if (cLogs) console.log(c);
+                                if (showLogs == 'normal') console.log(c.length + " Commands were registered");
+                            }).catch(console.error);
                         }
-                        if (showLogs == 'normal') console.log(this.commands.size+ ' commands were registered on discord API')
+                        if (showLogs == 'normal') console.log(this.commands.size+ ' commands were registered on discord API');
                         
-                        if (showLogs == ('normal'||'extra')) console.log('Bot is ready.')
+                        if (showLogs == ('normal'||'extra')) console.log('Bot is ready.');
                     }
                 }
-        })
+        });
 
 
         // @ts-ignore
@@ -132,7 +132,7 @@ class SHClient extends EventEmitter {
                 (async (interaction, client) => {
                     const guild = client.guilds.resolve(interaction.guild_id) ?? null;
                     const member = guild?.members.add(interaction.member) ?? null;
-                    const user = client.users.add(interaction.user || interaction.member.user)
+                    const user = client.users.add(interaction.user||interaction.member.user);
                     const channel = client.channels.resolve(interaction.channel_id);
                     
                     const Options = {
@@ -145,21 +145,21 @@ class SHClient extends EventEmitter {
                     };
                     
                     interaction = new Interaction(interaction, Options);
-                    const { options } = interaction.data
+                    const { options } = interaction.data;
                     try{
                         /**
                          * 
                          * @event SHClient#interaction
                          * @param {Options} interaction - Ineraction object
                          */
-                        this.emit('interaction', interaction)
+                        this.emit('interaction', interaction);
                         if (!wrapper) this.commands.get(interaction.data.name).run({interaction, member, client, guild, options, channel});
                     } catch (e){
                         throw new Error(e)
                     }
-                })(interaction, this.client)
+                })(interaction, this.client);
             }else if (interaction.type == 3) {
-                const guild = this.client.guilds.resolve(interaction.guild_id)
+                const guild = this.client.guilds.resolve(interaction.guild_id);
                 this.client.emit('buttonClick', new Interaction(interaction, {client: this.client, guild: guild, member: guild?.members.add(interaction.member), user: this.client.users.add(interaction.user) ?? this.client.users.add(interaction.member.user), channel: this.client.channels.resolve(interaction.channel_id), }))
             }else return;
             })
