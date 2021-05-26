@@ -353,12 +353,13 @@ client.on('ready', () => {
 ## Buttons
 **THIS IS NOT YET RELEASED**
 
-With Discord's newest update, we are abble to add buttons to our slash commands!
+With Discord's newest update, we are abble to add buttons to our slash commands! [Find our example here!](https://github.com/GmBodhi/shandler-buttons)
 
 ![Slash Commands](https://i.imgur.com/cI6iQGa.png)
 
+
 <details>
-<summary>Documentation (In Development)</summary>
+<summary>Button Documentation</summary>
 <br>
 
 ### Overview
