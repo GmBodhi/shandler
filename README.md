@@ -33,7 +33,7 @@ You can use this package as a [wrapper](#Wrapper) for the discord api or as a [c
 ### Command handler
 
 #### Setup
-**Free advice:** Please don't copy paste.
+**Free advice: Please don't copy paste then ask for support because you don't understand it.**
 ```js
 //index.js
 const SHClient = require('shandler');
