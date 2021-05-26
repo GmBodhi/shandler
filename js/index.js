@@ -131,8 +131,8 @@ class SHClient extends EventEmitter {
 
                 (async (interaction, client) => {
                     const guild = client.guilds.resolve(interaction.guild_id) ?? null;
-                    const member = guild?.members.add(interaction.member) ?? null;
-                    const user = client.users.add(interaction.user) ?? client.users.add(interaction.member.user);
+                    const member = ( interaction.member ? guild?.members.add(interaction.member) : null);
+                    const user = client.users.add((interaction.user ?? interaction.member.user)) ?? null;
                     const channel = client.channels.resolve(interaction.channel_id);
                     
                     const Options = {
@@ -160,7 +160,7 @@ class SHClient extends EventEmitter {
                 })(interaction, this.client)
             }else if (interaction.type == 3) {
                 const guild = this.client.guilds.resolve(interaction.guild_id)
-                this.client.emit('buttonClick', new Interaction(interaction, {client: this.client, guild: guild, member: guild?.members.add(interaction.member), user: this.client.users.add(interaction.user) ?? this.client.users.add(interaction.member.user), channel: this.client.channels.resolve(interaction.channel_id), }))
+                this.client.emit('buttonClick', new Interaction(interaction, {client: this.client, guild: guild, member: (interaction.member ? guild?.members.add(interaction.member) : null), user: (interaction.user ? this.client.users.add(interaction.user) : (interaction.member?.user ?  this.client.users.add(interaction.member?.user) : null )), channel: this.client.channels.resolve(interaction.channel_id) ?? null, }))
             }else return;
             })
             
