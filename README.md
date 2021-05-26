@@ -20,7 +20,7 @@ Need support? Join our [Support server](https://discord.gg/tMWmEJFq4m).
 * [Commands](#dommands)
     * [Registration](#registering-a-command)
     * [Deletion](#deletion-without-shandler)
-* [Buttons](#buttons)
+* [Buttons](#buttons) **NOT YET RELEASED**
 
 ## Installation
 
@@ -357,6 +357,10 @@ With Discord's newest update, we are abble to add buttons to our slash commands!
 
 ![Slash Commands](https://i.imgur.com/cI6iQGa.png)
 
+<details>
+<summary>Documentation (In Development)</summary>
+<br>
+
 ### Overview
 Messages can be sent with the components key to add buttons and other components (when discord brings them out), you can edit and add new buttons via editing the message, this is useful for the `disabled` key to stop people from clicking it.
 
@@ -425,3 +429,6 @@ Extending the interaction data payload.
 |-----------------|---------------------------------|
 | custom_id?      | string                          |
 | component_type? | [ComponentType](#ComponentType) |
+
+<br><br>
+</details>
