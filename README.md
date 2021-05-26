@@ -352,6 +352,7 @@ client.on('ready', () => {
 
 ## Buttons
 **THIS IS NOT YET RELEASED**
+
 With Discord's newest update, we are abble to add buttons to our slash commands!
 
 ![Slash Commands](https://i.imgur.com/cI6iQGa.png)
