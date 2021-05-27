@@ -1,3 +1,9 @@
+<div align="center">
+  <p>
+    <a href="https://www.npmjs.com/package/shandler"><img src="https://nodei.co/npm/shandler.png?compact=true" alt="NPM Banner"></a>
+  </p>
+</div>
+
 # What is this package about..?
 
 This is a wrapper/command-handler for discord's new **Slash Commands**. Using this package, you can send/edit/delete an interaction response. As well as followup messages and more.
