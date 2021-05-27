@@ -20,6 +20,7 @@ Need support? Join our [Support server](https://discord.gg/tMWmEJFq4m).
 * [Commands](#dommands)
     * [Registration](#registering-a-command)
     * [Deletion](#deletion-without-shandler)
+* [Buttons](#buttons) **NOT YET RELEASED**
 
 ## Installation
 
@@ -32,7 +33,7 @@ You can use this package as a [wrapper](#Wrapper) for the discord api or as a [c
 ### Command handler
 
 #### Setup
-**Free advice:** Please don't copy paste.
+**Free advice: Please don't copy paste then ask for support because you don't understand it.**
 ```js
 //index.js
 const SHClient = require('shandler');
@@ -348,3 +349,87 @@ client.on('ready', () => {
     handler.delete(commands,guild)
 })
 ```                                                              
+
+## Buttons
+**THIS IS NOT YET RELEASED**
+
+With Discord's newest update, we are abble to add buttons to our slash commands! [Find our example here!](https://github.com/GmBodhi/shandler-buttons)
+
+![Slash Commands](https://i.imgur.com/cI6iQGa.png)
+
+
+<details>
+<summary>Button Documentation</summary>
+<br>
+
+### Overview
+Messages can be sent with the components key to add buttons and other components (when discord brings them out), you can edit and add new buttons via editing the message, this is useful for the `disabled` key to stop people from clicking it.
+
+### Example Payload
+```json
+{
+    "content": "this is an example message for components",
+    "components": [
+        {"type": 1, "components": [
+            {"type": 2, "style": 2, "label": "Button 1", "custom_id": "1"},
+            {"type": 2, "style": 2, "label": "Button 2", "custom_id": "2"}
+        ]}
+    ]
+}
+```
+
+### Message
+Extending the message payload.
+|  Key        | Value                           |
+|-------------|---------------------------------|
+| components? | list of [Component](#Component) |
+
+
+### Component
+| Key         | Value                             | Description                                                                            |
+|-------------|-----------------------------------|----------------------------------------------------------------------------------------|
+| type        | [ComponentType](#ComponentType)   | the type of component                                                                  |
+| style?      | [ComponentStyle](#ComponentStyle) | the style of button                                                                    |
+| custom_id?  | string                            | the internal id of the button, set this yourself, mutually exclusive with `url`        |
+| label?      | string                            | the text on the button                                                                 |
+| url?        | string                            | used to set the url for hyperlinks                                                     |
+| emoji?      | [PartialEmoji](#PartialEmoji)     | used for an emoji in the button text                                                   |
+| disabled?   | boolean                           | used to enabled and disable the button - defaults to false                             |
+| components? | list of [Component](#Component)   | children components                                                                    |
+
+
+### ComponentType
+
+| Key     | ID | Description                                                                                              |
+|---------|----|----------------------------------------------------------------------------------------------------------|
+| buttons | 1  | used as the parent of buttons, takes a list of components with the `components` key with the type of `2` |
+| button  | 2  | an actual button                                                                                         |
+
+
+### ComponentStyle
+| Key       | ID | Description                                            |
+|-----------|----|--------------------------------------------------------|
+| blurple   | 1  | a blurple coloured button                              |
+| grey      | 2  | a grey coloured button                                 |
+| green     | 3  | a green coloured button                                |
+| red       | 4  | a red coloured button                                  |
+| hyperlink | 5  | a grey hyperlink button, set the link in the `url` key |
+
+
+### PartialEmoji
+
+| Key   | Value     |
+|-------|-----------|
+| name? | string    |
+| id?   | snowflake |
+
+
+### InteractionData
+Extending the interaction data payload.
+| Key             | Value                           |
+|-----------------|---------------------------------|
+| custom_id?      | string                          |
+| component_type? | [ComponentType](#ComponentType) |
+
+<br><br>
+</details>
