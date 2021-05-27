@@ -66,13 +66,13 @@ class Interaction {
                 tts: tts,
                 components: components
             };
-        let a = await this.client.api.interactions(this.id, this.token).callback
+        let b = await this.client.api.interactions(this.id, this.token).callback
         .post({ data:{
             type: type,
             data:data
         }});
         if (this.sync && !this.ephemeral) b = await this.client.api.webhooks(this.client.user.id, this.token).messages('@original');
-        await Callback(this, m)
+        Callback(this, b)
         
     }
     
