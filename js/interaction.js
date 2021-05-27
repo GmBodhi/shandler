@@ -71,7 +71,7 @@ class Interaction {
             type: type,
             data:data
         }});
-        if (this.sync && !this.ephemeral) b = await this.client.api.webhooks(this.client.user.id, this.token).messages('@original');
+        if (this.sync && !this.ephemeral) b = await this.client.api.webhooks(this.client.user.id, this.token).messages('@original').get();
         return await Callback(this, b)
         
     }
