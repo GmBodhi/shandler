@@ -15,7 +15,7 @@ Need support? Join our [Support server](https://discord.gg/tMWmEJFq4m).
     * [Replying](#replying)
     * [Editing](#edit)
     * [Delete](#delete)
-    * [Private Messages](#private-responses)
+    * [Ephemeral Messages](#ephemeral-responses)
     * [Follow-up Messages](#follow-up-messages)
 * [Commands](#dommands)
     * [Registration](#registering-a-command)
@@ -293,10 +293,10 @@ module.exports = {
 <br><br>
 </details>
 
-## Private Responses
-Using flags we can create private responses. Here is an example.
+## Ephemeral Responses
+Using flags we can create ephemeral responses. Here is an example.
 ```js
-interaction.reply("Private Message", { flags: 64 })
+interaction.reply("Ephemeral Message", { flags: 64 })
 ```
 
 <details>
@@ -305,13 +305,13 @@ interaction.reply("Private Message", { flags: 64 })
 
 Code:
 ```js
-//private.js
+//ephemeral.js
 module.exports = {
-  name: 'private',// Will default to filename if this is empty.
-  description: 'Private Response.',//Default: "An awesome command..!"
+  name: 'ephemeral',// Will default to filename if this is empty.
+  description: 'Sphemeral Response.',//Default: "An awesome command..!"
   guilds: ['789259215868395552'],  /*This is for guild specific command registration. If this is empty, the command will be registered globally*/
   async run({ interaction, client }) {
-    interaction.reply("Private Message", { flags: 64 }) //Send the interaction message, but as a private message.
+    interaction.reply("Ephemeral Message", { flags: 64 }) //Send the interaction message, but as a private message.
   }
 }
 ```
