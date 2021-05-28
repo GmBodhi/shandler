@@ -492,7 +492,6 @@ module.exports = {
             }
         ]
         interaction.reply("Pong!", { components: cmp, type: 4 }).then(m => {
-            interaction.client.on('buttonClick', handler); //this turns on the event for us to use later :)
         })
     }
 }
@@ -546,7 +545,6 @@ module.exports = {
             .setDescription("Example Description!")
 
         interaction.reply("", { components: cmp, type: 4, embed: embed, }).then(m => {
-            interaction.client.on('buttonClick', handler)
         })
     }
 }
