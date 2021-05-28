@@ -491,3 +491,30 @@ client.on('buttonClick', async (button) => {
 })
 ```
 
+### Sending an Embed with Buttons
+```js
+//ping.js
+const discord = require('discord.js')
+module.exports = {
+    guilds: ['826662403810131988'],
+    name: 'ping',
+    async run({ interaction }) {
+        let cmp = [
+            {
+                "type": 1, "components": [
+                    { "type": 2, "style": 1, "label": "Button 1", "custom_id": "1" },
+                    { "type": 2, "style": 4, "label": "Button 2", "custom_id": "2" }
+                ]
+            }
+        ]
+
+        let embed = new discord.MessageEmbed()
+            .setTitle('Pong!')
+            .setDescription("Example Description!")
+            
+        interaction.reply("", { components: cmp, type: 4, embed: embed, }).then(m => {
+            interaction.client.on('buttonClick', handler)
+        })
+    }
+}
+```
