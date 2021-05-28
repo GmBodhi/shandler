@@ -21,7 +21,7 @@ Need support? Join our [Support server](https://discord.gg/tMWmEJFq4m).
     * [Replying](#replying)
     * [Editing](#edit)
     * [Delete](#delete)
-    * [Ephemeral Messages](#ephemeral-responses)
+    * [Private Messages](#private-responses)
     * [Follow-up Messages](#follow-up-messages)
 * [Commands](#dommands)
     * [Registration](#registering-a-command)
@@ -299,10 +299,10 @@ module.exports = {
 <br><br>
 </details>
 
-## Ephemeral Responses
-Using flags we can create ephemeral responses. Here is an example.
+## Private Responses
+Using flags we can create private responses. Here is an example.
 ```js
-interaction.reply("Ephemeral Message", { flags: 64 })
+interaction.reply("Private Message", { flags: 64 })
 ```
 
 <details>
@@ -311,13 +311,13 @@ interaction.reply("Ephemeral Message", { flags: 64 })
 
 Code:
 ```js
-//ephemeral.js
+//private.js
 module.exports = {
-  name: 'ephemeral',// Will default to filename if this is empty.
-  description: 'Sphemeral Response.',//Default: "An awesome command..!"
+  name: 'private',// Will default to filename if this is empty.
+  description: 'Private Response.',//Default: "An awesome command..!"
   guilds: ['789259215868395552'],  /*This is for guild specific command registration. If this is empty, the command will be registered globally*/
   async run({ interaction, client }) {
-    interaction.reply("Ephemeral Message", { flags: 64 }) //Send the interaction message, but as a private message.
+    interaction.reply("Private Message", { flags: 64 }) //Send the interaction message, but as a private message.
   }
 }
 ```
@@ -357,11 +357,14 @@ client.on('ready', () => {
 ```                                                              
 
 ## Buttons
-**THIS IS NOT YET RELEASED**
-
 With Discord's newest update, we are abble to add buttons to our slash commands! [Find our example here!](https://github.com/GmBodhi/shandler-buttons)
 
 ![Slash Commands](https://i.imgur.com/cI6iQGa.png)
+
+
+### Getting Started 
+
+First, I recommend to check out the [Overview](https://github.com/Crispy-Cream/shandler#overview) and [Example Payload](https://github.com/Crispy-Cream/shandler#example-payload) in our documentation. Or just open the tab below.
 
 
 <details>
@@ -439,3 +442,52 @@ Extending the interaction data payload.
 
 <br><br>
 </details>
+
+### Adding Buttons to Commands
+To add a button or buttons to a command we need to set it up a little like this: 
+```js
+module.exports = {
+    guilds: ['826662403810131988'],
+    name: 'ping',
+    async run({ interaction }) {
+        let cmp = [
+            {
+                "type": 1, "components": [
+                    { "type": 2, "style": 1, "label": "Button 1", "custom_id": "1" }, //this is your first button
+                    { "type": 2, "style": 4, "label": "Button 2", "custom_id": "2" } //this is your second button
+                ]
+            }
+        ]
+        interaction.reply("Pong!", { components: cmp, type: 4 }).then(m => {
+            interaction.client.on('buttonClick', handler); //this turns on the event for us to use later :)
+        })
+    }
+}
+```
+Find **all** the possible componets for the payload [here](https://github.com/Crispy-Cream/shandler#component).
+
+You can find all options for *"type"* [here](https://github.com/Crispy-Cream/shandler#componenttype).
+Find all the options for *"style"* [here](https://github.com/Crispy-Cream/shandler#componentstyle). *"label"* is the name of the button that will be shown. The *"custom_id"* is the id of the specific button to be accessed later, we will address this more later.
+
+### Button Clicks
+When someone clicks on a button, it will fire an event called 'buttonClick'. 
+
+```js
+client.on('buttonClick', async (button) => {
+    if (button.data.custom_id === "1") {
+        let cmp = [
+            {
+                "type": 1, "components": [
+                    { "type": 2, "style": 1, "label": "Button 1", "custom_id": "3" },
+                ]
+            }
+        ]
+        button.reply("Buttons!", { components: cmp, type: 7 }) //This will edit the message and buttons.
+    } else if (button.data.custom_id === "2") {
+        button.reply('Hiii!') //This will reply to the interaction
+    } else if (button.data.custom_id === "3") {
+        button.reply("Heya!", { flags: 64 }) //This will reply to the interaction with an ephemeral message. 
+    }
+})
+```
+
