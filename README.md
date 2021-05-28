@@ -22,6 +22,7 @@ Need support? Join our [Support server](https://discord.gg/tMWmEJFq4m).
     * [Delete](#delete)
     * [Private Messages](#private-responses)
     * [Follow-up Messages](#follow-up-messages)
+    * [Reactions](#reactions)
 * [Commands](#dommands)
     * [Registration](#registering-a-command)
     * [Deletion](#deletion-without-shandler)
@@ -328,6 +329,35 @@ module.exports = {
 </details>
 
 This will only respond to the author of the interaction, find the [Docs here](https://canary.discord.com/developers/docs/interactions/slash-commands#interaction-response-interactionapplicationcommandcallbackdata)
+
+### Reactions
+With shandler's newest update we can now react to messages. 
+```js
+interaction.reply('bello').then(m => m.message.react('👀'))
+```
+
+<details>
+<summary>Example</summary>
+<br>
+
+```js
+//react.js
+module.exports = {
+    guilds: ['826662403810131988'],
+    name: 'react',
+    async run({ interaction }) {
+        interaction.reply("React!").then(m => {
+            m.message.react('👀')
+        })
+    }
+}
+```
+
+![Slash Commands](https://i.imgur.com/HLhSUhk.png)
+
+<br><br>
+</details>
+
 ## Commands
 For registering and deleting commands, you can use the following methods (Guild specific commands won't be automatically deleted even if `autoDelete` is `true`)
 
