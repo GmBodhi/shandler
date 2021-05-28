@@ -132,6 +132,10 @@ class FInteraction {
          } })
         .then(async (m) => await Callback(this, m).catch(console.error)).catch(console.error)
     }
+    
+    get message(){
+        return (this.id ? this.channel?.messages.resolve(this.id) : null) ?? null;
+    }
     /**
      * Deletes an interaction response or follow-up message
      * @returns {Object}
