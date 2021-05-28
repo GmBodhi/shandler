@@ -27,7 +27,10 @@ Need support? Join our [Support server](https://discord.gg/tMWmEJFq4m).
     * [Registration](#registering-a-command)
     * [Deletion](#deletion-without-shandler)
 * [Buttons](#buttons)
-
+    * [Getting Started](#getting-started)
+    * [Adding Buttons](#Adding-Buttons-to-Commands)
+    * [Button Clicks](#button-clicks)
+    * [Embeds](#sending-an-embed-with-buttons)
 ## Installation
 
 ```
@@ -446,6 +449,7 @@ Extending the interaction data payload.
 ### Adding Buttons to Commands
 To add a button or buttons to a command we need to set it up a little like this: 
 ```js
+//ping.js
 module.exports = {
     guilds: ['826662403810131988'],
     name: 'ping',
@@ -511,7 +515,7 @@ module.exports = {
         let embed = new discord.MessageEmbed()
             .setTitle('Pong!')
             .setDescription("Example Description!")
-            
+
         interaction.reply("", { components: cmp, type: 4, embed: embed, }).then(m => {
             interaction.client.on('buttonClick', handler)
         })
