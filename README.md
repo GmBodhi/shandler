@@ -8,7 +8,6 @@
 
 This is a wrapper/command-handler for discord's new **Slash Commands**. Using this package, you can send/edit/delete an interaction response. As well as followup messages and more.
 Need support? Join our [Support server](https://discord.gg/tMWmEJFq4m).
-
 ## Table of Contents
 * [Installation](#installation)
 * [Basic-usage](#basic-usage)
@@ -362,7 +361,7 @@ client.on('ready', () => {
 ## Buttons
 With Discord's newest update, we are abble to add buttons to our slash commands! [Find our example here!](https://github.com/GmBodhi/shandler-buttons)
 
-![Slash Commands](https://i.imgur.com/cI6iQGa.png)
+![Slash Commands](https://i.imgur.com/wb4Qai6.png)
 
 
 ### Getting Started 
@@ -522,3 +521,5 @@ module.exports = {
     }
 }
 ```
+
+![Slash Commands](https://i.imgur.com/7SoToK5.png)
