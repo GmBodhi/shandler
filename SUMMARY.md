@@ -1,5 +1,5 @@
 # Table of contents
 
-* [Initial page](README.md)
+* [Shandler](README.md)
 * [index](index.md)
 
