@@ -1,8 +1,6 @@
 # Table of contents
 
 * [Shandler](README.md)
-* [index](index.md)
-* [Table of Contents](table-of-contents.md)
 
 ## Getting Started
 
@@ -10,4 +8,6 @@
 * [SHClient and Interaction](getting-started/shclient-and-interaction.md)
 * [Methods](getting-started/methods.md)
 * [Commands](getting-started/commands.md)
+* [Buttons](getting-started/buttons/README.md)
+  * [Buttons Documentation](getting-started/buttons/buttons-documentation.md)
 
