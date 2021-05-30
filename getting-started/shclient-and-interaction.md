@@ -49,10 +49,13 @@ __[_Channel object_](https://discord.js.org/#/docs/main/stable/class/Channel)
 
 ## Message Property
 
+With Shandler's newest update, you can use [message methods](https://discord.js.org/#/docs/main/master/class/Message). Example
 
-
-  
-
+```javascript
+interaction.reply('bello').then(m => {
+m.message.<method>
+})
+```
 
 #### 
 
