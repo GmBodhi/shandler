@@ -9,4 +9,5 @@
 * [Basic Usage](getting-started/undefined.md)
 * [SHClient and Interaction](getting-started/shclient-and-interaction.md)
 * [Methods](getting-started/methods.md)
+* [Commands](getting-started/commands.md)
 
