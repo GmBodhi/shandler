@@ -2,6 +2,7 @@
 
 * [Shandler](README.md)
 * [index](index.md)
+* [Table of Contents](table-of-contents.md)
 
 ## Getting Started
 

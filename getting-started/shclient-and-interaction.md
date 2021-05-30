@@ -45,7 +45,13 @@ Unlike discord's normal interaction object, Shandler's interaction object has mo
 [_Guildmember object_](https://discord.js.org/#/docs/main/stable/class/GuildMember)  
 __[_Client object_](https://discord.js.org/#/docs/main/stable/class/Client)  
 __[_Guild object_](https://discord.js.org/#/docs/main/stable/class/Guild)  
-__[_Channel object_](https://discord.js.org/#/docs/main/stable/class/Channel)  
+__[_Channel object_](https://discord.js.org/#/docs/main/stable/class/Channel)
+
+## Message Property
+
+
+
+  
 
 
 #### 
