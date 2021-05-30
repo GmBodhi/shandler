@@ -49,7 +49,7 @@ __[_Channel object_](https://discord.js.org/#/docs/main/stable/class/Channel)
 
 ## Message Property
 
-With Shandler's newest update, you can use [message methods](https://discord.js.org/#/docs/main/master/class/Message). Example
+With Shandler's newest update, you can use [message methods](https://discord.js.org/#/docs/main/master/class/Message). 
 
 ```javascript
 interaction.reply('bello').then(m => {
@@ -57,5 +57,7 @@ m.message.<method>
 })
 ```
 
-#### 
+Find another example [here](methods.md#reactions) with reactions.
+
+**If it is an ephemeral response this WONT work**
 
