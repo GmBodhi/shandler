@@ -57,7 +57,7 @@ module.exports = {
 
 ## **Delete**
 
-Deletes an interaction response which was sent using the `.reply()` method.
+Deletes an interaction response that was sent using the `.reply()` method.
 
 ```javascript
 interaction.reply('Bello').then(m => {
@@ -89,7 +89,7 @@ _No screenshot, because it deletes lol_
 
 ## Follow-up Messages
 
-Follow-up messages allows you to send multiple messages from a single interaction. Here is an example.
+Follow-up messages allow you to send multiple messages from a single interaction. Here is an example.
 
 ```javascript
 let m = await interaction.reply("Bello");
@@ -145,7 +145,7 @@ module.exports = {
 
 ## Reactions
 
-With shandler's newest update we can now react to messages.
+With Shandler's newest update we can now react to messages.
 
 ```javascript
 interaction.reply('bello').then(m => m.message.react('👀'))

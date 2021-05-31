@@ -59,5 +59,5 @@ m.message.<method>
 
 Find another example [here](methods.md#reactions) with reactions.
 
-**If it is an ephemeral response this WONT work**
+**If it is an ephemeral response this WILL NOT work**
 

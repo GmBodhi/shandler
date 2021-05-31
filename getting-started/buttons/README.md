@@ -6,7 +6,7 @@ With Discord's newest update, we are able to add buttons to our slash commands! 
 
 #### Getting Started
 
-First, I recommend to check out the [Overview](buttons-documentation.md#overview) and [Example Payload](buttons-documentation.md#example-payload) in our documentation. Click [here](buttons-documentation.md) to see the all of the buttons documentation.
+First, I recommend checking out the [Overview](buttons-documentation.md#overview) and [Example Payload](buttons-documentation.md#example-payload) in our documentation. Click [here](buttons-documentation.md) to see all of the buttons documentation.
 
 #### Adding Buttons to Commands <a id="adding-buttons-to-commands"></a>
 

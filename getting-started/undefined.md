@@ -6,7 +6,7 @@ You can use this package as a [wrapper](undefined.md#wrapper) for the discord ap
 
 #### Setup
 
-**Free advice:** Please don't copy paste then ask for support because you don't understand it.
+**Free advice:** Please **don't copy-paste** then ask for support because you don't understand it.
 
 ```javascript
 //index.js
@@ -48,7 +48,7 @@ module.exports = {
 
 **Command Options**
 
-You might've thought what all we can do with the `options`. Well you can refer [here](https://discord.com/developers/docs/interactions/slash-commands#applicationcommandoption) at the Discord Doumentation.
+You might've thought what all we can do with the `options`. Well, you can refer [here](https://discord.com/developers/docs/interactions/slash-commands#applicationcommandoption) at the Discord Documentation.
 
 ### Wrapper
 
