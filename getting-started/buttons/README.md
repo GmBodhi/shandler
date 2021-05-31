@@ -2,7 +2,7 @@
 
 With Discord's newest update, we are able to add buttons to our slash commands! [Find our example here!](https://github.com/GmBodhi/shandler-buttons)
 
-![](../../.gitbook/assets/image%20%282%29.png)
+![](../../.gitbook/assets/image%20%283%29%20%282%29.png)
 
 #### Getting Started
 

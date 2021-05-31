@@ -2,11 +2,11 @@
 
 ## Overview
 
-Messages can be sent with the components key to add buttons and other components \(when discord brings them out\), you can edit and add new buttons via editing the message, this is useful for the `disabled` key to stop people from clicking it.
+Messages can be sent with the components key to add buttons and other components \(when discord brings them out\), you can edit and add new buttons via editing the message, this is useful for the `disabled` key to stopping people from clicking it.
 
 ### Example Payload
 
-```text
+```javascript
 {
     "content": "this is an example message for components",
     "components": [
@@ -50,10 +50,10 @@ Extending the message payload.
 
 | Key | ID | Description |
 | :--- | :--- | :--- |
-| blurple | 1 | a blurple coloured button |
-| grey | 2 | a grey coloured button |
-| green | 3 | a green coloured button |
-| red | 4 | a red coloured button |
+| blurple | 1 | a blurple-colored button |
+| grey | 2 | a grey-colored button |
+| green | 3 | a green-colored button |
+| red | 4 | a red-colored button |
 | hyperlink | 5 | a grey hyperlink button, set the link in the `url` key |
 
 ### PartialEmoji
