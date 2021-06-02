@@ -55,25 +55,26 @@ class Interaction {
             tts = false,
             components = []
         } = options
+        this.ephemeral = ( flags == 64 ? true : false );
         let data;
-        if (!res && !options.embed && !options.embeds) throw new Error('Cannot send an empty message.')
-        if (embed) embeds.push(embed)
+        if (!res && !options.embed && !options.embeds) throw new Error('Cannot send an empty message.');
+               if (embed) embeds.push(embed);
          data = {
                 content: res || "",
                 embeds: embeds,
                 flags: flags,
                 tts: tts,
                 components: components
-            }
-        return this.client.api.interactions(this.id, this.token).callback
+            };
+
+        let b = await this.client.api.interactions(this.id, this.token).callback
         .post({ data:{
             type: type,
             data:data
-        } })
-        .then(async (m) => {
-            if (this.sync) return this.client.api.webhooks(this.client.user.id, this.token).messages('@original').then(async msg => await Callback(this, msg))
-            await Callback(this, m)
-        })
+        }});
+        if (this.sync && !this.ephemeral) b = await this.client.api.webhooks(this.client.user.id, this.token).messages('@original').get();
+        return await Callback(this, b);
+        
     }
     
 }
