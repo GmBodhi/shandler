@@ -14,8 +14,8 @@ Need support? Join our [Support server](https://discord.gg/tMWmEJFq4m).
     * [Command-handler](#command-handler)
     * [Wrapper](#wrapper)
 * [SHClient Options](#shclient-options)
-* [Interaction object](#interaction-object)
-    * [Properties](#properties)
+    * [Interaction object](#interaction-object)
+    * [Message Property](#message-property)
 * [Methods](#methods)
     * [Replying](#replying)
     * [Editing](#edit)
@@ -172,6 +172,21 @@ Unlike discord's normal interaction object, Shandler's interaction object has mo
 [Client object](https://discord.js.org/#/docs/main/stable/class/Client)<br>
 [Guild object](https://discord.js.org/#/docs/main/stable/class/Guild)<br>
 [Channel object](https://discord.js.org/#/docs/main/stable/class/Channel)<br>
+
+## Message Property
+
+With Shandler's newest update, you can use [message methods](https://discord.js.org/#/docs/main/master/class/Message). 
+
+```javascript
+interaction.reply('bello').then(m => {
+m.message.<method>
+})
+```
+
+Find another example [here](#reaction) with reactions.
+
+**If it is an ephemeral response this WILL NOT work**
+
 ### Methods
 
 #### Replying
@@ -211,7 +226,6 @@ interaction.reply('Bello').then(m => {
 })
 
 ```
- returns <Promise [FInteraction]()\>
 
 <details>
 <summary>Example</summary>
