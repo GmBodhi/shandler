@@ -30,6 +30,7 @@ class Interaction {
         this.token = interaction.token
         this.member = member
         this.id = interaction.id
+        this.message = interaction.message ?? null
         this.client = client
         this.guild = guild
         this.data = interaction.data
