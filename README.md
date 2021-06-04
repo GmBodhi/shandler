@@ -6,6 +6,8 @@
 
 # What is this package about..?
 
+**[Official Documentation](https://shandler.js.org/)**
+
 This is a wrapper/command-handler for discord's new **Slash Commands**. Using this package, you can send/edit/delete an interaction response. As well as followup messages and more.
 Need support? Join our [Support server](https://discord.gg/tMWmEJFq4m).
 ## Table of Contents
