@@ -69,7 +69,7 @@ const handler = new SHClient(client, options);
 module.exports = {
     name: 'ping',// Will default to filename if this is empty
     description: 'Is this unusual?',//Default: "An awesome command..!"
-    options:[]//We will cover this in the next part
+    options:[],//We will cover this in the next part
     guilds: [] /*This is for guild specific command registration
     if this is empty, this command will be registered globally*/
     async run({interaction, client}){
