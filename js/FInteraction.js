@@ -78,7 +78,7 @@ class FInteraction {
      * })
      */
     async reply(res, options = {}){
-        let { files } = await APIMessage.create(this.channel, content, options)
+        let { files } = await APIMessage.create(this.channel, res, options)
           .resolveData()
           .resolveFiles();
         let {
