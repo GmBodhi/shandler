@@ -62,7 +62,8 @@ class Interaction {
         } = options
         this.ephemeral = ( flags == 64 ? true : false );
         let data;
-        if (!res && !options.embed && !options.embeds) throw new Error('Cannot send an empty message.');
+        if (!res && !options.embed && !options.embeds && !options.files)
+          throw new Error("Cannot send an empty message.");
                if (embed) embeds.push(embed);
          data = {
                 content: res || "",

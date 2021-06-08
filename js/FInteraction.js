@@ -89,7 +89,8 @@ class FInteraction {
             flags = null,
             components = []
         } = options
-        if (!res && !embed && !embeds) throw new Error('content cannot be empty.')
+        if (!res && !embed && !embeds && !options.files)
+          throw new Error("content cannot be empty.");
 
         if (embed) embeds.push(embed)
         return this.client.api.webhooks(this.client.user.id, this.token)
@@ -118,7 +119,8 @@ class FInteraction {
         let { files } = await APIMessage.create(this.channel, content, options)
           .resolveData()
           .resolveFiles();
-        if (!content && !options.embed && !options.embeds) throw new Error('content can\'t be empty')
+        if (!content && !options.embed && !options.embeds && !options.files)
+          throw new Error("content can't be empty");
         let {
             type = 4,
             embed,
