@@ -1,6 +1,6 @@
 {
   "name": "shandler",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A module for Discord Slash command wrapper/handler",
   "main": "js/index.js",
   "scripts": {
