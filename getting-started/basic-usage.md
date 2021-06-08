@@ -1,6 +1,6 @@
 # Basic Usage
 
-You can use this package as a [wrapper](undefined.md#wrapper) for the discord api or as a [command handler](undefined.md#command-handler)
+You can use this package as a [wrapper](basic-usage.md#wrapper) for the discord api or as a [command handler](basic-usage.md#command-handler)
 
 ### Command handler
 

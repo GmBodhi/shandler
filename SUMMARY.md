@@ -4,7 +4,7 @@
 
 ## Getting Started
 
-* [Basic Usage](getting-started/undefined.md)
+* [Basic Usage](getting-started/basic-usage.md)
 * [SHClient and Interaction](getting-started/shclient-and-interaction.md)
 * [Methods](getting-started/methods.md)
 * [Commands](getting-started/commands.md)
