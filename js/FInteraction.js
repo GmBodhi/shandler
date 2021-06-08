@@ -1,4 +1,4 @@
-const { Client } = require('discord.js');
+const { Client, APIMessage } = require('discord.js');
 
 /**
  * An object 
@@ -78,6 +78,9 @@ class FInteraction {
      * })
      */
     async reply(res, options = {}){
+        let { files } = await APIMessage.create(this.channel, content, options)
+          .resolveData()
+          .resolveFiles();
         let {
             type = 4,
             embed,
@@ -97,7 +100,7 @@ class FInteraction {
                 tts: tts,
                 flags: flags,
                 components: components
-        } })
+        }, files })
         .then(async (m) => await Callback(this, m))
     }
 
@@ -112,6 +115,9 @@ class FInteraction {
      * })
      */
     async edit(content = "", options = {}){
+        let { files } = await APIMessage.create(this.channel, content, options)
+          .resolveData()
+          .resolveFiles();
         if (!content && !options.embed && !options.embeds) throw new Error('content can\'t be empty')
         let {
             type = 4,
@@ -131,7 +137,7 @@ class FInteraction {
             components: components,
             tts: tts,
             flags: flags
-         } })
+         }, files })
         .then(async (m) => await Callback(this, m).catch(console.error)).catch(console.error)
     }
     

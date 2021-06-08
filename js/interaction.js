@@ -1,4 +1,5 @@
 const FInteraction = require('./FInteraction')
+const { APIMessage } = require('discord.js')
 
 const Callback = async (res, data) =>{
     if (!data || !res) return;
@@ -48,6 +49,9 @@ class Interaction {
      * interaction.reply("Bello")
      */
      async reply(res, options = {}){
+         let { files } = await APIMessage.create(this.channel, content, options)
+           .resolveData()
+           .resolveFiles();
         let {
             embed,
             embeds = [],
@@ -72,7 +76,7 @@ class Interaction {
         .post({ data:{
             type: type,
             data:data
-        }});
+        }, files});
         if (this.sync && !this.ephemeral) b = await this.client.api.webhooks(this.client.user.id, this.token).messages('@original').get();
         return await Callback(this, b);
         
