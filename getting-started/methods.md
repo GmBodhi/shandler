@@ -168,3 +168,36 @@ module.exports = {
 
 ![](../.gitbook/assets/hlhsuhk.png)
 
+## Attachments
+
+Using Discord.js MessageAttachments, we are able to send attachments in our interactions.
+
+```javascript
+interaction.reply("", { files: [attachment] });
+```
+
+### Example
+
+```javascript
+const Discord = require('discord.js')
+const DIG = require("discord-image-generation");
+module.exports = {
+    name: 'circle',
+    description: 'Make a PFP a circle',
+    guilds: ['789259215868395552'],
+    async run({ interaction, client }) {
+        try {
+            var avatar = interaction.user.displayAvatarURL({ dynamic: false, format: 'png' });
+            
+            let img = await new DIG.Circle().getImage(avatar);
+
+            let attach = new Discord.MessageAttachment(img, "avatar.png");
+
+            i.edit("", { files: [attach] });
+        } catch (err) {
+            console.log(err)
+        }
+    } 
+}
+```
+
