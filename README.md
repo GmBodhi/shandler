@@ -25,6 +25,7 @@ Need support? Join our [Support server](https://discord.gg/tMWmEJFq4m).
     * [Private Messages](#private-responses)
     * [Follow-up Messages](#follow-up-messages)
     * [Reactions](#reactions)
+    * [Attachments](#Attachments)
 * [Commands](#dommands)
     * [Registration](#registering-a-command)
     * [Deletion](#deletion-without-shandler)
@@ -318,7 +319,7 @@ module.exports = {
 <br><br>
 </details>
 
-## Private Responses
+### Private Responses
 Using flags we can create private responses. Here is an example.
 ```js
 interaction.reply("Private Message", { flags: 64 })
@@ -370,6 +371,43 @@ module.exports = {
 ```
 
 ![Slash Commands](https://i.imgur.com/HLhSUhk.png)
+
+<br><br>
+</details>
+
+### Attachments
+Using Discord.js MessageAttachments, we are able to send attachments in our interactions.
+
+```js
+interaction.reply("", { files: [attachment] });
+```
+
+<details>
+<summary>Example</summary>
+<br>
+
+```js
+const Discord = require('discord.js')
+const DIG = require("discord-image-generation");
+module.exports = {
+    name: 'circle',
+    description: 'Make a PFP a circle',
+    guilds: ['789259215868395552'],
+    async run({ interaction, client }) {
+        try {
+            var avatar = interaction.user.displayAvatarURL({ dynamic: false, format: 'png' });
+            
+            let img = await new DIG.Circle().getImage(avatar);
+
+            let attach = new Discord.MessageAttachment(img, "avatar.png");
+
+            i.edit("", { files: [attach] });
+        } catch (err) {
+            console.log(err)
+        }
+    } 
+} 
+```
 
 <br><br>
 </details>
