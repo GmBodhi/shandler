@@ -2,7 +2,7 @@
 
 ## Installing Shandler
 
-To install Shandler, run the following.
+To install Shandler with NPM, run the following.
 
 ```text
 $ npm install shandler@latest
@@ -12,3 +12,7 @@ $ npm install shandler@latest
 To download Shandler's Beta, run npm install github:GmBodhi/shandler
 {% endhint %}
 
+To install Shandler with yarn, run the following.
+```text
+$ yarn add shandler
+```
