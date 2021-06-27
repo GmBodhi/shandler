@@ -1,4 +1,5 @@
 const FInteraction = require('./FInteraction')
+const { MessagePayload } = require('discord.js')
 
 const Callback = async (res, data) =>{
     if (!data || !res) return;
@@ -30,6 +31,7 @@ class Interaction {
         this.token = interaction.token
         this.member = member
         this.id = interaction.id
+        this.message = interaction.message ?? null
         this.client = client
         this.guild = guild
         this.data = interaction.data
@@ -47,6 +49,9 @@ class Interaction {
      * interaction.reply("Bello")
      */
      async reply(res, options = {}){
+         let { files } = await MessagePayload.create(this.channel, res, options)
+           .resolveData()
+           .resolveFiles();
         let {
             embed,
             embeds = [],
@@ -57,7 +62,8 @@ class Interaction {
         } = options
         this.ephemeral = ( flags == 64 ? true : false );
         let data;
-        if (!res && !options.embed && !options.embeds) throw new Error('Cannot send an empty message.');
+        if (!res && !options.embed && !options.embeds && !options.files)
+          throw new Error("Cannot send an empty message.");
                if (embed) embeds.push(embed);
          data = {
                 content: res || "",
@@ -71,7 +77,7 @@ class Interaction {
         .post({ data:{
             type: type,
             data:data
-        }});
+        }, files});
         if (this.sync && !this.ephemeral) b = await this.client.api.webhooks(this.client.user.id, this.token).messages('@original').get();
         return await Callback(this, b);
         

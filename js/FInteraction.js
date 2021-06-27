@@ -1,4 +1,4 @@
-const { Client } = require('discord.js');
+const { Client, MessagePayload } = require('discord.js');
 
 /**
  * An object 
@@ -78,6 +78,9 @@ class FInteraction {
      * })
      */
     async reply(res, options = {}){
+        let { files } = await MessagePayload.create(this.channel, res, options)
+          .resolveData()
+          .resolveFiles();
         let {
             type = 4,
             embed,
@@ -86,7 +89,8 @@ class FInteraction {
             flags = null,
             components = []
         } = options
-        if (!res && !embed && !embeds) throw new Error('content cannot be empty.')
+        if (!res && !embed && !embeds && !options.files)
+          throw new Error("content cannot be empty.");
 
         if (embed) embeds.push(embed)
         return this.client.api.webhooks(this.client.user.id, this.token)
@@ -97,7 +101,7 @@ class FInteraction {
                 tts: tts,
                 flags: flags,
                 components: components
-        } })
+        }, files })
         .then(async (m) => await Callback(this, m))
     }
 
@@ -112,7 +116,11 @@ class FInteraction {
      * })
      */
     async edit(content = "", options = {}){
-        if (!content && !options.embed && !options.embeds) throw new Error('content can\'t be empty')
+        let { files } = await MessagePayload.create(this.channel, content, options)
+          .resolveData()
+          .resolveFiles();
+        if (!content && !options.embed && !options.embeds && !options.files)
+          throw new Error("content can't be empty");
         let {
             type = 4,
             embed,
@@ -131,8 +139,12 @@ class FInteraction {
             components: components,
             tts: tts,
             flags: flags
-         } })
+         }, files })
         .then(async (m) => await Callback(this, m).catch(console.error)).catch(console.error)
+    }
+    
+    get message(){
+        return (this.id ? this.channel?.messages.resolve(this.id) : null) ?? null;
     }
     /**
      * Deletes an interaction response or follow-up message

@@ -1,45 +1,10 @@
 {
-  "_from": "shandler@latest",
-  "_id": "shandler@1.2.2",
-  "_inBundle": false,
-  "_integrity": "sha512-tzWNcNuwasHArhTiajlasWhRB9v+ZWx53wuIzvZimTJK1gTo/DlgHykortJ92AUIKoSwVZBcmtkouo+cUTq5xA==",
-  "_location": "/shandler",
-  "_phantomChildren": {},
-  "_requested": {
-    "type": "tag",
-    "registry": true,
-    "raw": "shandler@latest",
-    "name": "shandler",
-    "escapedName": "shandler",
-    "rawSpec": "latest",
-    "saveSpec": null,
-    "fetchSpec": "latest"
-  },
-  "_requiredBy": [
-    "#USER",
-    "/"
-  ],
-  "_resolved": "https://registry.npmjs.org/shandler/-/shandler-1.2.2.tgz",
-  "_shasum": "e3e0dea24866c37e5794f45c2de5329635119b76",
-  "_spec": "shandler@latest",
-  "_where": "C:\\Users\\proie\\Documents\\Workroom",
-  "author": {
-    "name": "GmBodhi"
-  },
-  "bugs": {
-    "url": "https://github.com/GmBodhi/shandler/issues"
-  },
-  "bundleDependencies": false,
-  "dependencies": {
-    "discord.js": "^12.5.3"
-  },
-  "deprecated": false,
-  "description": "A module for Discord Slash command wrapper/handling",
-  "devDependencies": {
-    "@types/node": "^14.14.37",
-    "@types/typescript": "^2.0.0",
-    "ts-node": "^9.1.1",
-    "typescript": "^4.2.3"
+  "name": "shandler",
+  "version": "2.0.3",
+  "description": "A module for Discord Slash command wrapper/handler",
+  "main": "js/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "homepage": "https://github.com/GmBodhi/shandler#readme",
   "keywords": [
@@ -59,5 +24,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "version": "1.2.2"
+  "devDependencies": {
+    "@types/node": "^14.14.37",
+    "@types/typescript": "^2.0.0",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.3"
+  }
 }
