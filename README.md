@@ -4,6 +4,9 @@
   </p>
 </div>
 
+# Please notice, this is our discord.js v13 testing branch.
+
+
 # What is this package about..?
 
 **[Official Documentation](https://shandler.js.org/)**
