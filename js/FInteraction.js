@@ -1,4 +1,4 @@
-const { Client, APIMessage } = require('discord.js');
+const { Client, MessagePayload } = require('discord.js');
 
 /**
  * An object 
@@ -78,7 +78,7 @@ class FInteraction {
      * })
      */
     async reply(res, options = {}){
-        let { files } = await APIMessage.create(this.channel, res, options)
+        let { files } = await MessagePayload.create(this.channel, res, options)
           .resolveData()
           .resolveFiles();
         let {
@@ -96,7 +96,7 @@ class FInteraction {
         return this.client.api.webhooks(this.client.user.id, this.token)
         .post({ data:{
                 type: type,
-                content: res,
+                content: res||' ',
                 embeds: embeds,
                 tts: tts,
                 flags: flags,
@@ -116,7 +116,7 @@ class FInteraction {
      * })
      */
     async edit(content = "", options = {}){
-        let { files } = await APIMessage.create(this.channel, content, options)
+        let { files } = await MessagePayload.create(this.channel, content, options)
           .resolveData()
           .resolveFiles();
         if (!content && !options.embed && !options.embeds && !options.files)

@@ -1,5 +1,5 @@
 const FInteraction = require('./FInteraction')
-const { APIMessage } = require('discord.js')
+const { MessagePayload } = require('discord.js')
 
 const Callback = async (res, data) =>{
     if (!data || !res) return;
@@ -49,7 +49,7 @@ class Interaction {
      * interaction.reply("Bello")
      */
      async reply(res, options = {}){
-         let { files } = await APIMessage.create(this.channel, res, options)
+         let { files } = await MessagePayload.create(this.channel, res||" ", options)
            .resolveData()
            .resolveFiles();
         let {
@@ -66,13 +66,12 @@ class Interaction {
           throw new Error("Cannot send an empty message.");
                if (embed) embeds.push(embed);
          data = {
-                content: res || "",
+                content: res || " ",
                 embeds: embeds,
                 flags: flags,
                 tts: tts,
                 components: components
             };
-
         let b = await this.client.api.interactions(this.id, this.token).callback
         .post({ data:{
             type: type,
