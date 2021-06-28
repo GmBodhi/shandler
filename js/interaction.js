@@ -49,7 +49,7 @@ class Interaction {
      * interaction.reply("Bello")
      */
      async reply(res, options = {}){
-         let { files } = await MessagePayload.create(this.channel, res, options)
+         let { files } = await MessagePayload.create(this.channel, res||" ", options)
            .resolveData()
            .resolveFiles();
         let {
@@ -66,7 +66,7 @@ class Interaction {
           throw new Error("Cannot send an empty message.");
                if (embed) embeds.push(embed);
          data = {
-                content: res || "",
+                content: res || " ",
                 embeds: embeds,
                 flags: flags,
                 tts: tts,

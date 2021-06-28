@@ -96,7 +96,7 @@ class FInteraction {
         return this.client.api.webhooks(this.client.user.id, this.token)
         .post({ data:{
                 type: type,
-                content: res,
+                content: res||' ',
                 embeds: embeds,
                 tts: tts,
                 flags: flags,
