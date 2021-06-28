@@ -72,7 +72,6 @@ class Interaction {
                 tts: tts,
                 components: components
             };
-
         let b = await this.client.api.interactions(this.id, this.token).callback
         .post({ data:{
             type: type,
