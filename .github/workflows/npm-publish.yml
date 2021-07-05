@@ -1,14 +1,14 @@
 name: npm publish
 
-on: 
+on:
   push:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   Publish:
     runs-on: ubuntu-latest
     steps:
-      run: npm install
-      env:
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      run: npm publish
+      - run: npm install
+      - env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: npm publish
