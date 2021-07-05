@@ -6,12 +6,16 @@ on:
 
 jobs:
   publish:
-    runs-on: windows-latest
-    steps:
-      - name: Test
-        run: dir
-      - name: publish
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-        working-directory: ../../
-        run: npm publish
+    build:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+        # Setup .npmrc file to publish to npm
+        - uses: actions/setup-node@v2
+          with:
+            node-version: "12.x"
+            registry-url: "https://registry.npmjs.org"
+        - run: npm install
+        - run: npm publish
+          env:
+            NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
