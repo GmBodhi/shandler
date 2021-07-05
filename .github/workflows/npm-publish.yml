@@ -12,6 +12,7 @@ jobs:
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
+      - uses: actions/setup-node@master
       - run: npm install
       - working-directory: ../../
       - run: npm publish
