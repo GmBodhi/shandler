@@ -8,6 +8,8 @@ jobs:
   publish:
     runs-on: windows-latest
     steps:
+      - name: Test
+        run: dir
       - name: publish
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
