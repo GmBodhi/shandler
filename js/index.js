@@ -64,7 +64,7 @@ class SHClient extends EventEmitter {
           .filter(
             (m) =>
               m.endsWith(".js") &&
-              !exclude.includes(m.replace(/(.+)\.\w?js)$/, "$1"))
+              !exclude.includes(m.replace(/(.+)\.\w?js$/, "$1"))
           );
         for (const f of cmdfls) {
           const scmd = require(path.resolve(process.cwd(), commandsDir, f));
