@@ -12,4 +12,6 @@ jobs:
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
+      - working-directory: ../../
+      - run: npm install
       - run: npm publish
