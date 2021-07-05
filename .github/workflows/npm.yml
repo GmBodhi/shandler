@@ -22,11 +22,6 @@ jobs:
         # Remove --no-optional after Node 16 upgrade
         run: npm ci --ignore-scripts --no-optional
 
-      - name: Deprecate old versions
-        run: npm deprecate discord.js@"~13.0.0-dev" "no longer supported" || true
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
-
       - name: Publish
         run: |
           npm version --git-tag-version=false $(jq --raw-output '.version' package.json).$(git rev-parse --short HEAD).$(date +%s)
