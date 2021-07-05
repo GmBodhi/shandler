@@ -6,14 +6,12 @@ on:
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     container:
       image: node:14.16
       env:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
-      - name: test
-        run: echo $CD
       - name: publish
         working-directory: ../../
         run: npm publish
