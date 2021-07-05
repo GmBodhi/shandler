@@ -13,7 +13,7 @@ jobs:
         NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - name: test
-        run: ls
+        run: echo $CD
       - name: publish
         working-directory: ../../
         run: npm publish
