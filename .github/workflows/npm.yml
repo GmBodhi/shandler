@@ -1,7 +1,6 @@
 name: Publish dev
 on:
   workflow_dispatch:
-  branches: 'dev'
   schedule:
     - cron: "0 */12 * * *"
 jobs:
