@@ -105,7 +105,7 @@ class Interaction {
    * besically `interaction.reply("", { type: 6 or 5 })`
    * @returns {Promise<Object>} FInteraction object
    */
-  async defer({}) {
+  async defer() {
     return await this.reply("", { type: this.type === 3 ? 6 : 5 });
   }
 }
