@@ -5,10 +5,10 @@ on:
     branches: [master]
 
 jobs:
-  Publish:
+  publish:
     runs-on: ubuntu-latest
+    env:
+      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - run: npm install
-      - env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
       - run: npm publish
