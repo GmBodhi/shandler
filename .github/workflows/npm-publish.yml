@@ -7,11 +7,9 @@ on:
 jobs:
   publish:
     runs-on: windows-latest
-    container:
-      image: node:14.16
-      env:
-        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
     steps:
       - name: publish
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
         working-directory: ../../
         run: npm publish
