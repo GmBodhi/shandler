@@ -21,7 +21,8 @@ const options = {
     wrapper: false, // defaults to false
     cLogs: true, // logs most of the resolved promises
     autoDelete: true, // Automatically syncs the global application commands
-    autoRegister: true // Automatically register commands
+    autoRegister: true, // Automatically register commands
+    exclude: ['file'], // Exclude a file from the command directory. Make sure you only put the file name.
 }
 
 const handler = new SHClient(client, options);
@@ -120,4 +121,3 @@ client.on('ready', () => {
     autoRegister = true // Automatically registers commands accoring to the command files
 }
 ```
-

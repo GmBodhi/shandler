@@ -8,7 +8,7 @@ Responds to an interaction
 interaction.reply('Bello').then(console.log);
 ```
 
-returns  &lt;Promise FInteraction&gt;
+returns &lt;Promise FInteraction&gt;
 
 ### **Example**
 
@@ -21,11 +21,10 @@ module.exports = {
   async run({ interaction, client }) {
     interaction.reply('Bello').then(console.log); //Send the interaction message, then log it.
   }
-}  
-
+}
 ```
 
-![](../.gitbook/assets/meikv19.png)
+![](https://github.com/Crispy-Cream/shandler-gitbook/tree/bd567718d5014e8197fffc8dd434bb5711cd72ea/.gitbook/assets/meikv19.png)
 
 ## **Edit**
 
@@ -34,10 +33,10 @@ Edits an interaction response which was sent using the `.reply()` method.
 ```javascript
 interaction.reply('Bello').then(m => {
     m.edit("Pog");
-}) 
+})
 ```
 
-### Example 
+### Example
 
 ```javascript
 //edit.js
@@ -53,7 +52,7 @@ module.exports = {
 }
 ```
 
-![](../.gitbook/assets/umrf62o.png)
+![](https://github.com/Crispy-Cream/shandler-gitbook/tree/bd567718d5014e8197fffc8dd434bb5711cd72ea/.gitbook/assets/umrf62o.png)
 
 ## **Delete**
 
@@ -115,7 +114,7 @@ module.exports = {
 }
 ```
 
-![](../.gitbook/assets/s68t9dg.png)
+![](https://github.com/Crispy-Cream/shandler-gitbook/tree/bd567718d5014e8197fffc8dd434bb5711cd72ea/.gitbook/assets/s68t9dg.png)
 
 ## Ephemeral Responses
 
@@ -141,7 +140,7 @@ module.exports = {
 }
 ```
 
-![](../.gitbook/assets/ty9cltb.png)
+![](https://github.com/Crispy-Cream/shandler-gitbook/tree/bd567718d5014e8197fffc8dd434bb5711cd72ea/.gitbook/assets/ty9cltb.png)
 
 ## Reactions
 
@@ -166,7 +165,7 @@ module.exports = {
 }
 ```
 
-![](../.gitbook/assets/hlhsuhk.png)
+![](https://github.com/Crispy-Cream/shandler-gitbook/tree/bd567718d5014e8197fffc8dd434bb5711cd72ea/.gitbook/assets/hlhsuhk.png)
 
 ## Attachments
 
@@ -188,7 +187,7 @@ module.exports = {
     async run({ interaction, client }) {
         try {
             var avatar = interaction.user.displayAvatarURL({ dynamic: false, format: 'png' });
-            
+
             let img = await new DIG.Circle().getImage(avatar);
 
             let attach = new Discord.MessageAttachment(img, "avatar.png");
@@ -201,3 +200,30 @@ module.exports = {
 }
 ```
 
+## Defer
+
+Want to send thinking messages? This is how: 
+
+```javascript
+interaction.defer();
+```
+
+### Example
+
+```javascript
+module.exports = {
+    name: 'defer',
+    description: 'Thinking?',
+    guilds: ['789259215868395552'],
+
+    async run({ interaction, client }) {
+        try {
+                interaction.defer();
+        } catch (err) {
+            console.log(err)
+        }
+    }
+}
+```
+
+![](https://i.imgur.com/EgZ8VLc.png)

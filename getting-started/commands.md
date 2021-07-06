@@ -6,7 +6,7 @@ description: Registration and Deletion
 
 For registering and deleting commands, you can use the following methods \(Guild specific commands won't be automatically deleted even if `autoDelete` is `true`\)
 
-### Deletion without Shandler
+## Deletion without Shandler
 
 Normally to delete a command you would have to use
 
@@ -15,7 +15,7 @@ Normally to delete a command you would have to use
 <client>.api.applications(client.user.id).guilds('GUILD-ID').commands('COMMAND-ID').delete(); //guild specific commmand
 ```
 
-### Deletion with Shandler
+## Deletion with Shandler
 
 With Shandler, you can use the much easier `.delete()` method.
 
