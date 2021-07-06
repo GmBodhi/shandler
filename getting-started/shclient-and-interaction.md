@@ -12,7 +12,8 @@
     wrapper = false, /* Use this package as a wrapper 
     You may need to delete/register commands 
     using the create/delete methods*/
-    autoRegister = true // Automatically registers commands accoring to the command files
+    autoRegister = true, // Automatically registers commands accoring to the command files
+    exclude = ['file'] // Exclude a file from the command directory. Make sure you only put the file name.
 }
 ```
 
@@ -20,7 +21,7 @@
 
 Unlike discord's normal interaction object, Shandler's interaction object has more properties and discord.js methods.
 
-#### Properties
+### Properties
 
 ```javascript
 {
@@ -43,13 +44,13 @@ Unlike discord's normal interaction object, Shandler's interaction object has mo
 ```
 
 [_Guildmember object_](https://discord.js.org/#/docs/main/stable/class/GuildMember)  
-__[_Client object_](https://discord.js.org/#/docs/main/stable/class/Client)  
-__[_Guild object_](https://discord.js.org/#/docs/main/stable/class/Guild)  
-__[_Channel object_](https://discord.js.org/#/docs/main/stable/class/Channel)
+[_**Client object**_](https://discord.js.org/#/docs/main/stable/class/Client)    
+****[_Guild object_](https://discord.js.org/#/docs/main/stable/class/Guild)  
+_\_\[\_Channel object_\]\([https://discord.js.org/\#/docs/main/stable/class/Channel](https://discord.js.org/#/docs/main/stable/class/Channel)\)
 
 ## Message Property
 
-With Shandler's newest update, you can use [message methods](https://discord.js.org/#/docs/main/master/class/Message). 
+With Shandler's newest update, you can use [message methods](https://discord.js.org/#/docs/main/master/class/Message).
 
 ```javascript
 interaction.reply('bello').then(m => {
@@ -60,4 +61,3 @@ m.message.<method>
 Find another example [here](methods.md#reactions) with reactions.
 
 **If it is an ephemeral response this WILL NOT work**
-
