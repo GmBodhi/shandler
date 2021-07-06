@@ -9,9 +9,20 @@
   </p>
 </div>
 
-# What is this package about..?
+## Installation
+```sh
+npm i discord-buttons
+```
+or
+```sh
+yarn add shandler
+```
 
+## Documentation
 **[Official Documentation](https://shandler.js.org/)**
 
+## About 
 This is a wrapper/command-handler for discord's new **Slash Commands**. Using this package, you can send/edit/delete an interaction response. As well as followup messages and more.
+
+## Contact
 Need support? Join our [Support server](https://discord.gg/tMWmEJFq4m).
