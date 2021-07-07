@@ -108,5 +108,24 @@ class Interaction {
   async defer() {
     return await this.reply("", { type: this.type === 3 ? 6 : 5 });
   }
+
+  /**
+   *basically `interaction.reply()` using type 7
+   * @param {string} res - string that needs to passed to `.reply` function
+   * @param {import("./FInteraction").Options} options - options
+   * @returns {Promise<Object>} FInteraction object
+   */
+  async update(res, options) {
+    options["type"] ??= 7;
+    return await this.reply(res, options);
+  }
+
+  isComponent() {
+    return this.type === 3 ? true : false;
+  }
+
+  isCommand() {
+    return this.type === 2 ? true : false;
+  }
 }
 module.exports = Interaction;
