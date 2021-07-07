@@ -118,7 +118,7 @@ class Interaction {
   async update(res, options = {}) {
     if (this.isCommand())
       throw new Error("This method is only allowed for Component interactions");
-    options["type"] ??= 7;
+    options["type"] = 7;
     return await this.reply(res, options);
   }
 
