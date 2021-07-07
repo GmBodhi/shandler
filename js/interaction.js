@@ -115,7 +115,9 @@ class Interaction {
    * @param {import("./FInteraction").Options} options - options
    * @returns {Promise<Object>} FInteraction object
    */
-  async update(res, options) {
+  async update(res, options = {}) {
+    if (this.isCommand())
+      throw new Error("This method is only allowed for Component interactions");
     options["type"] ??= 7;
     return await this.reply(res, options);
   }
