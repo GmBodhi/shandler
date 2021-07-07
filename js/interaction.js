@@ -120,10 +120,18 @@ class Interaction {
     return await this.reply(res, options);
   }
 
+  /**
+   *
+   * @returns {boolean} - Whether it's an interaction from a component
+   */
   isComponent() {
     return this.type === 3 ? true : false;
   }
 
+  /**
+   *
+   * @returns {boolean} - Whether it's an interaction from a slash command
+   */
   isCommand() {
     return this.type === 2 ? true : false;
   }
