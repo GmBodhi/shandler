@@ -61,20 +61,12 @@ class Interaction {
       embed,
       embeds = [],
       flags = null,
-      type = this.type === 3 ? 7 : 4,
+      type = 4,
       tts = false,
       components = [],
     } = options;
     this.ephemeral = flags == 64 ? true : false;
     let data;
-    if (
-      !res &&
-      !options.embed &&
-      !options.embeds &&
-      !options.files &&
-      ![6, 5].includes(type)
-    )
-      throw new Error("Cannot send an empty message.");
     if (embed) embeds.push(embed);
     data = {
       content: res || "",
