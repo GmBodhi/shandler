@@ -9,7 +9,7 @@ $ npm install shandler@latest
 ```
 
 {% hint style="info" %}
-To download Shandler's Beta, run npm install github:GmBodhi/shandler
+To download Shandler's Beta, run `npm install shandler@dev`
 {% endhint %}
 
 To install Shandler with yarn, run the following.
