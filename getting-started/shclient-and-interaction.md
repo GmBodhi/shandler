@@ -13,7 +13,7 @@
     You may need to delete/register commands 
     using the create/delete methods*/
     autoRegister = true, // Automatically registers commands accoring to the command files
-    exclude = ['file'] // Exclude a file from the command directory. Make sure you only put the file name.
+    exclude: ['file'] // Exclude a file from the command directory. Make sure you only put the file name.
 }
 ```
 
@@ -46,7 +46,7 @@ Unlike discord's normal interaction object, Shandler's interaction object has mo
 [_Guildmember object_](https://discord.js.org/#/docs/main/stable/class/GuildMember)  
 [_**Client object**_](https://discord.js.org/#/docs/main/stable/class/Client)    
 ****[_Guild object_](https://discord.js.org/#/docs/main/stable/class/Guild)  
-_\_\[\_Channel object_\]\([https://discord.js.org/\#/docs/main/stable/class/Channel](https://discord.js.org/#/docs/main/stable/class/Channel)\)
+__[_Channel object_](https://discord.js.org/#/docs/main/stable/class/Channel)\_\_
 
 ## Message Property
 
@@ -54,10 +54,11 @@ With Shandler's newest update, you can use [message methods](https://discord.js.
 
 ```javascript
 interaction.reply('bello').then(m => {
-m.message.<method>
-})
+    m.message.<method>
+});
 ```
 
-Find another example [here](methods.md#reactions) with reactions.
+Find another example [here](../interactions/methods.md#reactions) with reactions.
 
 **If it is an ephemeral response this WILL NOT work**
+

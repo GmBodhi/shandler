@@ -2,7 +2,7 @@
 description: Registration and Deletion
 ---
 
-# Commands
+# Deleting Commands
 
 For registering and deleting commands, you can use the following methods \(Guild specific commands won't be automatically deleted even if `autoDelete` is `true`\)
 

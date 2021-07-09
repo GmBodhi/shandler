@@ -13,6 +13,8 @@ To download Shandler's Beta, run `npm install shandler@dev`
 {% endhint %}
 
 To install Shandler with yarn, run the following.
+
 ```text
 $ yarn add shandler
 ```
+

@@ -1,6 +1,6 @@
 # Basic Usage
 
-You can use this package as a [wrapper](basic-usage.md#wrapper) for the discord api or as a [command handler](basic-usage.md#command-handler)
+You can use this package as a [wrapper](basic-usage.md#wrapper) for the Discord API or as a [command handler](basic-usage.md#command-handler).
 
 ### Command handler
 
@@ -22,7 +22,7 @@ const options = {
     cLogs: true, // logs most of the resolved promises
     autoDelete: true, // Automatically syncs the global application commands
     autoRegister: true, // Automatically register commands
-    exclude: ['file'], // Exclude a file from the command directory. Make sure you only put the file name.
+    exclude: ['file'] // Exclude a file from the command directory. Make sure you only put the file name.
 }
 
 const handler = new SHClient(client, options);
@@ -35,8 +35,8 @@ const handler = new SHClient(client, options);
 module.exports = {
     name: 'ping',// Will default to filename if this is empty
     description: 'Is this unusual?',//Default: "An awesome command..!"
-    options:[]//We will cover this in the next part
-    guilds: [] /*This is for guild specific command registration
+    options:[], //We will cover this in the next part
+    guilds: [], /*This is for guild specific command registration
     if this is empty, this command will be registered globally*/
     async run({interaction, client}){
         let ping = Date.now()
@@ -64,17 +64,18 @@ const client = new Discord.Client();
 
 const options = {
     showLogs: 'extra', // "extra"|"normal"|null (default: "extra")
-    wrapper: true // defaults to false
+    wrapper: true, // defaults to false
 }
 
 const handler = new SHClient(client, options);
 
 client.on('ready', () => {
     console.log(client.user.tag, "is ready");
-})
+});
+
 handler.on('interaction', (interaction) => {
     console.log(interaction);
-})
+});
 ```
 
 **Registering a command**
@@ -106,18 +107,3 @@ client.on('ready', () => {
 })
 ```
 
-## SHClient Options
-
-```javascript
-// These are the default values
-{
-    commandsDir = 'commands', // Commands dir
-    showLogs = 'extra', // ('extra'|'normal'|null)
-    autoDelete = true, // Automatically deletes the Global commands if command files are not found
-    cLogs = false, // Console.log most of the promises 
-    wrapper = false, /* Use this package as a wrapper 
-    You may need to delete/register commands 
-    using the create/delete methods*/
-    autoRegister = true // Automatically registers commands accoring to the command files
-}
-```
