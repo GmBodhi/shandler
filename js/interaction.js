@@ -61,20 +61,12 @@ class Interaction {
       embed,
       embeds = [],
       flags = null,
-      type = this.type === 3 ? 7 : 4,
+      type = 4,
       tts = false,
       components = [],
     } = options;
     this.ephemeral = flags == 64 ? true : false;
     let data;
-    if (
-      !res &&
-      !options.embed &&
-      !options.embeds &&
-      !options.files &&
-      ![6, 5].includes(type)
-    )
-      throw new Error("Cannot send an empty message.");
     if (embed) embeds.push(embed);
     data = {
       content: res || "",
@@ -107,6 +99,35 @@ class Interaction {
    */
   async defer() {
     return await this.reply("", { type: this.type === 3 ? 6 : 5 });
+  }
+
+  /**
+   *basically `interaction.reply()` using type 7
+   * @param {string} res - string that needs to passed to `.reply` function
+   * @param {import("./FInteraction").Options} options - options
+   * @returns {Promise<Object>} FInteraction object
+   */
+  async update(res, options = {}) {
+    if (this.isCommand())
+      throw new Error("This method is only allowed for Component interactions");
+    options["type"] = 7;
+    return await this.reply(res, options);
+  }
+
+  /**
+   *
+   * @returns {boolean} - Whether it's an interaction from a component
+   */
+  isComponent() {
+    return this.type === 3 ? true : false;
+  }
+
+  /**
+   *
+   * @returns {boolean} - Whether it's an interaction from a slash command
+   */
+  isCommand() {
+    return this.type === 2 ? true : false;
   }
 }
 module.exports = Interaction;
