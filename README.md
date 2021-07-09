@@ -11,7 +11,7 @@
 
 ## Installation
 ```sh
-npm i discord-buttons
+npm i shandler
 ```
 or
 ```sh
