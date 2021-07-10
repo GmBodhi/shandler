@@ -129,7 +129,7 @@ class SHClient extends EventEmitter {
 
                 (async (interaction, client) => {
                     const guild = client.guilds.resolve(interaction.guild_id) ?? null;
-                    const member = ( interaction.member ? guild?.members.add(interaction.member) : null);
+                    const member = ( interaction.member ? guild?.members._add(interaction.member) : null);
                     const user = client.users._add((interaction.user ?? interaction.member.user)) ?? null;
                     const channel = client.channels.resolve(interaction.channel_id);
                     
