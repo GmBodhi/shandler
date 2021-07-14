@@ -6,7 +6,7 @@ First, I recommend checking out the [Overview](buttons-documentation.md#overview
 
 ## Adding Buttons to Commands
 
-To add a button or buttons to a command we need to set it up a little like this. \***Example soon\***
+To add a button or buttons to a command we need to set it up a little like this. [**Example**](https://github.com/GmBodhi/shandler-example-bot/blob/master/commands/button.js#L8-L15)\*\*\*\*
 
 ```javascript
 let cmp = [
@@ -26,7 +26,7 @@ You can find all options for _"type"_ [here](buttons-documentation.md#componentt
 
 #### Action Rows
 
-Adding multiple rows of buttons looks a little like this. \***Example soon\***
+Adding multiple rows of buttons looks a little like this. [**Example**](https://github.com/GmBodhi/shandler-example-bot/blob/master/commands/actionrow.js#L8-L19)\*\*\*\*
 
 ```javascript
 let cmp = [

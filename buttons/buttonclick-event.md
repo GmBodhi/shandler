@@ -33,7 +33,7 @@ If needed, you are able to add embeds, flags, attachments, and type in the reply
 
 ### Buttons
 
-Here is an example of how to check for button IDs and how to handle them. \***Example soon\***
+Here is an example of how to check for button IDs and how to handle them. [**Example**](https://github.com/GmBodhi/shandler-example-bot/blob/master/index.js#L29-L67)\*\*\*\*
 
 ```javascript
 client.on('buttonClick', async (button) => {
@@ -67,7 +67,7 @@ client.on('buttonClick', async (button) => {
 
 ### Dropdowns
 
-Here is an example of how to check for dropdown information and how to handle them. \***Example soon\***
+Here is an example of how to check for dropdown information and how to handle them. [**Example**](https://github.com/GmBodhi/shandler-example-bot/blob/master/index.js#L68-L73)\*\*\*\*
 
 ```javascript
 client.on('buttonClick', async (button) => {
