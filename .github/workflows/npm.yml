@@ -23,7 +23,7 @@ jobs:
         run: npm ci --ignore-scripts --no-optional
 
       - name: Deprecate old versions
-        run: npm deprecate shandler@"~$(jq --raw-output '.version' package.json)" ""
+        run: npm deprecate shandler ""
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
