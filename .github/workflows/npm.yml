@@ -23,7 +23,7 @@ jobs:
         run: npm ci --ignore-scripts --no-optional
 
       - name: Deprecate old versions
-        run: npm deprecate shandler ""
+        run: npm deprecate shandler@"~2.0.0-dev" "no longer supported"
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
 
