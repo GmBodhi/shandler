@@ -2,7 +2,7 @@
 
 ## Adding Dropdowns to Commands
 
-Adding dropdowns to commands. Dropdowns **NEED** to be in their own action row. Here is an example of sending a dropdown with a button. The dropdown is the second action row.  \***Example soon\***
+Adding dropdowns to commands. Dropdowns **NEED** to be in their own action row. Here is an example of sending a dropdown with a button. The dropdown is the second action row.  [**Example**](https://github.com/GmBodhi/shandler-example-bot/blob/master/commands/dropdowns.js#L8-L20)\*\*\*\*
 
 ```javascript
 let cmp = [
