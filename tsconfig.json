@@ -21,6 +21,7 @@
         "lib": ["esnext"]
     },
     "include": [
-       "ts"
+       "src/v12/ts",
+       "src/v13/ts"
     ]
 }
