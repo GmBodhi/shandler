@@ -1,4 +1,4 @@
-const { Client, APIMessage } = require("discord.js");
+const {  APIMessage } = require("discord.js");
 
 /**
  * An object
@@ -32,7 +32,7 @@ const Callback = async (res, data) => {
 class FInteraction {
   /**
    * Class for followup messages or managing interaction responses
-   * @param {Client} client - Discord.js Client object
+   * @param {import("discord.js").Client} client - Discord.js Client object
    * @param {Object} res - data received from api
    * @param {Object} extras - Extra objects for extended capabilities
    * @class
