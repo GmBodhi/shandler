@@ -19,7 +19,7 @@ jobs:
           registry-url: https://registry.npmjs.org/
 
       - name: Deps
-        run: yarn
+        run: npm i
 
       - name: Install dependencies
         # Remove --no-optional after Node 16 upgrade
