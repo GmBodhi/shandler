@@ -25,6 +25,7 @@
   },
   "devDependencies": {
     "@types/node": "^14.14.37",
+    "discord.js": "^13.2.0",
     "eslint": "^7.32.0"
   },
   "bugs": {
