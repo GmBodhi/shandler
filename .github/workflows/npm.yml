@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
   push:
   schedule:
-    - cron: "0 */12 * * *"
+    - cron: "0 0 * * *"
 jobs:
   npm:
     name: npm
@@ -15,8 +15,11 @@ jobs:
       - name: Install Node v14
         uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: 16
           registry-url: https://registry.npmjs.org/
+
+      - name: Deps
+        run: npm i
 
       - name: Install dependencies
         # Remove --no-optional after Node 16 upgrade

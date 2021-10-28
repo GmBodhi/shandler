@@ -2,7 +2,7 @@ const fs = require("fs");
 const path = require("path");
 const EventEmitter = require("events");
 const Interaction = require("./interaction");
-const { Client, Collection } = require("discord.js");
+const { Collection } = require("discord.js");
 
 /**
  * An object
@@ -20,7 +20,7 @@ const { Client, Collection } = require("discord.js");
 class SHClient extends EventEmitter {
   /**
    * Main class representing the wrapper/command-handler
-   * @param {Client} client - Discord.js client object {@link https://discord.js.org/#/docs/main/stable/class/Client| Discord.js CLient}
+   * @param {import("discord.js").Client} client - Discord.js client object {@link https://discord.js.org/#/docs/main/stable/class/Client| Discord.js CLient}
    * @param {HandlerOptions} options - Options
    */
   constructor(client, options = {}) {

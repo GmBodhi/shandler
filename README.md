@@ -9,6 +9,10 @@
   </p>
 </div>
 
+## Deprecated
+**It's been a long time since I last published something. I'm trying to focus on my acedemics as of now, so it's hard for me to maintain this package.
+If someone is interested in maintaining this repo feel free to make an issue. We could bring this package back**
+
 ## Installation
 ```sh
 npm i shandler
