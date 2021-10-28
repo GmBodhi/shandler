@@ -1,0 +1,29 @@
+name: npm publish
+on:
+  push:
+    branches: [master]
+    paths: package.json
+jobs:
+  npm:
+    name: npm
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Install Node v14
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          registry-url: https://registry.npmjs.org/
+
+      - name: Install dependencies
+        # Remove --no-optional after Node 16 upgrade
+        run: npm ci --ignore-scripts --no-optional
+
+      - name: Publish
+        run: |
+          npm version
+          npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
