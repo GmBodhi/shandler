@@ -22,8 +22,10 @@ jobs:
         run: npm i
 
       - name: Install dependencies
-        # Remove --no-optional after Node 16 upgrade
-        run: npm ci --ignore-scripts --no-optional
+        run: npm ci --ignore-scripts 
+
+      - name: Build
+        run: yarn build
 
       - name: Publish
         run: |
