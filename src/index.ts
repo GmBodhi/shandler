@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import { ISHClient, ISHClientOptions } from "./types/typings";
+import { ISHClient, ISHClientOptions } from "../typings";
 
 export class SHClient extends EventEmitter implements ISHClient {
   commands: string[] = [];
@@ -21,3 +21,5 @@ export class SHClient extends EventEmitter implements ISHClient {
     this.#token = options.token;
   }
 }
+
+export default SHClient;
