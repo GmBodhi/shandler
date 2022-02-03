@@ -3,6 +3,7 @@
  */
 export interface ISHClient {
   typescript: boolean;
+  clientID: string;
 }
 /**
  * @typedef ISHClientOptions
@@ -12,6 +13,7 @@ export interface ISHClient {
  */
 export interface ISHClientOptions {
   token: string;
+  clientID: string;
   typescript?: boolean;
 }
 

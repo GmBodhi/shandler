@@ -34,6 +34,7 @@
     "typescript": "^4.5.5"
   },
   "dependencies": {
+    "axios": "^0.25.0",
     "discord-api-types": "^0.26.1",
     "fetch-h2": "^3.0.1",
     "lodash": "^4.17.21"
