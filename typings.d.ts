@@ -2,7 +2,7 @@
  * @typedef ISHClient
  */
 export interface ISHClient {
-  commands: string[];
+  typescript: boolean;
 }
 /**
  * @typedef ISHClientOptions
@@ -11,6 +11,6 @@ export interface ISHClient {
  *
  */
 export interface ISHClientOptions {
-  commands: string[];
   token: string;
+  typescript?: boolean;
 }

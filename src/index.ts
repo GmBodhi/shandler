@@ -1,9 +1,10 @@
 import { EventEmitter } from "events";
 import { ISHClient, ISHClientOptions } from "../typings";
-
-export class SHClient extends EventEmitter implements ISHClient {
-  commands: string[] = [];
+import { resolve, normalize, sep } from "path";
+import { omit } from "lodash";
+class SHClient extends EventEmitter implements ISHClient {
   #token: string;
+  typescript: boolean;
   /**
    * @class
    * @classdesc
@@ -19,7 +20,33 @@ export class SHClient extends EventEmitter implements ISHClient {
   constructor(options: ISHClientOptions) {
     super();
     this.#token = options.token;
+    this.typescript = options.typescript || false;
+  }
+  /**
+   * 
+   * @param commands - The commands to be used for the bot(Absolute paths).
+   * @returns {Promise<void>}
+   * @description
+   * This method is used to register the commands globally!
+   * @author Arnav Mishra
+   
+   */
+  register(commands: string[]) {
+    let files: string[] | any = [];
+    commands.forEach(async (command) => {
+      if (
+        resolve(command) !== normalize(command).replace(RegExp(sep + "$"), "")
+      ) {
+        throw new Error(
+          `SHClient > The command path for ${command} is not absolute, To obtain the absolute path path.join(__dirname + "commandfoldername" + "commandfilename.js")`
+        );
+      }
+      const file = await import(command);
+      if (!this.typescript) {
+        files.push(omit(file, ["default"]));
+      } else files.push(file.default);
+    });
   }
 }
 
-export default SHClient;
+export = SHClient;
