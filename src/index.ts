@@ -1,5 +1,5 @@
 import { EventEmitter } from "events";
-import { ISHClient, ISHClientOptions } from "../typings";
+import { ISHClient, ISHClientOptions, ISHCommand } from "../typings";
 import { resolve, normalize, sep } from "path";
 import { omit } from "lodash";
 class SHClient extends EventEmitter implements ISHClient {
@@ -32,7 +32,7 @@ class SHClient extends EventEmitter implements ISHClient {
    
    */
   register(commands: string[]) {
-    let files: string[] | any = [];
+    const files: any | ISHCommand[] = [];
     commands.forEach(async (command) => {
       if (
         resolve(command) !== normalize(command).replace(RegExp(sep + "$"), "")

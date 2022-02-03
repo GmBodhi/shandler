@@ -14,3 +14,8 @@ export interface ISHClientOptions {
   token: string;
   typescript?: boolean;
 }
+
+export interface ISHCommand {
+  name: string;
+  description: string;
+}
