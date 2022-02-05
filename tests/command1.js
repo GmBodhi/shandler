@@ -1,5 +1,5 @@
 module.exports = {
-  name: "blep",
+  name: "b lep",
   type: 1,
   description: "Send a random adorable animal photo",
   options: [
