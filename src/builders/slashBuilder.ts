@@ -1,5 +1,5 @@
 import { APIApplicationCommand, Snowflake } from "discord-api-types";
-import { ApplicationCommandPermissionsManager } from "discord.js";
+import { ApplicationCommandOption, ApplicationCommandPermissionsManager } from "discord.js";
 
 import { SlashCommandOption } from "./option";
 
@@ -36,18 +36,20 @@ interface ShandlerCommandOptions {
     name: string;
     description: string;
     guilds?: ShandlerGuildCommandPermissions[] | Snowflake[];
-    options?: SlashCommandOption[];
+    options?: ApplicationCommandOption[];
 
-    /** Don't set this param. It's meant for the module and it's just useless set it */
-    application_id?: string,
-    /** Don't set this param. It's meant for the module and it's just useless to set it*/
-    guild_id?: string
+    // /** Don't set this param. It's meant for the module and it's just useless set it */
+    // application_id?: string,
+    // /** Don't set this param. It's meant for the module and it's just useless to set it*/
+    // guild_id?: string
 }
 
 export class SlashBuilder {
+    private application_id = externalData.application_id;
+    private guild_id = externalData.guild_id;
+
     constructor(public data: ShandlerCommandOptions) {
         this.data = data ?? externalData;
-        this.data.application_id = externalData.application_id!;
     }
 
     setName(name: string) {
@@ -61,19 +63,19 @@ export class SlashBuilder {
     }
 
     setGuild(guildId: string) {
-        this.data.guild_id = guildId;
+        this.guild_id = guildId;
         return this;
     }
 
-    addOption(option: SlashCommandOption) {
+    addOption(option: ApplicationCommandOption) {
         this.addOptions(option);
         return this;
     }
 
-    addOptions(...options: SlashCommandOption[]) {
+    addOptions(...options: ApplicationCommandOption[]) {
         options.forEach(option => {
-          this.data.options?.push(option)
-        })
+            this.data.options?.push(option);
+        });
         return this;
     }
 }
