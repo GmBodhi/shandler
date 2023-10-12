@@ -1,4 +1,7 @@
 <div align="center">
+  # Deprecated
+**It's been a long time since I last published something. I'm trying to focus on my academics as of now. So it's hard for me to maintain this package. If someone is interested in maintaining this repo, feel free to make an issue. We could bring this package back**
+
   <h1>Shandler</h1>
   <p>
     <a href="https://www.npmjs.com/package/shandler"><img src="https://img.shields.io/npm/v/shandler?maxAge=3600" alt="NPM version" /></a>
@@ -9,8 +12,6 @@
   </p>
 </div>
 
-## Deprecated
-**It's been a long time since I last published something. I'm trying to focus on my academics as of now. So it's hard for me to maintain this package. If someone is interested in maintaining this repo, feel free to make an issue. We could bring this package back**
 
 ## Installation
 ```sh
